@@ -7,6 +7,21 @@ const port = process.env.PORT || 3000
 const mongoose = require('mongoose')
 const Users = require('./models/users.js')
 const Maps = require('./models/maps.js')
+const webpack = require('webpack')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
+const config = require('./webpack.config')
+const path = require('path')
+
+
+
+var compiler = webpack(config)
+
+app.use(webpackDevMiddleware(compiler, {
+  noInfo: true,
+  publicPath: config.output.publicPath
+}))
+app.use(webpackHotMiddleware(compiler))
 
 app.use(cors())
 app.use(morgan())
@@ -18,6 +33,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }))
 
+app.use('/', express.static(path.join(__dirname, 'public')))
 mongoose.connect('mongodb://localhost:27017/mapinc')
 
 app.listen(port)
