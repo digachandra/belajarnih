@@ -32,7 +32,33 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/mapinc')
+mongoose.connect('mongodb://localhost:27017/testing-mapinc-1')
+
+//SeedingData
+
+app.get('/seedingdata', function(req,res){
+  let newuser  = new Users({userEmail: "andrew@andrew.com", encryptedPassword: "halhlahlha"})
+  newuser.role.push(1)
+  let newspv  = new Users({userEmail: "inispv@andrew.com", encryptedPassword: "halhlahlha"})
+  newspv.role.push(1)
+  let newmap = new Maps({owner: newuser._id, businessName: "halo"})
+  newmap.pinDrop.push({pinDropName: "branchku",position:{lat:"7", lng:"8"}, supervisor: newspv._id, inputTime: new Date()})
+
+  newuser.save(function(err,result){
+    newspv.save(function(err,result4){
+      newmap.save(function(err2,result2){
+        res.json({message: "berhasil"})
+      })
+    })
+  })
+})
+
+app.get('/getseedingdata', function(req,res){
+  Maps.findOne({}).populate('owner').populate('pinDrop.supervisor').exec(function(err,result){
+    console.log(result)
+    res.json(result)
+  })
+})
 
 app.listen(port)
 console.log('serving on port : ', port)
