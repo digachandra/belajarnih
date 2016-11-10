@@ -13,8 +13,6 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 const config = require('./webpack.config')
 const path = require('path')
 
-
-
 var compiler = webpack(config)
 
 app.use(webpackDevMiddleware(compiler, {
