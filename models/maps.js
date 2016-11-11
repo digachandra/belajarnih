@@ -6,7 +6,7 @@ const mapSchema =  new Schema({
     type: Schema.Types.ObjectId,
     ref: 'users'
   },
-  businessName: String,  
+  businessName: String,
   pinDropName: String,
   position: {
     lat: String,
