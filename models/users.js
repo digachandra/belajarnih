@@ -2,8 +2,10 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const userSchema = new Schema({
-  userEmail: String,
+  userEmail: { type: String, unique: true},
   encryptedPassword: String,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
   role: [Number]
 })
 
