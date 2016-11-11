@@ -12,6 +12,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const config = require('./webpack.config')
 const path = require('path')
+const apiSupervisor = require('./routes/apisupervisor.js')
 
 var compiler = webpack(config)
 
@@ -20,7 +21,7 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: config.output.publicPath
 }))
 app.use(webpackHotMiddleware(compiler))
-
+app.set('view-engine','ejs')
 app.use(cors())
 app.use(morgan())
 app.use(bodyParser.json({
@@ -32,8 +33,9 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/testing-mapinc-3')
+mongoose.connect('mongodb://localhost:27017/testing-mapinc-5')
 
+app.use('/api/supervisor', apiSupervisor)
 
 //SeedingDataUser
 app.get('/seedingdata', function(req,res){
@@ -42,10 +44,10 @@ app.get('/seedingdata', function(req,res){
   newuser.save(function(err,result){
     newspv.save(function(err,result4){
       let newmap = new Maps({owner: newuser._id, businessName: "halo", pinDropName: "BranchMana", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-      newmap.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt", value: 500 })
+      newmap.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
       newmap.save(function(err2,result2){
         let newmap2 = new Maps({owner: newuser._id, businessName: "halo", pinDropName: "BranchMana 2", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-        newmap2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt", value: 500 })
+        newmap2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt" })
         newmap2.save(function(err3,result3){
           res.json({message: "seed user berhasil"})
         })
@@ -57,6 +59,15 @@ app.get('/seedingdata', function(req,res){
 app.get('/getseedingdata', function(req,res){
   Maps.find({}).populate('owner').populate('supervisor').exec(function(err,result){
     res.json(result)
+  })
+})
+
+app.post('/postdata', function(req,res){
+  Maps.findOne({}, function(err,pin){
+    pin.listField[0].value = req.body.value
+    pin.save(function(err,newPin){
+      res.json(pin)
+    })
   })
 })
 
