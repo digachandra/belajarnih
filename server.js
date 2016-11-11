@@ -32,11 +32,11 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/testing-mapinc-1')
+mongoose.connect('mongodb://localhost:27017/mapinc')
 
-//SeedingData
 
-app.get('/seedingdata', function(req,res){
+//SeedingDataUser
+app.get('/seedingdatauser', function(req,res){
   let newuser  = new Users({userEmail: "andrew@andrew.com", encryptedPassword: "halhlahlha"})
   newuser.role.push(1)
   let newspv  = new Users({userEmail: "inispv@andrew.com", encryptedPassword: "halhlahlha"})
@@ -47,7 +47,7 @@ app.get('/seedingdata', function(req,res){
   newuser.save(function(err,result){
     newspv.save(function(err,result4){
       newmap.save(function(err2,result2){
-        res.json({message: "berhasil"})
+        res.json({message: "seed user berhasil"})
       })
     })
   })
