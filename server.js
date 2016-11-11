@@ -32,30 +32,30 @@ app.use(bodyParser.urlencoded({
 }))
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/mapinc')
+mongoose.connect('mongodb://localhost:27017/testing-mapinc-3')
 
 
 //SeedingDataUser
-app.get('/seedingdatauser', function(req,res){
+app.get('/seedingdata', function(req,res){
   let newuser  = new Users({userEmail: "andrew@andrew.com", encryptedPassword: "halhlahlha"})
-  newuser.role.push(1)
   let newspv  = new Users({userEmail: "inispv@andrew.com", encryptedPassword: "halhlahlha"})
-  newspv.role.push(1)
-  let newmap = new Maps({owner: newuser._id, businessName: "halo"})
-  newmap.pinDrop.push({pinDropName: "branchku",position:{lat:"7", lng:"8"}, supervisor: newspv._id, inputTime: new Date()})
-
   newuser.save(function(err,result){
     newspv.save(function(err,result4){
+      let newmap = new Maps({owner: newuser._id, businessName: "halo", pinDropName: "BranchMana", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
+      newmap.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt", value: 500 })
       newmap.save(function(err2,result2){
-        res.json({message: "seed user berhasil"})
+        let newmap2 = new Maps({owner: newuser._id, businessName: "halo", pinDropName: "BranchMana 2", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
+        newmap2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt", value: 500 })
+        newmap2.save(function(err3,result3){
+          res.json({message: "seed user berhasil"})
+        })
       })
     })
   })
 })
 
 app.get('/getseedingdata', function(req,res){
-  Maps.findOne({}).populate('owner').populate('pinDrop.supervisor').exec(function(err,result){
-    console.log(result)
+  Maps.find({}).populate('owner').populate('supervisor').exec(function(err,result){
     res.json(result)
   })
 })
