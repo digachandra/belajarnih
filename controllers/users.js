@@ -15,7 +15,6 @@ exports.forgotGet = function(req, res) {
     title: 'Forgot Password'
   });
 };
-
 /**
  * POST /forgot
  */
@@ -146,3 +145,45 @@ exports.resetPost = function(req, res, next) {
     }
   ]);
 };
+
+
+
+
+
+exports.isLoggedIn = function(req, res, next){
+  if (req.isAuthenticated()){
+    return next();
+  }
+  res.redirect('/login');
+}
+
+exports.nocache = function(res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  return res;
+}
+
+exports.toJSONs = function(data){
+  for(var i = 0; i < data.length; i++){
+    data[i] = data[i].toJSON();
+  }
+  return data;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//// Ivan
