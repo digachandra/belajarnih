@@ -26,11 +26,8 @@
     "babel-register": "^6.18.0",
     "body-parser": "^1.15.2",
     "cors": "^2.8.1",
-<<<<<<< HEAD
     "crypto": "0.0.3",
-=======
     "ejs": "^2.5.2",
->>>>>>> 67de6ac723e10e0787cc97a69c4cda3ca405ebb1
     "express": "^4.14.0",
     "mongoose": "^4.6.6",
     "morgan": "^1.7.0",
