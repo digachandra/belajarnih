@@ -3,7 +3,7 @@ var ForgotPasswordForm = React.createClass({
     return {email:""}
   },
   inputEmailChange(e){
-    this.setState({field: e.target.value})
+    this.setState({email: e.target.value})
   },
   handleFormSubmit(e){
     $.ajax({
