@@ -155,5 +155,22 @@ app.post('/postdata', function(req,res){
   })
 })
 
+
+
+app.get('/login', function(req, res, next){
+  res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
+});
+
+app.get('/register', function(req, res, next) {
+  res.render('register.ejs', { title: 'Register Panel', message: req.flash('signupMessage') });
+});
+
+
+app.get('/getseedingdata', function(req,res){
+  Maps.find({}).populate('owner').populate('supervisor').exec(function(err,result){
+    res.json(result)
+  })
+})
+
 app.listen(port)
 console.log('serving on port : ', port)

@@ -15,10 +15,10 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.post('/register', passport.authenticate('local-signup', {successRedirect : '/result', failureRedirect : {message:"gagal"}, failureFlash : true}));
+router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/result', failureRedirect : {message:"gagal"}, failureFlash : true}));
 
 router.get('/result',function(req,res,next){
-  console.log("berhasil");
+  res.json({message:"register berhasil"})
 })
 
 
@@ -33,9 +33,6 @@ router.get('/failed', function(req, res, next){
 router.get('/home', function(req, res, next){
 res.json({message:"berhasil login"})
 });
-
-
-
 
 router.put('/update/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user){
