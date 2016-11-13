@@ -12,6 +12,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const config = require('./webpack.config')
 const path = require('path')
+const routes = require('./routes')
 const apiSupervisor = require('./routes/apisupervisor.js')
 
 var compiler = webpack(config)
@@ -34,6 +35,8 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 mongoose.connect('mongodb://localhost:27017/testing-mapinc-5')
+
+app.use(routes)
 
 app.use('/api/supervisor', apiSupervisor)
 
