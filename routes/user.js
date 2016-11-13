@@ -14,20 +14,27 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/search/:id', function(req, res, next) {
-  User.find({"userEmail": req.params.id}, function(err, users){
-    if(err){
-      return res.status(500).send(err);
-    }
-    res.json(users);
-  });
-});
 
 router.post('/register', passport.authenticate('local-signup', {successRedirect : '/result', failureRedirect : {message:"gagal"}, failureFlash : true}));
 
 router.get('/result',function(req,res,next){
   console.log("berhasil");
 })
+
+
+
+router.post('/login', passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/failed', failureFlash : true}));
+
+
+router.get('/failed', function(req, res, next){
+  res.json({message:"gagal login"})
+});
+
+router.get('/home', function(req, res, next){
+res.json({message:"berhasil login"})
+});
+
+
 
 
 router.put('/update/:id', function(req, res, next) {

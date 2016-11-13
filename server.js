@@ -41,9 +41,9 @@ passport.use('local-signup', new LocalStrategy({
   passwordField : 'password',
   passReqToCallback : true
 }, function(req, email, password, done) {
-  console.log("email",email);
-    console.log("password",password);
+//kalo ada user
   Users.findOne({ 'userEmail' :  email }, function(err, user) {
+    console.log("ini user",user);
     if (err){
       return done(err);
     }
