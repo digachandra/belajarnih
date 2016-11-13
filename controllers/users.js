@@ -60,8 +60,8 @@ exports.forgotPost = function(req, res, next) {
       var mailOptions = {
           from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
           to: user.email, // list of receivers
-          subject: 'teset ✔', // Subject line
-          subject: '✔ Reset your password on Mapinc',
+          subject: 'reset ✔', // Subject line
+          subject: '✔✿✿ Reset your password on Mapinc',
           text: 'You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n' +
           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
@@ -88,7 +88,7 @@ exports.resetGet = function(req, res) {
     .where('passwordResetExpires').gt(Date.now())
     .exec(function(err, user) {
       if (!user) {
-        req.flash('error', { msg: 'Password reset token is invalid or has expired.' });
+        req.flash('error', { msg: '❎ Password reset token is invalid or has expired.' });
         return res.redirect('/forgot');
       }
       res.render('account/reset', {
@@ -120,7 +120,7 @@ exports.resetPost = function(req, res, next) {
             req.flash('error', { msg: 'Password reset token is invalid or has expired.' });
             return res.redirect('back');
           }
-          user.password = req.body.password;
+          user.encryptedPassword = user.generateHash(req.body.password)
           user.passwordResetToken = undefined;
           user.passwordResetExpires = undefined;
           user.save(function(err) {
