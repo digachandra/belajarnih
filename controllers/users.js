@@ -11,9 +11,7 @@ exports.forgotGet = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
-  res.render('account/forgot', {
-    title: 'Forgot Password'
-  });
+  res.render('forgot.password');
 };
 
 /**
@@ -91,9 +89,7 @@ exports.resetGet = function(req, res) {
         req.flash('error', { msg: '❎ Password reset token is invalid or has expired.' });
         return res.redirect('/forgot');
       }
-      res.render('account/reset', {
-        title: 'Password Reset'
-      });
+      res.render('reset.password');
     });
 };
 
