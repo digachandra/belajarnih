@@ -76,6 +76,7 @@ module.exports = function(passport) {
         if (!user.validPassword(password)){
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
         }
+        req.session.role = user.role
         return done(null, user);
       });
     }));

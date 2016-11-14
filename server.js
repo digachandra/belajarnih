@@ -12,6 +12,8 @@ const config = require('./webpack.config')
 const path = require('path')
 const routes = require('./routes')
 const users = require('./routes/user')
+const expressValidator = require('express-validator')
+const Users = require('./models/users.js')
 
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -49,10 +51,11 @@ app.use(require('express-session')({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(expressValidator())
 app.use(flash());
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/testing-mapinc-5')
+mongoose.connect('mongodb://localhost:27017/testing-mapinc-8')
 
 app.use('/', routes)
 app.use('/api/users', users);

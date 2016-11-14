@@ -13,7 +13,7 @@ router.get('/test', function(req,res){
 })
 
 router.post('/postdata', function(req,res){
-  Maps.findOne({}, function(err,pin){
+  Maps.findOne({owner: req.body.owner, businessName: req.body.businessname, pinDropName: req.body.pindropname}, function(err,pin){
     pin.listField[0].value = req.body.value
     pin.save(function(err,newPin){
       res.json(pin)
@@ -21,30 +21,62 @@ router.post('/postdata', function(req,res){
   })
 })
 
-router.get('/test', function(req,res){
-  res.render('supervisordashboard.supervisor.ejs')
+router.get('/getownerlist', function(req,res){
+  let user_id = "58294c019c17424e7eb63886" //later change with req.session
+  Maps.find({supervisor: user_id}).populate("owner").exec(function(err,owners){
+    res.json(owners)
+  })
+})
+
+
+router.get('/getbusinesslist/:owner_id', function(req,res){
+  let user_id = "58294c019c17424e7eb63886" //later change with req.session
+  Maps.find({supervisor: user_id}).populate("owner").exec(function(err,businesses){
+    res.json(businesses)
+  })
+})
+
+router.get('/getpinlist/:businessname', function(req,res){
+  let user_id = "58294c019c17424e7eb63886" //later change with req.session
+  Maps.find({businessName:req.params.businessname, supervisor: user_id}, function(err,pin){
+    res.json(pin)
+  })
+})
+
+router.get('/dashboard', function(req,res){
+  res.render('dashboard.supervisor.ejs')
 })
 
 //addEmailSupervisor
+Array.prototype.contains = function (v) {
+    return this.indexOf(v) > -1;
+}
+
 router.get('/addEmail', function(req,res){
   res.render('supervisor.addEmail.ejs')
 })
 router.post('/postAddEmail', function(req,res){
   let email = req.body.value
+  console.log(email);
   validator.validate_async(email, function(err, isValidEmail) {
-        if(!isValidEmail)console.error('email is not correct - ariadiprana')
+        if(!isValidEmail){
+          let message = '{"message":"email is not valid"}'
+          let obj = JSON.parse(message)
+          res.json(obj)
+        }
         else{
           Users.findOne({'userEmail':email}, function(err,user){
             if(err)console.error('error in adding supervisor email - ARIADIPRANA IS HERE')
             // if not found, system will add new user for supervisor
             if(!user){
+              let role = []
+              role.push(1)
               let newuser  = new Users({
                 userEmail: email
               })
               newuser.save(function(err,newPin){
-                //send email
-                  var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:password@smtp.gmail.com');
-                  // setup e-mail data with unicode symbols
+                //send email for new user
+                  var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
                   var mailOptions = {
                       from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
                       to: email, // list of receivers
@@ -60,10 +92,15 @@ router.post('/postAddEmail', function(req,res){
               })
             }
             else{
+
+              if(!user.role.contains(1)){
+                user.role.push(1)
+                user.save()
+              }
+              console.log('user.role',user.role);
+              //send email for user that has been registered and already confirmed
               if(user.encryptedPassword){
-              //send email
-                var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:password@smtp.gmail.com');
-                // setup e-mail data with unicode symbols
+                var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
                 var mailOptions = {
                     from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
                     to: email, // list of receivers
@@ -76,9 +113,8 @@ router.post('/postAddEmail', function(req,res){
                 });
               }
               else{
-                //send email
-                  var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:password@smtp.gmail.com');
-                  // setup e-mail data with unicode symbols
+                //send email for user that has been registered but still not yet confirmed
+                  var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
                   var mailOptions = {
                       from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
                       to: email, // list of receivers

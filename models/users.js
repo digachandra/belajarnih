@@ -8,7 +8,7 @@ const userSchema = new Schema({
   encryptedPassword: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
-  role:[Number]
+  role: [Number]
 })
 // generating a hash
 userSchema.methods.generateHash = function(encryptedPassword) {

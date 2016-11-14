@@ -1,6 +1,7 @@
 var express = require('express');
 var User = require('../models/users');
 var passport = require('passport');
+const UserController = require('../controllers/users')
 
 var router = express.Router();
 
@@ -14,9 +15,12 @@ router.get('/', function(req, res, next) {
   });
 });
 router.get('/login', function(req, res, next){
+  console.log("ini ssession di login guys",req.session);
   res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
 });
-router.post('/login', passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/failed', failureFlash : true}));
+router.post('/login',
+passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/failed', failureFlash : true})
+);
 
 router.get('/result',function(req,res,next){
   res.json({message:"register berhasil"})// diganti dengan redirect kemana
@@ -27,12 +31,11 @@ router.get('/failed', function(req, res, next){
 
 
 router.get('/home', isLoggedIn, function(req, res) {
-  console.log("Ini req.user bro",req.user);
+  console.log("ini ssession",req.session);
   res.render('home.ejs', {
     user : req.user
    // get the user out of session and pass to template
   });
-  console.log(req.session);
 });
 
 
@@ -70,6 +73,11 @@ router.delete('/delete/:id', function(req, res, next){
   });
 });
 
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/api/users/login');
+  });
+
 // route middleware to make sure
 function isLoggedIn(req, res, next) {
 
@@ -80,5 +88,11 @@ function isLoggedIn(req, res, next) {
 	// if they aren't redirect them to the home page
 	res.redirect('/');
 }
+
+
+router.get('/forgot',UserController.forgotGet)
+router.post('/forgot',UserController.forgotPost)
+router.get('/reset/:token',UserController.resetGet)
+router.post('/reset/:token',UserController.resetPost)
 
 module.exports = router;

@@ -11,7 +11,7 @@ exports.forgotGet = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
-  res.render('forgot.password.ejs',{message:''});
+  res.render('forgot.password.ejs',{message:""});
 };
 
 /**
@@ -33,6 +33,7 @@ exports.forgotPost = function(req, res, next) {
     function(done) {
       crypto.randomBytes(16, function(err, buf) {
         var token = buf.toString('hex');
+        console.log('reset get in');
         done(err, token);
       });
     },
@@ -40,6 +41,7 @@ exports.forgotPost = function(req, res, next) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
           req.flash('error', { msg: 'The email address ' + req.body.email + ' is not associated with any account.' });
+          console.log('user not found');
           return res.redirect('/forgot');
         }
         user.passwordResetToken = token;
@@ -53,7 +55,7 @@ exports.forgotPost = function(req, res, next) {
       //////
 
       // create reusable transporter object using the default SMTP transport
-      var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:password@smtp.gmail.com');
+      var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
       // setup e-mail data with unicode symbols
       var mailOptions = {
           from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
@@ -69,6 +71,7 @@ exports.forgotPost = function(req, res, next) {
 
       transporter.sendMail(mailOptions, function(err) {
         req.flash('info', { msg: 'An email has been sent to ' + user.email + ' with further instructions.' });
+        console.log('reset email sent to', user.email);
         res.redirect('/forgot');
       });
     }
