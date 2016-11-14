@@ -26,6 +26,10 @@ router.get('/test', function(req,res){
 })
 
 //addEmailSupervisor
+Array.prototype.contains = function (v) {
+    return this.indexOf(v) > -1;
+}
+
 router.get('/addEmail', function(req,res){
   res.render('supervisor.addEmail.ejs')
 })
@@ -43,6 +47,8 @@ router.post('/postAddEmail', function(req,res){
             if(err)console.error('error in adding supervisor email - ARIADIPRANA IS HERE')
             // if not found, system will add new user for supervisor
             if(!user){
+              let role = []
+              role.push(1)
               let newuser  = new Users({
                 userEmail: email
               })
@@ -64,6 +70,12 @@ router.post('/postAddEmail', function(req,res){
               })
             }
             else{
+
+              if(!user.role.contains(1)){
+                user.role.push(1)
+                user.save()
+              }
+              console.log('user.role',user.role);
               //send email for user that has been registered and already confirmed
               if(user.encryptedPassword){
                 var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
