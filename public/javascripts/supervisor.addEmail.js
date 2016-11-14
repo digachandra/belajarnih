@@ -13,7 +13,10 @@ var FieldForm = React.createClass({
       type: 'POST',
       data: {value: this.state.field},
       success: function(data){
-        this.setState({field:"", message:"link has been sent to supervisor"})
+        if(data.message)this.setState({field:"", message:data.message})
+        else{
+            this.setState({field:"", message:"link has been sent to "+data.userEmail})
+        }
       }.bind(this),
       error: function(xhr, status, err){
         this.setState({message:"error, cobalagi"})
