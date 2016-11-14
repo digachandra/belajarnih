@@ -27,13 +27,4 @@ router.get('/get', function(req,res){
   })
 })
 
-router.post('/postdata', function(req,res){
-  Maps.findOne({}, function(err,pin){
-    pin.listField[0].value = req.body.value
-    pin.save(function(err,newPin){
-      res.json(pin)
-    })
-  })
-})
-
 module.exports = router

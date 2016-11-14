@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const apiSupervisor = require('./apisupervisor')
+const apiSupervisor = require('./api.supervisor')
 const apiSeeding = require('./api.seeding')
 const UserController = require('../controllers/users')
 

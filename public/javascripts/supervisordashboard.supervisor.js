@@ -8,7 +8,7 @@ var FieldForm = React.createClass({
   handleFormSubmit(e){
     e.preventDefault()
     $.ajax({
-      url: '/postdata',
+      url: '/api/supervisor/postdata',
       dataType: 'json',
       type: 'POST',
       data: {value: this.state.field},
