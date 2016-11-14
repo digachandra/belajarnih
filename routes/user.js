@@ -19,7 +19,7 @@ router.get('/login', function(req, res, next){
   res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
 });
 router.post('/login',
-passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/failed', failureFlash : true})
+passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/login', failureFlash : true})
 );
 
 router.get('/result',function(req,res,next){
