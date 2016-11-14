@@ -3,6 +3,15 @@ const router = express.Router()
 const pageMap = require('./page.map')
 const apiSupervisor = require('./api.supervisor')
 const apiSeeding = require('./api.seeding')
+const user = require('./user')
+
+
+router.use('/api/supervisor', apiSupervisor)
+router.use('/api/seeding', apiSeeding)
+router.use('/api/user', user)
+
+
+
 const UserController = require('../controllers/users')
 
 router.use('/api/supervisor', apiSupervisor)

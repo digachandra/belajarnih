@@ -7,6 +7,13 @@ const userSchema = new Schema({
   passwordResetToken: String,
   passwordResetExpires: Date
 })
-
+// generating a hash
+userSchema.methods.generateHash = function(encryptedPassword) {
+    return bcrypt.hashSync(encryptedPassword, bcrypt.genSaltSync(8), null);
+};
+// checking if encryptedPassword is valid
+userSchema.methods.validPassword = function(encryptedPassword) {
+    return bcrypt.compareSync(encryptedPassword, this.encryptedPassword);
+};
 const Users = mongoose.model('users', userSchema)
 module.exports = Users
