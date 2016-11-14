@@ -43,6 +43,14 @@ router.get('/getpinlist/:businessname', function(req,res){
   })
 })
 
+router.get('/getpindate/', function(req,res){
+  let user_id = "58294c019c17424e7eb63886"
+  Maps.find({supervisor: user_id, owner: req.query.ownerid, businessName: req.query.businessname, pinDropName: req.query.pindropname, "listField.value": null }, function(err,pin){
+    console.log(pin)
+    res.json(pin)
+  })
+})
+
 router.get('/dashboard', function(req,res){
   res.render('dashboard.supervisor.ejs')
 })

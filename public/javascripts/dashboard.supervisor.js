@@ -1,29 +1,68 @@
 var Container = React.createClass({
   getInitialState: function(){
-    return {page: "ownerlist", businessName: "", pinDropName: "", owner_id: ""}
+    return {page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: "", message: ""}
   },
 
   toPinPage: function(businessName){
-    this.setState({page: "pinlist", businessName: businessName})
+    this.setState({page: "pinlist", businessName: businessName, message: ""})
   },
 
-  toInputDataPage: function(pinDropName){
-    this.setState({page: "inputdata", pinDropName: pinDropName})
+  toDatePage: function(pinDropName){
+    this.setState({page: "datelist", pinDropName: pinDropName, message: ""})
+  },
+
+  toInputDataPage: function(pinDate){
+    this.setState({page: "inputdata", pinDate: pinDate, message: ""})
   },
 
   toBusinessPage: function(owner_id){
-    this.setState({page: "businesslist", owner_id: owner_id})
+    this.setState({page: "businesslist", owner_id: owner_id, message: ""})
+  },
+
+  successfulInput: function(){
+    this.setState({page: "ownerlist", message: "data berhasil diinput"})
+  },
+
+  handleHomeButton: function(){
+    this.setState({page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: "", message: ""})
   },
 
   render: function(){
     if(this.state.page == "ownerlist"){
-      return <OwnerList toBusinessList = {this.toBusinessPage} />
+      return (
+        <div>
+          <OwnerList toBusinessList = {this.toBusinessPage} />
+          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        </div>
+      )
     } else if(this.state.page == "businesslist"){
-      return <BusinessList toPinList={this.toPinPage} owner_id={this.state.owner_id}/>
+      return (
+        <div>
+          <BusinessList toPinList={this.toPinPage} owner_id={this.state.owner_id}/>
+          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        </div>
+      )
     } else if (this.state.page == "pinlist") {
-      return <PinList businessName={this.state.businessName} toInputData={this.toInputDataPage}/>
+      return (
+        <div>
+          <PinList businessName={this.state.businessName} toDateList={this.toDatePage}/>
+          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        </div>
+      )
+    } else if (this.state.page == "datelist") {
+      return (
+        <div>
+          <DateList pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} toInputList={this.toInputDataPage} />
+          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        </div>
+      )
     } else if (this.state.page == "inputdata") {
-      return <InputData pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} />
+      return (
+        <div>
+          <InputData pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} pinDate={this.state.pinDate} handleSuccessfulInput={this.successfulInput}/>
+          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        </div>
+      )
     }
   }
 })
@@ -138,8 +177,6 @@ var PinList = React.createClass({
       type: 'GET',
       success: function(data){
         this.setState({list: data})
-        console.log("biz name",this.state.businessName)
-        console.log(data)
       }.bind(this),
       error: function(xhr,status,err){
         this.setState({list: ["error"]})
@@ -159,18 +196,66 @@ var PinList = React.createClass({
       arrayPin = pinList.map(function(data){
         return (
           <div key={data.pinDropName}>
-            <button onClick={function(){this.props.toInputData(data.pinDropName)}.bind(this)}  >{data.pinDropName}</button>
+            <button onClick={function(){this.props.toDateList(data.pinDropName)}.bind(this)}  >{data.pinDropName}</button>
           </div>
         )
       }.bind(this))
     } else {
-      arrayPin = (<p>No Business Found</p>)
+      arrayPin = (<p>No Pin Found</p>)
     }
 
     return (
       <div>
         <h1>Select Pin</h1>
         {arrayPin}
+      </div>
+    )
+  }
+})
+
+var DateList = React.createClass({
+  getInitialState: function(){
+    return {list: "", pinDropName: this.props.pinDropName}
+  },
+
+  componentDidMount: function(){
+    $.ajax({
+      url: `/api/supervisor/getpindate?ownerid=${this.props.owner_id}&businessname=${this.props.businessName}&pindropname=${this.props.pinDropName}`,
+      dataType: 'json',
+      type: 'GET',
+      success: function(data){
+        this.setState({list: data})
+      }.bind(this),
+      error: function(xhr,status,err){
+        this.setState({list: ["error"]})
+      }.bind(this)
+    })
+  },
+
+  render(){
+    let arrayDate
+    if(this.state.list != ""){
+      let dateList = []
+      for (let i in this.state.list){
+        if(dateList.map(function(data){return data.createdAt}).indexOf(this.state.list[i].createdAt)== -1){
+          dateList.push(this.state.list[i])
+        }
+      }
+      arrayDate = dateList.map(function(data){
+        return (
+          <div key={data.createdAt}>
+            <button onClick={function(){this.props.toInputList(data.createdAt)}.bind(this)}  >{data.createdAt}</button>
+          </div>
+        )
+      }.bind(this))
+    } else {
+      arrayDate = (<p>All Reports have been Completed</p>)
+    }
+
+    return (
+      <div>
+        <h1>Select Date</h1>
+        {arrayDate}
       </div>
     )
   }
@@ -193,7 +278,7 @@ var InputData = React.createClass({
       type: 'POST',
       data: {value: this.state.input, owner: this.props.owner_id, businessname: this.props.businessName, pindropname: this.props.pinDropName},
       success: function(data){
-        this.setState({input:""})
+        this.props.handleSuccessfulInput()
       }.bind(this),
       error: function(xhr, status, err){
         this.setState({input:"error"})
@@ -204,11 +289,22 @@ var InputData = React.createClass({
   render: function(){
     return(
       <div>
-        <h1>Input Data of Pin: {this.props.pindropname}</h1>
+        <h1>Input Data of Pin: {this.props.pinDate}</h1>
         <form onSubmit={this.handleSubmitInput}>
           Penjualan: <input type="text" value={this.state.input} onChange={this.handleInputChange} /><br />
           <input type = "submit" />
         </form>
+      </div>
+    )
+  }
+})
+
+var Messages = React.createClass({
+  render: function(){
+    return(
+      <div>
+        {this.props.messages}
+        <button onClick={this.props.goToHome}>Home</button>
       </div>
     )
   }
