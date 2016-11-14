@@ -1,6 +1,7 @@
 var express = require('express');
 var User = require('../models/users');
 var passport = require('passport');
+const UserController = require('../controllers/users')
 
 var router = express.Router();
 
@@ -59,6 +60,9 @@ router.delete('/delete/:id', function(req, res, next){
     }
   });
 });
-
+router.get('/forgot',UserController.forgotGet)
+router.post('/forgot',UserController.forgotPost)
+router.get('/reset/:token',UserController.resetGet)
+router.post('/reset/:token',UserController.resetPost)
 
 module.exports = router;
