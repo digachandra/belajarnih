@@ -34,10 +34,7 @@
     "email-validator": "^1.0.7",
     "express": "^4.14.0",
     "express-session": "^1.14.2",
-<<<<<<< HEAD
     "express-validator": "^2.21.0",
-=======
->>>>>>> 8a566815bdba346734cab3172f60fb7b19124be9
     "mongoose": "^4.6.6",
     "morgan": "^1.7.0",
     "nodemailer": "^2.6.4",
