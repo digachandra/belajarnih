@@ -12,6 +12,7 @@ const config = require('./webpack.config')
 const path = require('path')
 const routes = require('./routes')
 const users = require('./routes/user')
+const Users = require('./models/users.js')
 
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
