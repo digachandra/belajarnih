@@ -5,8 +5,7 @@ const userSchema = new Schema({
   userEmail: { type: String, unique: true},
   encryptedPassword: String,
   passwordResetToken: String,
-  passwordResetExpires: Date,
-  role: [Number]
+  passwordResetExpires: Date
 })
 
 const Users = mongoose.model('users', userSchema)
