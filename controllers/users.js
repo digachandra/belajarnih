@@ -33,7 +33,6 @@ exports.forgotPost = function(req, res, next) {
     function(done) {
       crypto.randomBytes(16, function(err, buf) {
         var token = buf.toString('hex');
-        console.log('reset get in');
         done(err, token);
       });
     },
@@ -41,8 +40,7 @@ exports.forgotPost = function(req, res, next) {
       User.findOne({ email: req.body.email }, function(err, user) {
         if (!user) {
           req.flash('error', { msg: 'The email address ' + req.body.email + ' is not associated with any account.' });
-          console.log('user not found');
-          return res.redirect('/forgot');
+          return res.redirect('/user/forgot');
         }
         user.passwordResetToken = token;
         user.passwordResetExpires = Date.now() + 3600000; // expire in 1 hour
@@ -55,7 +53,7 @@ exports.forgotPost = function(req, res, next) {
       //////
 
       // create reusable transporter object using the default SMTP transport
-      var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
+      var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:password@smtp.gmail.com');
       // setup e-mail data with unicode symbols
       var mailOptions = {
           from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
@@ -72,7 +70,7 @@ exports.forgotPost = function(req, res, next) {
       transporter.sendMail(mailOptions, function(err) {
         req.flash('info', { msg: 'An email has been sent to ' + user.email + ' with further instructions.' });
         console.log('reset email sent to', user.email);
-        res.redirect('/forgot');
+        res.redirect('/user/forgot');
       });
     }
   ]);
@@ -90,9 +88,9 @@ exports.resetGet = function(req, res) {
     .exec(function(err, user) {
       if (!user) {
         req.flash('error', { msg: '❎ Password reset token is invalid or has expired.' });
-        return res.redirect('/forgot');
+        return res.redirect('/user/forgot');
       }
-      res.render('reset.password');
+      res.render('reset.password.ejs',{message:""});
     });
 };
 
@@ -100,7 +98,7 @@ exports.resetGet = function(req, res) {
  * POST /reset
  */
 exports.resetPost = function(req, res, next) {
-  req.assert('password', 'Password must be at least 4 characters long').len(4);
+  req.assert('password', 'Password must be at least 8 characters long').len(8);
   req.assert('confirm', 'Passwords must match').equals(req.body.password);
 
   var errors = req.validationErrors();
@@ -140,7 +138,7 @@ exports.resetPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('success', { msg: 'Your password has been changed successfully.' });
-        res.redirect('/account');
+        res.redirect('/login');
       });
     }
   ]);
