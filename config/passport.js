@@ -75,7 +75,7 @@ module.exports = function(passport) {
         if (!user.validPassword(password)){
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
         }
-        if (user.role != req.body.role ){
+        if (!user.role.contains(0,1) ){
           return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
         }
         req.session.role = req.body.role
