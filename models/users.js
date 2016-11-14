@@ -1,11 +1,14 @@
 'use strict'
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+var bcrypt   = require('bcrypt-nodejs');
+
 const userSchema = new Schema({
   userEmail: { type: String, unique: true},
   encryptedPassword: String,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
+  role: [Number],
 })
 // generating a hash
 userSchema.methods.generateHash = function(encryptedPassword) {
