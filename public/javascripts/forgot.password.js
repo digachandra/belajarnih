@@ -7,7 +7,7 @@ var ForgotPasswordForm = React.createClass({
   },
   handleFormSubmit(e){
     $.ajax({
-      url: '/forgot',
+      url: '/user/forgot',
       dataType: 'json',
       type: 'POST',
       data: {email: this.state.email}
