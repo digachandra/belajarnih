@@ -114,7 +114,7 @@ app.use(expressValidator())
 app.use(flash());
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/testing-mapinc-8')
+mongoose.connect('mongodb://localhost:27017/testing')
 
 app.use('/', routes)
 app.use('/api/users', users);
