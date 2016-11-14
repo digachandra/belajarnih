@@ -11,7 +11,7 @@ exports.forgotGet = function(req, res) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
-  res.render('forgot.password');
+  res.render('forgot.password.ejs',{message:""});
 };
 
 /**
