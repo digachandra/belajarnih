@@ -303,7 +303,7 @@ var Messages = React.createClass({
   render: function(){
     return(
       <div>
-        {this.props.messages}
+        {this.props.messages}<br />
         <button onClick={this.props.goToHome}>Home</button>
       </div>
     )
