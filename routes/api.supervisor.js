@@ -46,7 +46,8 @@ router.post('/postdata', function(req,res){
 })
 
 router.get('/getownerlist', function(req,res){
-  let user_id = "58299ad3baff8813d5911300" //later change with req.session
+  let user_id = req.session.passport.user
+  console.log('ini passport user', req.session.passport.user)
   Maps.find({supervisor: user_id}).populate("owner").exec(function(err,owners){
     res.json(owners)
   })
@@ -54,21 +55,24 @@ router.get('/getownerlist', function(req,res){
 
 
 router.get('/getbusinesslist/:owner_id', function(req,res){
-  let user_id = "58299ad3baff8813d5911300" //later change with req.session
+  let user_id = req.session.passport.user
+  console.log('ini passport user', req.session.passport.user)
   Maps.find({supervisor: user_id}).populate("owner").exec(function(err,businesses){
     res.json(businesses)
   })
 })
 
 router.get('/getpinlist/:businessname', function(req,res){
-  let user_id = "58299ad3baff8813d5911300" //later change with req.session
+  let user_id = req.session.passport.user
+  console.log('ini passport user', req.session.passport.user)
   Maps.find({businessName:req.params.businessname, supervisor: user_id}, function(err,pin){
     res.json(pin)
   })
 })
 
 router.get('/getpindate/', function(req,res){
-  let user_id = "58299ad3baff8813d5911300"
+  let user_id = req.session.passport.user
+  console.log('ini passport user', req.session.passport.user)
   Maps.find({supervisor: user_id, owner: req.query.ownerid, businessName: req.query.businessname, pinDropName: req.query.pindropname, "listField.value": null }, function(err,pin){
     console.log(pin)
     res.json(pin)
