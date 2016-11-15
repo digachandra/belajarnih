@@ -38,10 +38,11 @@ router.get('/home', isLoggedIn, function(req, res) {
   if(req.session.role==1){
     res.redirect('/api/supervisor/dashboard')
   } else {
-    res.render('home.ejs', {
-      user : req.user
-     // get the user out of session and pass to template
-    });
+    res.redirect('/map/addMap')
+    // res.render('home.ejs', {
+    //   user : req.user
+    //  // get the user out of session and pass to template
+    // });
   }
 });
 

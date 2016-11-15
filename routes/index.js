@@ -8,7 +8,7 @@ const maps = require('./api.map')
 const marker = require('./page.marker')
 
 
-router.use('/api/supervisor', apiSupervisor)
+router.use('/api/bo', apiSupervisor)
 router.use('/api/seeding', apiSeeding)
 router.use('/user',forgotPassword)
 router.use('/map', pageMap)
