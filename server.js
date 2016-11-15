@@ -16,6 +16,8 @@ const users = require('./routes/user')
 const expressValidator = require('express-validator')
 const Users = require('./models/users.js')
 
+const gen = require('./helpers/pindrop.cron.js')
+
 var passport = require('passport');
 var flash = require('connect-flash');
 var session = require('express-session');
