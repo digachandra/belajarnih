@@ -14,6 +14,7 @@ router.get('/', function(req, res, next) {
     res.json(users);
   });
 });
+
 router.get('/login', function(req, res, next){
   console.log("ini ssession di login guys",req.session);
   res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
@@ -29,12 +30,12 @@ router.get('/failed', function(req, res, next){
   res.json({message:"gagal login"})// diganti dengan redirect kemana
 });
 
-
 router.get('/home', isLoggedIn, function(req, res) {
-  console.log("ini ssession",req.session);
+  // console.log("ini ssession",req.session);
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
   res.header('Pragma', 'no-cache');
+  // console.log("ini header", res.header);
   res.render('home.ejs', {
     user : req.user
    // get the user out of session and pass to template

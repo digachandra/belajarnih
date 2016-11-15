@@ -12,6 +12,7 @@ const config = require('./webpack.config')
 const path = require('path')
 const routes = require('./routes')
 const users = require('./routes/user')
+
 const expressValidator = require('express-validator')
 const Users = require('./models/users.js')
 
@@ -58,8 +59,6 @@ app.use('/', express.static(path.join(__dirname, 'public')))
 mongoose.connect('mongodb://localhost:27017/testing')
 
 app.use('/', routes)
-app.use('/api/users', users);
-
 
 app.listen(port)
 console.log('serving on port : ', port)
