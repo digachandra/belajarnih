@@ -1,9 +1,9 @@
 var FieldForm = React.createClass({
   getInitialState: function(){
-    return {field:"", message:""}
+    return {field:"", message:"", userID:document.getElementById('container').getAttribute('userEmail')}
   },
   handleFormChange(e){
-    this.setState({field: e.target.value})
+    this.setState({field: e.target.value, userID: this.state.userID})
   },
   handleFormSubmit(e){
     e.preventDefault()
@@ -11,9 +11,10 @@ var FieldForm = React.createClass({
       url: '/map/addMap',
       dataType: 'json',
       type: 'POST',
-      data: {value: this.state.field},
+      data: {value: this.state.field, userID: this.state.userID},
       success: function(data){
-        this.setState({field:"", message:data.message})
+        if("proceed"==data.message)window.location.replace("http://localhost:3000/api/users/login")
+        else this.setState({field:"", message:data.message})
       }.bind(this),
       error: function(xhr, status, err){
         this.setState({message:"error, cobalagi"})

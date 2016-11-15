@@ -8,17 +8,17 @@ router.get('/', function(req,res){
 })
 
 router.get('/addMap', function(req,res){
-  res.render('page.map/addmap.ejs')
+  res.render('page.map/addmap.ejs', {userId:req.session.passport.user})
 })
 
 
 router.post('/addMap', function(req,res){
-  let email = 'andrew@andrew.com' // will be changed to request from session
+  console.log('ARI ADIPRANA IS HERE ------------ req.body', req.body);
   let businessName =  req.body.value
-  Users.findOne({'userEmail':email}, function(err,user){
-    let newmap = new Maps({owner: user._id, businessName: businessName})
+  Users.findById({'_id':req.body.userID}, function(err,user){
+    let newmap = new Maps({owner: req.body.userID, businessName: businessName})
     newmap.save(function(err,newmap){
-      res.json({message: "new map is created successfully"})
+      res.json({message: "proceed"})
     })
   })
 })
