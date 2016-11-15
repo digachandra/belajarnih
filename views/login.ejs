@@ -5,59 +5,115 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <style>
+  body {
+
+  }
+
+  .navbar-static-top {
+    margin-bottom: 19px;
+  }
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+</style>
+
 </head>
 <body>
-  <% if (message.length > 0) { %>
-    <div class="alert alert-danger"><%= message %></div>
-    <% } %>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <div class="panel panel-login">
-            <div class="panel-heading">
-              <div class="row">
-                <div class="col-xs-6">
-                  <a href="/api/user/login" class="active" id="login-form-link">Login</a>
-                </div>
-                <div class="col-xs-6">
-                  <a href="/api/user/register" id="register-form-link">Register</a>
-                </div>
-              </div>
-              <hr>
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="col-lg-12">
-                  <form id="login-form" action="/api/user/login"  method="post" role="form" style="display: block;">
-                    <div class="form-group">
-                      <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-                    </div>
-                    <div class="form-group">
-                      <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-                    </div>
-                    <label class="radio-inline"><input type="radio" name="role" value="0">Business Owner</label>
-                    <label class="radio-inline"><input type="radio" name="role" value="1">Supervisor</label>
-                    <div class="form-group">
-                      <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3">
-                          <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+  <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Mapinc</a>
         </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class=""><a href="/api/users/login">Login</a></li>
+            <li><a href="/api/users/register">Register</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+  <div class="container">
+      <div class="col-md-6 col-md-offset-3">
+        <% if (message.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+              <span class="sr-only">Error:</span>
+              <%= message %>
+            </div>
+              <% } %>
+      </div>
+      <div class="col-md-6 col-md-offset-3">
+      <div class="panel ">
+        <form class="form-signin" id="login-form" action="/api/users/login"  method="post" role="form" >
+          <h2 class="form-signin-heading">Please sign in</h2>
+          <label for="inputEmail" class="sr-only">Email address</label>
+          <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+          <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+          <div class="checkbox">
+            <label class="radio-inline"><input type="radio" name="role" checked="checked" value="0">Business Owner</label>
+            <label class="radio-inline"><input type="radio" name="role" value="1">Supervisor</label>
+
+          </div>
+
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
       </div>
     </div>
-    <script type="text/javascript">
-    $(function() {
-      $('#login-form').submit(function(e) {
+  </div> <!-- /container -->
 
-      });
-    });
-    </script>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+
+
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
 </body>
 </html>

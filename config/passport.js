@@ -66,8 +66,17 @@ module.exports = function(passport) {
       passReqToCallback : true // allows us to pass back the entire request to the callback
     }, function(req, email, password, done) {
       Users.findOne({ 'userEmail' :  email }, function(err, user) {
+
         if (err){
           return done(err);
+        }
+        if(user.role.length > 1)
+        {
+          for(var i=0;i<user.role.length;i++){
+            if (user.role[i]== req.body.role){
+              return done(null, user);
+            }
+          }
         }
         if (!user){
           return done(null, false, req.flash('loginMessage', 'No user found.'));
@@ -75,12 +84,12 @@ module.exports = function(passport) {
         if (!user.validPassword(password)){
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
         }
-        if (!user.role.contains(0,1) ){
+        if (user.role != req.body.role  ){
           return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
         }
         req.session.role = req.body.role
-        console.log("Session Role lu",req.session.role);
-        console.log("Session Body lu",req.body.role);
+        req.session.email = req.body.email
+
         return done(null, user);
       });
     }));
