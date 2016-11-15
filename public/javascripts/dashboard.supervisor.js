@@ -20,11 +20,27 @@ var Container = React.createClass({
   },
 
   successfulInput: function(){
-    this.setState({page: "ownerlist", message: "data berhasil diinput"})
+    this.setState({page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: "", message: "data berhasil diinput"})
   },
 
   handleHomeButton: function(){
     this.setState({page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: "", message: ""})
+  },
+
+  navigationOwners: function(){
+    this.setState({page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: ""})
+  },
+
+  navigationBusinesses: function(){
+    this.setState({page: "businesslist", businessName: "", pinDropName: "", pinDate: ""})
+  },
+
+  navigationPins: function(){
+    this.setState({page: "pinlist", pinDropName: "", pinDate: ""})
+  },
+
+  navigationDates: function(){
+    this.setState({page: "datelist", pinDate: ""})
   },
 
   render: function(){
@@ -100,12 +116,16 @@ var Container = React.createClass({
           </div>
           <div style={contentContainerStyle}>
             <div style={navigationStyle}>
-              <Navigation page={this.state.page} />
+              <Navigation page={this.state.page} handleClickOwners={this.navigationOwners} handleClickBusinesses={this.navigationBusinesses} handleClickPins={this.navigationPins} handleClickDates = {this.navigationDates}/>
             </div>
           </div>
           <div style={contentContainerStyle}>
             <div style={contentStyle}>
               <OwnerList toBusinessList = {this.toBusinessPage} />
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
               <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
             </div>
           </div>
@@ -126,12 +146,16 @@ var Container = React.createClass({
           </div>
           <div style={contentContainerStyle}>
             <div style={navigationStyle}>
-              <Navigation page={this.state.page} />
+              <Navigation page={this.state.page} handleClickOwners={this.navigationOwners} handleClickBusinesses={this.navigationBusinesses} handleClickPins={this.navigationPins} handleClickDates = {this.navigationDates} />
             </div>
           </div>
           <div style={contentContainerStyle}>
             <div style={contentStyle}>
               <BusinessList toPinList={this.toPinPage} owner_id={this.state.owner_id}/>
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
               <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
             </div>
           </div>
@@ -154,12 +178,16 @@ var Container = React.createClass({
           </div>
           <div style={contentContainerStyle}>
             <div style={navigationStyle}>
-              <Navigation page={this.state.page} />
+              <Navigation page={this.state.page} handleClickOwners={this.navigationOwners} handleClickBusinesses={this.navigationBusinesses} handleClickPins={this.navigationPins} handleClickDates = {this.navigationDates} />
             </div>
           </div>
           <div style={contentContainerStyle}>
             <div style={contentStyle}>
               <PinList businessName={this.state.businessName} toDateList={this.toDatePage}/>
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
               <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
             </div>
           </div>
@@ -180,12 +208,16 @@ var Container = React.createClass({
           </div>
           <div style={contentContainerStyle}>
             <div style={navigationStyle}>
-              <Navigation page={this.state.page} />
+              <Navigation page={this.state.page} handleClickOwners={this.navigationOwners} handleClickBusinesses={this.navigationBusinesses} handleClickPins={this.navigationPins} handleClickDates = {this.navigationDates} />
             </div>
           </div>
           <div style={contentContainerStyle}>
             <div style={contentStyle}>
               <DateList pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} toInputList={this.toInputDataPage} />
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
               <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
             </div>
           </div>
@@ -207,17 +239,20 @@ var Container = React.createClass({
           </div>
           <div style={contentContainerStyle}>
             <div style={navigationStyle}>
-              <Navigation page={this.state.page} />
+              <Navigation page={this.state.page} handleClickOwners={this.navigationOwners} handleClickBusinesses={this.navigationBusinesses} handleClickPins={this.navigationPins} handleClickDates = {this.navigationDates} />
             </div>
           </div>
           <div style={contentContainerStyle}>
             <div style={contentStyle}>
               <InputData pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} pinDate={this.state.pinDate} handleSuccessfulInput={this.successfulInput}/>
+            </div>
+          </div>
+          <div>
+            <div style={contentStyle}>
               <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
             </div>
           </div>
         </div>
-
       )
     }
   }
@@ -245,7 +280,6 @@ var OwnerList = React.createClass({
   render: function(){
     let arrayOwner
     if(this.state.list != ""){
-      console.log('ini list', this.state.list)
       let OwnerList = []
       for (let i in this.state.list){
         if(OwnerList.map(function(data){return data.owner._id}).indexOf(this.state.list[i].owner._id)== -1){
@@ -474,7 +508,6 @@ var Messages = React.createClass({
     return(
       <div>
         {this.props.messages}<br />
-        <button onClick={this.props.goToHome}>Home</button>
       </div>
     )
   }
@@ -494,6 +527,22 @@ var Navigation = React.createClass({
     }
   },
 
+  clickOwners: function(){
+    this.props.handleClickOwners()
+  },
+
+  clickBusinesses: function(){
+    this.props.handleClickBusinesses()
+  },
+
+  clickPins: function(){
+    this.props.handleClickPins()
+  },
+
+  clickDates: function(){
+    this.props.handleClickDates()
+  },
+
   render: function(){
     if(this.state.page == "ownerlist"){
       return (
@@ -504,25 +553,25 @@ var Navigation = React.createClass({
     } else if (this.state.page == "businesslist"){
       return (
         <div>
-          owners > <u>businesses</u>
+          <a href="#" onClick={this.clickOwners}>owners</a> > <u>businesses</u>
         </div>
       )
     } else if (this.state.page == "pinlist"){
       return (
         <div>
-          owners > businesses > <u>pins</u>
+          <a href="#" onClick={this.clickOwners}>owners</a> > <a href="#" onClick={this.clickBusinesses}>businesses</a> > <u>pins</u>
         </div>
       )
     } else if (this.state.page == "datelist"){
       return (
         <div>
-          owners > businesses > pins > <u>dates</u>
+          <a href="#" onClick={this.clickOwners}>owners</a> > <a href="#" onClick={this.clickBusinesses}>businesses</a> > <a href="#" onClick={this.clickPins}>pins</a> > <u>dates</u>
         </div>
       )
     } else if (this.state.page == "inputdata"){
       return (
         <div>
-          owners > businesses > pins > dates > <u>input data</u>
+          <a href="#" onClick={this.clickOwners}>owners</a> > <a href="#" onClick={this.clickBusinesses}>businesses</a> > <a href="#" onClick={this.clickPins}>pins</a> > <a href="#" onClick={this.clickDates}>dates</a> > <u>input data</u>
         </div>
       )
     }

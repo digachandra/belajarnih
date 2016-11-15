@@ -11,22 +11,27 @@ router.get('/get', function(req,res){
 
 router.get('/set', function(req,res){
   let newowner  = new Users({userEmail: "andrew@businessowner.com", encryptedPassword: "bukanencryptedpassword"})
-  let newspv  = new Users({userEmail: "andrew@businesssupervisor.com", encryptedPassword: "jugabukanencryptedpassword"})
+  let newspv  = new Users({userEmail: "andrew@andrew.com"})
+
+  newowner.encryptedPasswor = newspv.generateHash('test')
+  newowner.role = [0]
+  newspv.encryptedPassword = newspv.generateHash('halo')
+  newspv.role= [1]
 
   let newbusiness1pin1 = new Maps({owner: newowner._id, businessName: "pengiriman", pinDropName: "Branch Pengiriman 1", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-  newbusiness1pin1.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
+  newbusiness1pin1.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparison: "GT"})
 
   let newbusiness1pin2 = new Maps({owner: newowner._id, businessName: "pengiriman", pinDropName: "Branch Pengiriman 2", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-  newbusiness1pin2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
+  newbusiness1pin2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparison: "GT"})
 
   let newbusiness1pin3 = new Maps({owner: newowner._id, businessName: "pengiriman", pinDropName: "Branch Pengiriman 3", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-  newbusiness1pin3.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
+  newbusiness1pin3.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparison: "GT"})
 
   let newbusiness2pin1 = new Maps({owner: newowner._id, businessName: "makanan", pinDropName: "Branch Makanan 1", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-  newbusiness2pin1.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
+  newbusiness2pin1.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparison: "GT"})
 
   let newbusiness2pin2 = new Maps({owner: newowner._id, businessName: "makanan", pinDropName: "Branch Makanan 2", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: new Date()})
-  newbusiness2pin2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
+  newbusiness2pin2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparison: "LT"})
 
   newowner.save(function(err,owner){
     newspv.save(function(err,spv){
