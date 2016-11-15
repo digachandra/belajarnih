@@ -1,6 +1,8 @@
 var FieldForm = React.createClass({
   getInitialState: function(){
-    return {message:"",pindropName:"",totalSales:"",salesCond:"", supervisor:""}
+    console.log('businessName',document.getElementById('container').getAttribute('businessName'));
+    return {message:"",pindropName:"",totalSales:"",salesCond:"", supervisor:"", userID:document.getElementById('container').getAttribute('userId'),
+            businessName:document.getElementById('container').getAttribute('businessName')}
   },
   handlePinDropChange(e){
     this.setState({pindropName: e.target.value})
@@ -20,7 +22,7 @@ var FieldForm = React.createClass({
       url: '/marker/addMarker',
       dataType: 'json',
       type: 'POST',
-      data: {pindropName: this.state.pindropName, totalSales: this.state.totalSales, salesCond: this.state.salesCond, supervisor: this.state.supervisor },
+      data: {pindropName: this.state.pindropName, totalSales: this.state.totalSales, salesCond: this.state.salesCond, supervisor: this.state.supervisor, userID: this.state.userID, businessName:this.state.businessName },
       success: function(data){
         this.setState({field:"", message:data.message})
       }.bind(this),

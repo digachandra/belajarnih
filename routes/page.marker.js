@@ -7,6 +7,10 @@ const router = express.Router()
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 
+Array.prototype.contains = function (v) {
+    return this.indexOf(v) > -1;
+}
+
 router.get('/', function(req,res){
   res.render('page.map/index.ejs')
 })
@@ -17,13 +21,16 @@ router.get('/addMarker', function(req,res){
 
 
 router.post('/addMarker', function(req,res){
+  console.log('req', req.body);
   //email validation
   let email = req.body.supervisor
-  let userId = 'dapetdariivan'
+  let userId = req.body.userID
   let pindropName =  req.body.pindropName
   let totalSales = req.body.totalSales
   let salesCond = req.body.salesCond
-  let businessName = 'businessnamedapetdarisepthian'
+  let businessName = req.body.businessName
+  console.log('businessName ', businessName);
+  console.log('userId ', userId);
   let lat = 'latdapetdarisept'
   let lng = 'lngdapetdarisept'
   let supervisor = 'supervisor'
@@ -68,7 +75,7 @@ router.post('/addMarker', function(req,res){
                 userEmail: email,
                 role:role
               })
-              newuser.save(function(err,newPin){
+              newuser.save(function(err,newuser){
                 //send email for new user
                   var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
                   var mailOptions = {
@@ -77,10 +84,19 @@ router.post('/addMarker', function(req,res){
                       subject: 'Supervisor Confirmation ✔', // Subject line
                       text: 'You are receiving this email because your owner business has requested you as supervisor, \n'+
                             'please set your password by click this link.\n\n'+
-                            'http://localhost:3000/setuppassword/'+newPin._id
+                            'http://localhost:3000/setuppassword/'+newuser._id
                   };
 
                   transporter.sendMail(mailOptions, function(err) {});
+                  console.log('newuser', newuser._id);
+                  newmap.supervisor = newuser._id
+                  console.log('newmap',newmap);
+                  console.log('newmap terakhir', newmap);
+                  newmap.save(function(err,newmap){
+                      let message = '{"message":"new pin drop is created successfully"}'
+                      let obj = JSON.parse(message)
+                      res.json(obj)
+                  })
               })
             }
             else{
@@ -89,7 +105,9 @@ router.post('/addMarker', function(req,res){
                 user.role.push(1)
                 user.save()
               }
-              console.log('user.role',user.role);
+              newmap.supervisor = user._id
+              console.log('user',user._id);
+              console.log('newmap',newmap);
               //send email for user that has been registered and already confirmed
               if(user.encryptedPassword){
                 var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
@@ -116,14 +134,13 @@ router.post('/addMarker', function(req,res){
 
                   transporter.sendMail(mailOptions, function(err) {});
               }
+              console.log('newmap terakhir', newmap);
+              newmap.save(function(err,newmap){
+                  let message = '{"message":"new pin drop is created successfully"}'
+                  let obj = JSON.parse(message)
+                  res.json(obj)
+              })
             }
-
-          })
-
-          newmap.save(function(err,newmap){
-              let message = '{"message":"new pin drop is created successfully"}'
-              let obj = JSON.parse(message)
-              res.json(obj)
           })
         }
   });

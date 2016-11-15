@@ -2,6 +2,9 @@ const express = require('express')
 const router = express.Router()
 const Users = require('../models/users.js')
 const Maps = require('../models/maps.js')
+const today =new Date()
+var yesterday = new Date()
+ yesterday.setDate(yesterday.getDate()-1)
 
 router.get('/get', function(req,res){
   Maps.find({}).populate('owner').populate('supervisor').exec(function(err,result){
@@ -10,10 +13,10 @@ router.get('/get', function(req,res){
 })
 
 router.get('/set', function(req,res){
+
   let newowner  = new Users({userEmail: "gg@businessowner.com", encryptedPassword: "bukanencryptedpassword"})
   let newowner2  = new Users({userEmail: "ivan@businessowner.com", encryptedPassword: "ivanpassword"})
   let newspv  = new Users({userEmail: "gelow@businesssupervisor.com", encryptedPassword: "jugabukanencryptedpassword"})
-  console.log(newowner);
 
   let newbusiness1pin1 = new Maps({owner: newowner._id, businessName: "pengiriman", pinDropName: "Branch Pengiriman 1", position: {lat: "8", lng: "7"}, supervisor: newspv._id, inputTime: "2016-11-14T03:19:49.131Z"})
   newbusiness1pin1.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})

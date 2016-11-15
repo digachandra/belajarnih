@@ -1,31 +1,17 @@
 var FieldForm = React.createClass({
   getInitialState: function(){
-    return {field:"", message:""}
+    return {field:"", message:"", userID:document.getElementById('container').getAttribute('userEmail')}
   },
   handleFormChange(e){
-    this.setState({field: e.target.value})
-  },
-  handleFormSubmit(e){
-    e.preventDefault()
-    $.ajax({
-      url: '/map/addMap',
-      dataType: 'json',
-      type: 'POST',
-      data: {value: this.state.field},
-      success: function(data){
-        this.setState({field:"", message:data.message})
-      }.bind(this),
-      error: function(xhr, status, err){
-        this.setState({message:"error, cobalagi"})
-      }.bind(this)
-    })
+    this.setState({field: e.target.value, userID: this.state.userID})
   },
   render: function(){
     return(
       <div>
-        <form onSubmit={this.handleFormSubmit}>
+        <form method="POST">
           <h2>Business Name</h2>
-          <input type="text" value={this.state.field} onChange = {this.handleFormChange}/>
+          <input type="text" name="businessName"/>
+          <input type="text" name="userId" value={this.state.userID}/>
           <input type="submit" />
         </form>
         <p>{this.state.message}</p>
