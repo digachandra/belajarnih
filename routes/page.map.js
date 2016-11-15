@@ -13,12 +13,10 @@ router.get('/addMap', function(req,res){
 
 
 router.post('/addMap', function(req,res){
-  console.log('ARI ADIPRANA IS HERE ------------ req.body', req.body);
-  let businessName =  req.body.value
   Users.findById({'_id':req.body.userID}, function(err,user){
-    let newmap = new Maps({owner: req.body.userID, businessName: businessName})
+    let newmap = new Maps({owner: req.body.userId, businessName: req.body.businessName})
     newmap.save(function(err,newmap){
-      res.json({message: "proceed"})
+      res.render('page.marker/addMarker.ejs', {userId:req.body.userId, businessName:req.body.businessName})
     })
   })
 })

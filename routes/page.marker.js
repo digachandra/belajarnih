@@ -21,13 +21,16 @@ router.get('/addMarker', function(req,res){
 
 
 router.post('/addMarker', function(req,res){
+  console.log('req', req.body);
   //email validation
   let email = req.body.supervisor
-  let userId = 'dapetdariivan'
+  let userId = req.body.userID
   let pindropName =  req.body.pindropName
   let totalSales = req.body.totalSales
   let salesCond = req.body.salesCond
-  let businessName = 'businessnamedapetdarisepthian'
+  let businessName = req.body.businessName
+  console.log('businessName ', businessName);
+  console.log('userId ', userId);
   let lat = 'latdapetdarisept'
   let lng = 'lngdapetdarisept'
   let supervisor = 'supervisor'

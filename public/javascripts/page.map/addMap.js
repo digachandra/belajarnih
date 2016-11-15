@@ -5,28 +5,13 @@ var FieldForm = React.createClass({
   handleFormChange(e){
     this.setState({field: e.target.value, userID: this.state.userID})
   },
-  handleFormSubmit(e){
-    e.preventDefault()
-    $.ajax({
-      url: '/map/addMap',
-      dataType: 'json',
-      type: 'POST',
-      data: {value: this.state.field, userID: this.state.userID},
-      success: function(data){
-        if("proceed"==data.message)window.location.replace("http://localhost:3000/api/users/login")
-        else this.setState({field:"", message:data.message})
-      }.bind(this),
-      error: function(xhr, status, err){
-        this.setState({message:"error, cobalagi"})
-      }.bind(this)
-    })
-  },
   render: function(){
     return(
       <div>
-        <form onSubmit={this.handleFormSubmit}>
+        <form method="POST">
           <h2>Business Name</h2>
-          <input type="text" value={this.state.field} onChange = {this.handleFormChange}/>
+          <input type="text" name="businessName"/>
+          <input type="text" name="userId" value={this.state.userID}/>
           <input type="submit" />
         </form>
         <p>{this.state.message}</p>
