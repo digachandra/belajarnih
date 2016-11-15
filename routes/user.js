@@ -35,11 +35,14 @@ router.get('/home', isLoggedIn, function(req, res) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
   res.header('Pragma', 'no-cache');
-  // console.log("ini header", res.header);
-  res.render('home.ejs', {
-    user : req.user
-   // get the user out of session and pass to template
-  });
+  if(req.session.role==1){
+    res.redirect('/api/supervisor/dashboard')
+  } else {
+    res.render('home.ejs', {
+      user : req.user
+     // get the user out of session and pass to template
+    });
+  }
 });
 
 
