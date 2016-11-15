@@ -1,6 +1,6 @@
 var Container = React.createClass({
   getInitialState: function(){
-    return {page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: "", message: ""}
+    return {page: "ownerlist", businessName: "", pinDropName: "", owner_id: "", pinDate: "", message: "", userEmail: document.getElementById('container').getAttribute('email')}
   },
 
   toPinPage: function(businessName){
@@ -28,40 +28,196 @@ var Container = React.createClass({
   },
 
   render: function(){
+    let leftBar = {
+      float: "left"
+    }
+    let rightBar = {
+      float: "right",
+      marginTop: "auto",
+      marginBottom: "auto",
+      marginRight: "20px"
+    }
+
+    let containerStyle = {
+      width: "80%",
+      marginRight: "auto",
+      marginLeft: "auto",
+      marginTop: "20px",
+      marginBottom: "20px",
+      fontFamily: "Prompt",
+      fontWeight: "bold",
+    }
+
+    let topBarStyle = {
+      borderStyle: "solid",
+      borderColor: "#91D8F7",
+      padding: "15px",
+      height: "80px",
+      borderRadius: "10px"
+    }
+
+    let faviconStyle= {
+      height: "100%",
+      marginLeft: "10px",
+      marginRight: "10px"
+    }
+
+    let contentContainerStyle={
+      marginTop: "10px",
+      padding: "10px",
+      borderStyle: "solid",
+      borderColor: "#91D8F7",
+      color: "#91D8F7",
+      borderRadius: "10px"
+    }
+
+    let contentStyle={
+      marginRight: "10px",
+      marginLeft: "10px",
+      marginTop: "20px",
+      marginBottom: "20px"
+    }
+
+    let navigationStyle={
+      marginRight: "10px",
+      marginLeft: "10px",
+      marginTop: "5px",
+      marginBottom: "5px"
+    }
+
     if(this.state.page == "ownerlist"){
       return (
-        <div>
-          <OwnerList toBusinessList = {this.toBusinessPage} />
-          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+            <div style={leftBar}>
+              <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+              <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+              <OwnerList toBusinessList = {this.toBusinessPage} />
+              <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+            </div>
+          </div>
         </div>
       )
     } else if(this.state.page == "businesslist"){
       return (
-        <div>
-          <BusinessList toPinList={this.toPinPage} owner_id={this.state.owner_id}/>
-          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+          <div style={leftBar}>
+            <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+            <img style={faviconStyle} src="/images/logo-block-theme.png" />
+          </div>
+          <div style={rightBar}>
+            {this.state.userEmail} <br />
+            <a href="/api/users/logout">Logout</a>
+          </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+              <BusinessList toPinList={this.toPinPage} owner_id={this.state.owner_id}/>
+              <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+            </div>
+          </div>
         </div>
+
+
       )
     } else if (this.state.page == "pinlist") {
       return (
-        <div>
-          <PinList businessName={this.state.businessName} toDateList={this.toDatePage}/>
-          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+            <div style={leftBar}>
+              <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+              <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+              <PinList businessName={this.state.businessName} toDateList={this.toDatePage}/>
+              <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+            </div>
+          </div>
         </div>
       )
     } else if (this.state.page == "datelist") {
       return (
-        <div>
-          <DateList pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} toInputList={this.toInputDataPage} />
-          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+            <div style={leftBar}>
+              <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+              <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+              <DateList pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} toInputList={this.toInputDataPage} />
+              <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+            </div>
+          </div>
         </div>
+
       )
     } else if (this.state.page == "inputdata") {
       return (
-        <div>
-          <InputData pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} pinDate={this.state.pinDate} handleSuccessfulInput={this.successfulInput}/>
-          <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+            <div style={leftBar}>
+              <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+              <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+              <InputData pinDropName={this.state.pinDropName} owner_id={this.state.owner_id} businessName={this.state.businessName} pinDate={this.state.pinDate} handleSuccessfulInput={this.successfulInput}/>
+              <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
+            </div>
+          </div>
         </div>
+
       )
     }
   }
@@ -89,6 +245,7 @@ var OwnerList = React.createClass({
   render: function(){
     let arrayOwner
     if(this.state.list != ""){
+      console.log('ini list', this.state.list)
       let OwnerList = []
       for (let i in this.state.list){
         if(OwnerList.map(function(data){return data.owner._id}).indexOf(this.state.list[i].owner._id)== -1){
@@ -98,19 +255,21 @@ var OwnerList = React.createClass({
 
       arrayOwner = OwnerList.map(function(data){
         return (
-          <div key={data.owner._id}>
-            <button onClick={function(){this.props.toBusinessList(data.owner._id)}.bind(this)}>{data.owner._id} || {data.owner.userEmail}</button>
-          </div>
+          <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toBusinessList(data.owner._id)}.bind(this)}>{data.owner._id} || {data.owner.userEmail}</button>
         )
       }.bind(this))
     } else {
-      arrayOwner = (<div>No Owner Found</div>)
+      arrayOwner = (
+        <div>No Owner Found</div>
+      )
     }
 
     return (
       <div>
-        <h1>Select Owner</h1>
-        {arrayOwner}
+        <h1 style={headingStyle}>Select Owner</h1>
+        <ul className="list-group">
+          {arrayOwner}
+        </ul>
       </div>
     )
   }
@@ -148,7 +307,7 @@ var BusinessList = React.createClass({
       arrayBusiness = businessList.map(function(data){
         return (
           <div key={data.businessName}>
-            <button onClick={function(){this.props.toPinList(data.businessName)}.bind(this)}>{data.businessName} || {data.owner.userEmail}</button>
+            <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toPinList(data.businessName)}.bind(this)}>{data.businessName} || {data.owner.userEmail}</button>
           </div>
         )
       }.bind(this))
@@ -158,7 +317,7 @@ var BusinessList = React.createClass({
 
     return (
       <div>
-        <h1>Select Business</h1>
+        <h1 style={headingStyle}>Select Business</h1>
         {arrayBusiness}
       </div>
     )
@@ -196,17 +355,17 @@ var PinList = React.createClass({
       arrayPin = pinList.map(function(data){
         return (
           <div key={data.pinDropName}>
-            <button onClick={function(){this.props.toDateList(data.pinDropName)}.bind(this)}  >{data.pinDropName}</button>
+            <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toDateList(data.pinDropName)}.bind(this)}  >{data.pinDropName}</button>
           </div>
         )
       }.bind(this))
     } else {
-      arrayPin = (<p>No Pin Found</p>)
+      arrayPin = (<div>No Pin Found</div>)
     }
 
     return (
       <div>
-        <h1>Select Pin</h1>
+        <h1 style={headingStyle}>Select Pin</h1>
         {arrayPin}
       </div>
     )
@@ -242,19 +401,25 @@ var DateList = React.createClass({
         }
       }
       arrayDate = dateList.map(function(data){
+        let date = new Date(data.createdAt);  // dateStr you get from mongodb
+        let d = date.getDate();
+        let m = date.getMonth()+1;
+        let y = date.getFullYear()
+        let formattedDate = `${d}-${m}-${y}`
+
         return (
           <div key={data.createdAt}>
-            <button onClick={function(){this.props.toInputList(data.createdAt)}.bind(this)}  >{data.createdAt}</button>
+            <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toInputList(data.createdAt)}.bind(this)}  >{formattedDate}</button>
           </div>
         )
       }.bind(this))
     } else {
-      arrayDate = (<p>All Reports have been Completed</p>)
+      arrayDate = (<div>All Reports have been Completed</div>)
     }
 
     return (
       <div>
-        <h1>Select Date</h1>
+        <h1 style={headingStyle}>Select Date</h1>
         {arrayDate}
       </div>
     )
@@ -287,12 +452,17 @@ var InputData = React.createClass({
   },
 
   render: function(){
+    let date = new Date(this.props.pinDate);  // dateStr you get from mongodb
+    let d = date.getDate();
+    let m = date.getMonth()+1;
+    let y = date.getFullYear()
+    let formattedDate = `${d}-${m}-${y}`
+
     return(
       <div>
-        <h1>Input Data of Pin: {this.props.pinDate}</h1>
+        <h1 style={headingStyle}>Input Data of Pin: "{this.props.pinDropName}" on {formattedDate}</h1><br />
         <form onSubmit={this.handleSubmitInput}>
-          Penjualan: <input type="text" value={this.state.input} onChange={this.handleInputChange} /><br />
-          <input type = "submit" />
+          <span style={fontStyle}>Penjualan: </span><input type="number" value={this.state.input} onChange={this.handleInputChange} />    <button style={buttonStyle} className="btn btn-primary" type="submit">Submit</button>
         </form>
       </div>
     )
@@ -310,6 +480,70 @@ var Messages = React.createClass({
   }
 })
 
+
+var Navigation = React.createClass({
+  getInitialState: function(){
+    return {page: this.props.page}
+  },
+
+  componentDidUpdate:function(){
+    if(this.state.page == this.props.page){
+
+    } else {
+      this.setState({page: this.props.page})
+    }
+  },
+
+  render: function(){
+    if(this.state.page == "ownerlist"){
+      return (
+        <div>
+          <u>owners</u>
+        </div>
+      )
+    } else if (this.state.page == "businesslist"){
+      return (
+        <div>
+          owners > <u>businesses</u>
+        </div>
+      )
+    } else if (this.state.page == "pinlist"){
+      return (
+        <div>
+          owners > businesses > <u>pins</u>
+        </div>
+      )
+    } else if (this.state.page == "datelist"){
+      return (
+        <div>
+          owners > businesses > pins > <u>dates</u>
+        </div>
+      )
+    } else if (this.state.page == "inputdata"){
+      return (
+        <div>
+          owners > businesses > pins > dates > <u>input data</u>
+        </div>
+      )
+    }
+  }
+})
+
 ReactDOM.render(
   <Container />, document.getElementById('container')
 )
+
+let fontStyle = {
+  color: "#00AFEF",
+  fontSize: "14px"
+}
+
+let buttonStyle = {
+  color: "white",
+  backgroundColor: "#00AFEF"
+}
+
+let headingStyle = {
+  fontSize: "20px",
+  color: "#00AFEF"
+}

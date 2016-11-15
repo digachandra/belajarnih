@@ -2,20 +2,36 @@ var Maps = require ('../models/maps')
 
 module.exports = {
   listPin:listPin,
-  getDetails:getDetails
+  getDetailsPin:getDetailsPin,
+  mapList:mapList
 }
-
 
 function listPin(req,res,next){
-    Maps.find({},(err,data) => {
+    let owner = "582ac8caf0e19e56aaf8257c"
+    let businessName = "goclean"
+    let createdAt = "2016-11-15T08:35:22.115Z" // 2016-11-16T08:35:22.115Z
+    // Maps.find({owner:owner,businessName:businessName},(err,data) => {
+    //   res.json(data)
+    // })
+    Maps.find({owner:owner,businessName:businessName,createdAt:{ $eq : createdAt}}).sort({inputTime: -1}).exec(function(err,data){
+      res.json(data)
+    })
+}
+//
+// Maps.find({owner: ownerId,businessName:businessName,inputTime:{ $gte : inputTime}}).sort({inputTime: -1}).exec(function(err,data){
+//   res.json(data)
+// })
+
+function getDetailsPin(req,res,next){
+  let pinId = "582ac8caf0e19e56aaf82580" //nannti ganti req.params.id
+    Maps.findOne({_id:pinId},(err,data) => {
       res.json(data)
     })
 }
 
-
-function getDetails(req,res,next){
-  let mapId = "582a7ed422733e48e07efd07" //nannti ganti req.params.id
-    Maps.findOne({_id:mapId},(err,data) => {
-      res.json(data)
-    })
+function mapList(req,res,next) {
+  let ownerId = "582ab6686c12c553cda2267c"
+  Maps.find({owner: ownerId}).sort({createdAt: -1}).exec(function(err,data){
+    res.json(data)
+  })
 }
