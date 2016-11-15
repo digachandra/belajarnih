@@ -12,19 +12,101 @@ var Container = React.createClass({
   },
 
   render: function(){
+    let leftBar = {
+      float: "left"
+    }
+    let rightBar = {
+      float: "right",
+      marginTop: "auto",
+      marginBottom: "auto",
+      marginRight: "20px"
+    }
+
+    let containerStyle = {
+      width: "80%",
+      marginRight: "auto",
+      marginLeft: "auto",
+      marginTop: "20px",
+      marginBottom: "20px",
+      fontFamily: "Prompt",
+      fontWeight: "bold",
+    }
+
+    let topBarStyle = {
+      borderStyle: "solid",
+      borderColor: "#91D8F7",
+      padding: "15px",
+      height: "80px",
+      borderRadius: "10px"
+    }
+
+    let faviconStyle= {
+      height: "100%",
+      marginLeft: "10px",
+      marginRight: "10px"
+    }
+
+    let contentContainerStyle={
+      marginTop: "10px",
+      padding: "10px",
+      borderStyle: "solid",
+      borderColor: "#91D8F7",
+      color: "#91D8F7",
+      borderRadius: "10px"
+    }
+
+    let contentStyle={
+      marginRight: "10px",
+      marginLeft: "10px",
+      marginTop: "20px",
+      marginBottom: "20px"
+    }
+
     if(this.state.done == false){
       return(
-        <div>
-          <div>Please input the password for your email ({this.state.email})</div>
-          <InputBox id={this.state.id} email={this.state.email} successfulInput={this.giveSuccessMessage} failedInput={this.giveFailedMessage}/>
-          <Messages messages={this.state.messages} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+            <div style={leftBar}>
+              <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+              <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+            <div>
+              <div>Please input the password for your email ({this.state.email})</div><br />
+              <InputBox id={this.state.id} email={this.state.email} successfulInput={this.giveSuccessMessage} failedInput={this.giveFailedMessage}/>
+              <Messages messages={this.state.messages} />
+            </div>
+            </div>
+          </div>
         </div>
       )
     } else {
       return(
-        <div>
-          <div>Please input the password for your email ({this.state.email})</div>
-          <Messages messages={this.state.messages} />
+        <div style={containerStyle}>
+          <div style={topBarStyle}>
+            <div style={leftBar}>
+              <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
+              <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={contentStyle}>
+            <div>
+              <div>Please input the password for your email ({this.state.email})</div><br />
+              <Messages messages={this.state.messages} />
+            </div>
+            </div>
+          </div>
         </div>
       )
     }
@@ -60,8 +142,8 @@ var InputBox = React.createClass({
     return (
       <div>
         <form onSubmit={this.handleSubmitPassword}>
-          Password: <input type="text" value={this.state.input} onChange={this.handleInputChange}/><br />
-          <input type="submit" />
+          Password: <input type="password" value={this.state.input} onChange={this.handleInputChange}/><br /><br />
+          <button style={buttonStyle} className="btn btn-primary" type="submit">Submit</button>
         </form>
       </div>
     )
@@ -74,7 +156,7 @@ var Messages = React.createClass({
       return (
         <div>
           You successfully input your password <br />
-          Please login <a href="/api/user/login">here</a>
+          Please login <a href="/api/users/login">here</a>
         </div>
       )
     } else {
@@ -90,3 +172,18 @@ var Messages = React.createClass({
 ReactDOM.render(
   <Container />, document.getElementById('container')
 )
+
+let fontStyle = {
+  color: "#00AFEF",
+  fontSize: "14px"
+}
+
+let buttonStyle = {
+  color: "white",
+  backgroundColor: "#00AFEF"
+}
+
+let headingStyle = {
+  fontSize: "20px",
+  color: "#00AFEF"
+}
