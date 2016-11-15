@@ -10,12 +10,9 @@ const marker = require('./page.marker')
 
 router.use('/api/supervisor', apiSupervisor)
 router.use('/api/seeding', apiSeeding)
-// router.use('/api/user', user)
 router.use('/user',forgotPassword)
 router.use('/map', pageMap)
 router.use('/marker',marker)
-router.use('/api/users', user)
-router.use('/api/maps', maps)
 router.use('/api/maps', maps);
 
 
