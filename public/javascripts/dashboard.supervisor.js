@@ -78,6 +78,13 @@ var Container = React.createClass({
       marginBottom: "20px"
     }
 
+    let navigationStyle={
+      marginRight: "10px",
+      marginLeft: "10px",
+      marginTop: "5px",
+      marginBottom: "5px"
+    }
+
     if(this.state.page == "ownerlist"){
       return (
         <div style={containerStyle}>
@@ -89,6 +96,11 @@ var Container = React.createClass({
             <div style={rightBar}>
               {this.state.userEmail} <br />
               <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
             </div>
           </div>
           <div style={contentContainerStyle}>
@@ -113,6 +125,11 @@ var Container = React.createClass({
           </div>
           </div>
           <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
             <div style={contentStyle}>
               <BusinessList toPinList={this.toPinPage} owner_id={this.state.owner_id}/>
               <Messages messages={this.state.message} goToHome={this.handleHomeButton} />
@@ -126,9 +143,18 @@ var Container = React.createClass({
       return (
         <div style={containerStyle}>
           <div style={topBarStyle}>
-            <div>
+            <div style={leftBar}>
               <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
               <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
             </div>
           </div>
           <div style={contentContainerStyle}>
@@ -143,9 +169,18 @@ var Container = React.createClass({
       return (
         <div style={containerStyle}>
           <div style={topBarStyle}>
-            <div>
+            <div style={leftBar}>
               <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
               <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
             </div>
           </div>
           <div style={contentContainerStyle}>
@@ -161,9 +196,18 @@ var Container = React.createClass({
       return (
         <div style={containerStyle}>
           <div style={topBarStyle}>
-            <div>
+            <div style={leftBar}>
               <img style={faviconStyle} alt="Brand" src="/images/favicon.png" />
               <img style={faviconStyle} src="/images/logo-block-theme.png" />
+            </div>
+            <div style={rightBar}>
+              {this.state.userEmail} <br />
+              <a href="/api/users/logout">Logout</a>
+            </div>
+          </div>
+          <div style={contentContainerStyle}>
+            <div style={navigationStyle}>
+              <Navigation page={this.state.page} />
             </div>
           </div>
           <div style={contentContainerStyle}>
@@ -357,9 +401,15 @@ var DateList = React.createClass({
         }
       }
       arrayDate = dateList.map(function(data){
+        let date = new Date(data.createdAt);  // dateStr you get from mongodb
+        let d = date.getDate();
+        let m = date.getMonth()+1;
+        let y = date.getFullYear()
+        let formattedDate = `${d}-${m}-${y}`
+
         return (
           <div key={data.createdAt}>
-            <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toInputList(data.createdAt)}.bind(this)}  >{data.createdAt}</button>
+            <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toInputList(data.createdAt)}.bind(this)}  >{formattedDate}</button>
           </div>
         )
       }.bind(this))
@@ -427,6 +477,55 @@ var Messages = React.createClass({
         <button onClick={this.props.goToHome}>Home</button>
       </div>
     )
+  }
+})
+
+
+var Navigation = React.createClass({
+  getInitialState: function(){
+    return {page: this.props.page}
+  },
+
+  componentDidUpdate:function(){
+    if(this.state.page == this.props.page){
+
+    } else {
+      this.setState({page: this.props.page})
+    }
+  },
+
+  render: function(){
+    if(this.state.page == "ownerlist"){
+      return (
+        <div>
+          <u>owners</u>
+        </div>
+      )
+    } else if (this.state.page == "businesslist"){
+      return (
+        <div>
+          owners > <u>businesses</u>
+        </div>
+      )
+    } else if (this.state.page == "pinlist"){
+      return (
+        <div>
+          owners > businesses > <u>pins</u>
+        </div>
+      )
+    } else if (this.state.page == "datelist"){
+      return (
+        <div>
+          owners > businesses > pins > <u>dates</u>
+        </div>
+      )
+    } else if (this.state.page == "inputdata"){
+      return (
+        <div>
+          owners > businesses > pins > dates > <u>input data</u>
+        </div>
+      )
+    }
   }
 })
 
