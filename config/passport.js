@@ -88,8 +88,8 @@ module.exports = function(passport) {
         if (user.role != req.body.role  ){
           return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
         }
-
-
+        req.session.role = req.body.role
+        console.log("Session Role lu",req.session);
         return done(null, user);
       });
     }));
