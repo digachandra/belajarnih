@@ -8,19 +8,11 @@ var ResetForm = React.createClass({
   inputConfirmChange(e){
     this.setState({confirm: e.target.value})
   },
-  handleFormSubmit(e){
-    $.ajax({
-      url: '/',
-      dataType: 'json',
-      type: 'POST',
-      data: {password: this.state.password}
-    })
-  },
   render: function(){
     return(
       <div className="panel">
         <div className="panel-body">
-          <form onSubmit={this.handleFormSubmit}>
+          <form method='POST'>
             <h3>Reset Password</h3>
             <div className="form-group">
               <label htmlFor="password">New Password</label>
@@ -31,7 +23,7 @@ var ResetForm = React.createClass({
               <input type="password" name="confirm" value={this.state.confirm} id="confirm" placeholder="Confirm password" className="form-control" onChange = {this.inputConfirmChange}/>
             </div>
             <div className="form-group">
-              <button type="submit" className="btn btn-success">Change Password</button>
+              <input type="submit" className="btn btn-success" value='Change Password'/>
             </div>
           </form>
         </div>

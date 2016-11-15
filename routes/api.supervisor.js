@@ -12,6 +12,30 @@ router.get('/test', function(req,res){
   res.render('supervisordashboard.supervisor.ejs')
 })
 
+//later move to non-api routes
+router.get('/setuppassword/:user_id', function(req,res){
+  Users.findOne({_id: req.params.user_id}, function(err, user){
+    // if(user){
+    //   if(user.encryptedPassword == null){
+        res.render('setuppassword.supervisor.ejs', {userEmail: user.userEmail, userId: user._id})
+    //   } else {
+    //     res.redirect('/api/user/login')
+    //   }
+    // } else{
+    //   res.json({message: "user tidak ditemukan"})
+    // }
+  })
+})
+
+router.post('/setuppassword', function(req,res){
+  Users.findOne({_id: req.body.userid}, function(err,user){
+    user.encryptedPassword = user.generateHash(req.body.password)
+    user.save(function(err,savedUser){
+      res.json(user)
+    })
+  })
+})
+
 router.post('/postdata', function(req,res){
   Maps.findOne({owner: req.body.owner, businessName: req.body.businessname, pinDropName: req.body.pindropname}, function(err,pin){
     pin.listField[0].value = req.body.value
