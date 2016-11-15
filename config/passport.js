@@ -66,7 +66,6 @@ module.exports = function(passport) {
       passReqToCallback : true // allows us to pass back the entire request to the callback
     }, function(req, email, password, done) {
       Users.findOne({ 'userEmail' :  email }, function(err, user) {
-        console.log("Ini User ROLLEEEEEEE",user.role);
 
         if (err){
           return done(err);
@@ -89,7 +88,7 @@ module.exports = function(passport) {
           return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
         }
         req.session.role = req.body.role
-        console.log("Session Role lu",req.session);
+
         return done(null, user);
       });
     }));
