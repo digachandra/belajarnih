@@ -30,8 +30,19 @@ function getDetailsPin(req,res,next){
 }
 
 function mapList(req,res,next) {
-  let ownerId = "582ab6686c12c553cda2267c"
-  Maps.find({owner: ownerId}).sort({createdAt: -1}).exec(function(err,data){
-    res.json(data)
+  let ownerId = "582ac8caf0e19e56aaf8257c"
+  Maps.find({owner:ownerId}).distinct('businessName', function (error,data){
+    let result = []
+    data.forEach((business)=>{
+      result.push({
+        owner: ownerId,
+        businessName: business
+      })
+    })
+    res.json(result)
   })
 }
+//
+// Maps.find({owner:ownerId}).sort({inputTime: -1}).exec(function(err,data){
+//   res.json(data)
+// })
