@@ -16,7 +16,7 @@ router.post('/addMap', function(req,res){
   Users.findById({'_id':req.body.userID}, function(err,user){
     let newmap = new Maps({owner: req.body.userId, businessName: req.body.businessName})
     newmap.save(function(err,newmap){
-      res.render('page.marker/addMarker.ejs', {userId:req.body.userId, businessName:req.body.businessName})
+      res.render('page.marker/addmarker.ejs', {userId:req.body.userId, businessName:req.body.businessName})
     })
   })
 })
