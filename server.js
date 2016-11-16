@@ -6,9 +6,6 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 3000
 const mongoose = require('mongoose')
-const webpack = require('webpack')
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 const config = require('./webpack.config')
 const path = require('path')
 const routes = require('./routes')
@@ -30,12 +27,6 @@ dotenv.load()
 
 
 
-var compiler = webpack(config)
-app.use(webpackDevMiddleware(compiler, {
-  noInfo: true,
-  publicPath: config.output.publicPath
-}))
-app.use(webpackHotMiddleware(compiler))
 app.set('view-engine','ejs')
 app.use(cors())
 app.use(morgan())
