@@ -74,6 +74,8 @@ module.exports = function(passport) {
         {
           for(var i=0;i<user.role.length;i++){
             if (user.role[i]== req.body.role){
+              req.session.role = req.body.role
+              req.session.email = req.body.email
               return done(null, user);
             }
           }

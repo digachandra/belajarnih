@@ -46,6 +46,7 @@ router.post('/addMarker', function(req,res){
     lng:lng
   }
   let newmap = new Maps({
+      owner: userId,
       businessName: businessName,
       pinDropName: pindropName,
       position : position,
