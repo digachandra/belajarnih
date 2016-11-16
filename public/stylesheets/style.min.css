@@ -439,3 +439,125 @@ form:not(.navbar-form):not(.form-inline) .form-group {
 
 #page-dashboard.open-detail .detail-wrapper {
   right: 0px; }
+
+#page-maplist #maplist-cover {
+  background: rgba(145, 216, 247, 0.5); }
+
+#page-maplist #maplist-content {
+  position: relative;
+  min-height: 100%;
+  z-index: 10; }
+  #page-maplist #maplist-content .container {
+    position: absolute;
+    width: 100%;
+    height: 100%; }
+    #page-maplist #maplist-content .container .container-wrapper {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 60px 20px;
+      position: relative;
+      min-height: 100%; }
+  #page-maplist #maplist-content ul#content-list {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%; }
+    #page-maplist #maplist-content ul#content-list li {
+      border-radius: 5px;
+      display: inline-block;
+      margin: 5px;
+      width: -moz-calc(25% - 13px);
+      width: -webkit-calc(25% - 13px);
+      width: -o-calc(25% - 13px);
+      width: calc(25% - 13px);
+      height: 250px; }
+      #page-maplist #maplist-content ul#content-list li > a {
+        border-radius: 5px;
+        display: table;
+        text-decoration: none;
+        width: 100%;
+        height: 100%;
+        -moz-transition: all ease-in 0.1s;
+        -o-transition: all ease-in 0.1s;
+        -webkit-transition: all ease-in 0.1s;
+        transition: all ease-in 0.1s; }
+        #page-maplist #maplist-content ul#content-list li > a > .wrapper {
+          display: table-cell;
+          vertical-align: middle;
+          text-align: center; }
+      #page-maplist #maplist-content ul#content-list li:first-child .title {
+        margin-top: 10px; }
+      #page-maplist #maplist-content ul#content-list li:first-child > a {
+        border: 1px dashed #DEDEDE; }
+        #page-maplist #maplist-content ul#content-list li:first-child > a:hover {
+          background: #FFFFFF; }
+      #page-maplist #maplist-content ul#content-list li:nth-child(n+2) {
+        background: #DEDEDE; }
+        #page-maplist #maplist-content ul#content-list li:nth-child(n+2) > a {
+          border: 1px solid #DEDEDE; }
+          #page-maplist #maplist-content ul#content-list li:nth-child(n+2) > a:hover {
+            background: #91D8F7;
+            border-color: #91D8F7; }
+
+#page-maplist .navbar {
+  margin: 0px; }
+
+#page-maplist .container {
+  padding: 0px;
+  width: 100%; }
+  #page-maplist .container .container-wrapper {
+    margin: 0px 15%;
+    width: 70%; }
+
+#page-maplist .navbar-brand {
+  margin: 0px; }
+
+#page-maplist .detail-wrapper {
+  background: #FFFFFF;
+  border-left: 2px solid #00AFEF;
+  position: fixed;
+  top: 0px;
+  right: -30%;
+  width: 30%;
+  height: 100%;
+  z-index: 99999; }
+  #page-maplist .detail-wrapper .wrapper-content {
+    padding: 50px 0px;
+    height: 100%; }
+    #page-maplist .detail-wrapper .wrapper-content .content-inner {
+      padding: 10px; }
+  #page-maplist .detail-wrapper .wrapper-action {
+    position: absolute;
+    width: 100%;
+    height: 50px; }
+    #page-maplist .detail-wrapper .wrapper-action .wrapper-outer {
+      display: table;
+      width: 100%;
+      height: 100%; }
+      #page-maplist .detail-wrapper .wrapper-action .wrapper-outer .wrapper-inner {
+        display: table-cell;
+        vertical-align: middle; }
+    #page-maplist .detail-wrapper .wrapper-action .btn-action,
+    #page-maplist .detail-wrapper .wrapper-action .block {
+      display: block;
+      padding: 6px 12px;
+      width: 100%;
+      height: 50px; }
+    #page-maplist .detail-wrapper .wrapper-action.top {
+      border-bottom: 1px solid #DEDEDE;
+      top: 0px; }
+    #page-maplist .detail-wrapper .wrapper-action.bottom {
+      border-top: 1px solid #DEDEDE;
+      bottom: 0px; }
+
+#page-maplist .container-wrapper,
+#page-maplist .detail-wrapper {
+  -moz-transition: all linear 0.2s;
+  -o-transition: all linear 0.2s;
+  -webkit-transition: all linear 0.2s;
+  transition: all linear 0.2s; }
+
+#page-maplist.open-detail .container-wrapper {
+  margin: 0px; }
+
+#page-maplist.open-detail .detail-wrapper {
+  right: 0px; }
