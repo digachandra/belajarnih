@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 const app = express()
 const port = process.env.PORT || 3000
 const mongoose = require('mongoose')
-const config = require('./webpack.config')
 const path = require('path')
 const routes = require('./routes')
 const users = require('./routes/user')
