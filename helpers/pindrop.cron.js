@@ -2,7 +2,7 @@ const CronJob = require('cron').CronJob;
 const Map = require('../models/maps')
 const gen = require('./generator.js')
 
-exports.job = new CronJob('*/1 * * * *', function() {
+exports.job = new CronJob('0 0 0 * *', function() {
   /*
    * Runs every day
    * at 00:00:00 AM.
