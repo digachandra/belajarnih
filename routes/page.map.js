@@ -17,6 +17,7 @@ router.get('/addMap', function(req,res){
 
 
 router.post('/addMap', function(req,res){
+  console.log('ARI ADIPRANA IS HERE PAGE.MAP.JS');
   Users.findById({'_id':req.body.userID}, function(err,user){
     let newmap = new Maps({owner: req.body.userId, businessName: req.body.businessName})
     newmap.save(function(err,newmap){
