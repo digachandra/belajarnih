@@ -8,7 +8,7 @@ router.get('/', function(req,res){
 })
 
 router.get('/list', function(req,res){
-  res.render('page.map/list.ejs')
+  res.render('page.map/list.ejs', {userId:req.session.passport.user})
 })
 
 router.get('/addMap', function(req,res){
@@ -17,11 +17,10 @@ router.get('/addMap', function(req,res){
 
 
 router.post('/addMap', function(req,res){
-  console.log('ARI ADIPRANA IS HERE PAGE.MAP.JS');
   Users.findById({'_id':req.body.userID}, function(err,user){
-    let newmap = new Maps({owner: req.body.userId, businessName: req.body.businessName})
+    let newmap = new Maps({owner: req.body.userID, businessName: req.body.businessName})
     newmap.save(function(err,newmap){
-      res.render('page.marker/addmarker.ejs', {userId:req.body.userId, businessName:req.body.businessName})
+      res.render('page.marker/addmarker.ejs', {userId:req.body.userID, businessName:req.body.businessName})
     })
   })
 })

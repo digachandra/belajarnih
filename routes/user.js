@@ -38,7 +38,8 @@ router.get('/home', isLoggedIn, function(req, res) {
   if(req.session.role==1){
     res.redirect('/supervisor/dashboard')
   } else {
-    res.redirect('/map/addMap')
+    //res.redirect('/map/addMap')
+    res.redirect('/map/list')
   }
 });
 
