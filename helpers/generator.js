@@ -18,7 +18,7 @@ exports.generate = function () {
   dateMidnight.setDate(dateMidnight.getDate()-1)
   startDate.setDate(startDate.getDate()-1)
 
-  Maps.find({inputTime:{$gt: startDate, $lt: dateMidnight}}).populate('owner').populate('supervisor').exec(function(err,result){
+  Maps.find({createdAt:{$gt: startDate, $lt: dateMidnight}}).populate('owner').populate('supervisor').exec(function(err,result){
     if(err) {
       console.log(err)
       return
