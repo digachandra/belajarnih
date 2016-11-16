@@ -49,7 +49,7 @@ router.get('/register', function(req, res, next) {
   res.render('register.ejs', { title: 'Register Panel', message: req.flash('signupMessage') });
 });
 
-router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/login', failureRedirect : {message:"gagal"}, failureFlash : true}));
+router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/login', failureRedirect : '/api/users/register', failureFlash : true}));
 router.put('/update/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user){
     if(err){

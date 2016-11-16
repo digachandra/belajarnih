@@ -2,6 +2,11 @@ var LocalStrategy = require('passport-local').Strategy;
 const Users = require('../models/users.js')
 
 
+function validateEmail(email) {
+  var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}
+
 module.exports = function(passport) {
 
     // =========================================================================
@@ -38,13 +43,21 @@ module.exports = function(passport) {
     }, function(req, email, password, done) {
     //kalo ada user
       Users.findOne({ 'userEmail' :  email }, function(err, user) {
+        console.log(validateEmail(email));
         console.log("ini user",user);
         if (err){
           return done(err);
         }
         if (user) {
           return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
-        } else {
+        }
+        else if(validateEmail(email) == false ){
+          return done(null, false, req.flash('signupMessage', 'That email is not valid.'));
+        }
+        else if(req.body.password  != req.body.confirmPassword){
+          return done(null, false, req.flash('signupMessage', 'Password tidak sama'));
+        }
+        else {
           var newUser = new Users();
           newUser.userEmail = email;
           newUser.encryptedPassword = newUser.generateHash(password);
@@ -74,6 +87,12 @@ module.exports = function(passport) {
         {
           for(var i=0;i<user.role.length;i++){
             if (user.role[i]== req.body.role){
+              if (!user){
+                return done(null, false, req.flash('loginMessage', 'No user found.'));
+              }
+              if (!user.validPassword(password)){
+                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+              }
               req.session.role = req.body.role
               req.session.email = req.body.email
               return done(null, user);

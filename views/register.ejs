@@ -91,16 +91,12 @@
       <div class="panel ">
         <form class="form-signin" id="login-form" action="/api/users/register"  method="post" role="form" >
           <h2 class="form-signin-heading">Please Register</h2>
-
           <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
           <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-          <input type="password" name="confirm-password" id="confirm-password" tabindex="3" class="form-control" placeholder="Confirm Password">
+          <input type="password" name="confirmPassword" id="confirmPassword" tabindex="3" class="form-control" placeholder="Confirm Password">
           <div class="checkbox">
-            <label class="radio-inline"><input type="radio" name="role" checked="checked" value="0">Business Owner</label>
-            <label class="radio-inline"><input type="radio" name="role" value="1">Supervisor</label>
-
+            <label class="radio-inline"><input type="hidden" name="role" checked="checked" value="0"></label>
           </div>
-
           <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
         </form>
 
