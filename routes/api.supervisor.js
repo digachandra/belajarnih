@@ -26,13 +26,13 @@ router.post('/setuppassword', function(req,res){
 router.post('/postdata', function(req,res){
   Maps.findOne({owner: req.body.owner, businessName: req.body.businessname, pinDropName: req.body.pindropname}, function(err,pin){
     pin.listField[0].value = req.body.value
-    if(pin.listField[0].targetComparison =="GT"){
+    if(pin.listField[0].targetComparison.toUpperCase() =="GT"){
       if(req.body.value >= pin.listField[0].targetValue){
         pin.listField[0].isPass= true
       } else {
         pin.listField[0].isPass= false
       }
-    } else if(pin.listField[0].targetComparison =="LT"){
+    } else if(pin.listField[0].targetComparison.toUpperCase() =="LT"){
       if(req.body.value <= pin.listField[0].targetValue){
         pin.listField[0].isPass= true
       } else {
@@ -78,17 +78,6 @@ router.get('/getpindate/', function(req,res){
     console.log(pin)
     res.json(pin)
   })
-})
-
-router.get('/dashboard', function(req,res){
-  if(req.session.passport.user){
-    let user_id = req.session.passport.user
-    // let user_id= "58299ad3baff8813d5911300"
-    //
-    res.render('dashboard.supervisor.ejs', {email: req.session.email})
-  } else {
-    res.redirect('/api/users/login')
-  }
 })
 
 module.exports = router

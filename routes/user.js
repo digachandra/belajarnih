@@ -36,7 +36,7 @@ router.get('/home', isLoggedIn, function(req, res) {
   res.header('Expires', '-1');
   res.header('Pragma', 'no-cache');
   if(req.session.role==1){
-    res.redirect('/api/supervisor/dashboard')
+    res.redirect('/supervisor/dashboard')
   } else {
     res.redirect('/map/addMap')
     // res.render('home.ejs', {
