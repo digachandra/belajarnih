@@ -7,15 +7,19 @@ module.exports = {
 }
 
 function listPin(req,res,next){
-    let owner = "582ac8caf0e19e56aaf8257c"
-    let businessName = "goclean"
-    let createdAt = "2016-11-15T08:35:22.115Z" // 2016-11-16T08:35:22.115Z
-    // Maps.find({owner:owner,businessName:businessName},(err,data) => {
-    //   res.json(data)
-    // })
-    Maps.find({owner:owner,businessName:businessName,createdAt:{ $eq : createdAt}}).sort({inputTime: -1}).exec(function(err,data){
-      res.json(data)
+    let ownerid = req.session.passport.user
+    Maps.findById(req.params.id ,function (err, map) {
+      let businessName = map.businessName
+      let start = req.body.selectedDate
+      let end = new Date(req.body.selectedDate)
+      end.setHours(23)
+      end.setMinutes(59)
+
+      Maps.find({owner:ownerid,businessName:businessName,createdAt:{"$gte": new Date(start), "$lt": end}}).populate('supervisor').sort({inputTime: -1}).exec(function(err,data){
+        res.json(data)
+      })
     })
+
 }
 //
 // Maps.find({owner: ownerId,businessName:businessName,inputTime:{ $gte : inputTime}}).sort({inputTime: -1}).exec(function(err,data){
@@ -30,7 +34,7 @@ function getDetailsPin(req,res,next){
 }
 
 function mapList(req,res,next) {
-  let ownerId = "582ac8caf0e19e56aaf8257c"
+  let ownerId = req.session.passport.user
   Maps.find({owner:ownerId}).distinct('businessName', function (error,data){
     let result = []
     data.forEach((business)=>{

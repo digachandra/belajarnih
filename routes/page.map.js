@@ -3,8 +3,9 @@ const router = express.Router()
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 
-router.get('/', function(req,res){
-  res.render('page.map/index.ejs')
+router.get('/detail/:id', function(req,res){
+  let mapid = req.params.id
+  res.render('page.map/index.ejs', {userId:req.session.passport.user, mapId: mapid})
 })
 
 router.get('/list', function(req,res){
@@ -20,7 +21,8 @@ router.post('/addMap', function(req,res){
   Users.findById({'_id':req.body.userID}, function(err,user){
     let newmap = new Maps({owner: req.body.userID, businessName: req.body.businessName})
     newmap.save(function(err,newmap){
-      res.render('page.marker/addmarker.ejs', {userId:req.body.userID, businessName:req.body.businessName})
+      //res.render('page.marker/addmarker.ejs', {userId:req.body.userID, businessName:req.body.businessName})
+      res.json({"mapID": newmap._id})
     })
   })
 })

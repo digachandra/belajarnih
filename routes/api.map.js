@@ -7,6 +7,7 @@ var dataMaps = require('../controllers/maps')
 router.get('/listpin', dataMaps.listPin)
 router.get('/detailspin/:id', dataMaps.getDetailsPin)
 router.get('/maplist', dataMaps.mapList)
+router.post('/listpin/:id', dataMaps.listPin)
 
 
 module.exports = router
