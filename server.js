@@ -59,7 +59,7 @@ app.use(expressValidator())
 app.use(flash());
 
 app.use('/', express.static(path.join(__dirname, 'public')))
-mongoose.connect('mongodb://localhost:27017/testing')
+mongoose.connect('mongodb://52.220.213.175:27017/testing')
 
 app.use('/', routes)
 
