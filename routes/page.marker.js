@@ -15,13 +15,38 @@ router.get('/', function(req,res){
   res.render('page.map/index.ejs')
 })
 
+router.put('/addMarker', function(req,res){
+  Maps.findOne({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
+    Users.findOne({'userEmail':req.body.supervisor}, function(err,user){
+        pindrop.pinDropName = req.body.pindropName
+        pindrop.listField[0].fieldName = req.body.fieldName
+        pindrop.listField[0].targetComparison = req.body.salesCond
+        pindrop.listField[0].targetValue = req.body.totalSales
+        pindrop.supervisor = user._id
+        pindrop.save()
+        let message = '{"message":"new pin drop is updated successfully"}'
+        let obj = JSON.parse(message)
+        res.json(obj)
+      })
+  })
+})
+
+router.delete('/addMarker', function(req,res){
+  Maps.remove({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
+    console.log('yang didelete', pindrop);
+    let message = '{"message":"new pin drop is deleted successfully"}'
+    let obj = JSON.parse(message)
+    res.json(obj)
+  })
+})
+
 router.get('/addMarker', function(req,res){
   res.render('page.marker/addmarker.ejs')
 })
 
 
 router.post('/addMarker', function(req,res){
-  console.log('req', req.body);
+  console.log('==================req when add marker', req.body);
   //email validation
   let email = req.body.supervisor
   let userId = req.body.userID
@@ -29,8 +54,6 @@ router.post('/addMarker', function(req,res){
   let totalSales = req.body.totalSales
   let salesCond = req.body.salesCond
   let businessName = req.body.businessName
-  console.log('businessName ', businessName);
-  console.log('userId ', userId);
   let lat = req.body.lat
   let lng = req.body.lng
   let supervisor = 'supervisor'
@@ -130,7 +153,6 @@ router.post('/addMarker', function(req,res){
 
                   transporter.sendMail(mailOptions, function(err) {});
               }
-              console.log('newmap terakhir', newmap);
               newmap.save(function(err,newmap){
                   let message = '{"message":"new pin drop is created successfully"}'
                   let obj = JSON.parse(message)
