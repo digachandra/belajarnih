@@ -5,15 +5,18 @@ const Users = require('../models/users.js')
 
 router.get('/detail/:id', function(req,res){
   let mapid = req.params.id
-  res.render('page.map/index.ejs', {userId:req.session.passport.user, mapId: mapid})
+  if(req.session.passport) res.render('page.map/index.ejs', {userId:req.session.passport.user, mapId: mapid})
+  else res.redirect('/api/users/login')
 })
 
 router.get('/list', function(req,res){
-  res.render('page.map/list.ejs', {userId:req.session.passport.user})
+  if(req.session.passport) res.render('page.map/list.ejs', {userId:req.session.passport.user})
+  else res.redirect('/api/users/login')
 })
 
 router.get('/addMap', function(req,res){
-  res.render('page.map/addmap.ejs', {userId:req.session.passport.user})
+  if(req.session.passport) res.render('page.map/addmap.ejs', {userId:req.session.passport.user})
+  else res.redirect('/api/users/login')
 })
 
 

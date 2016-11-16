@@ -24,7 +24,7 @@ router.get('/setuppassword/:user_id', function(req,res){
 })
 
 router.get('/supervisor/dashboard', function(req,res){
-  if(req.session.passport.user){
+  if(req.session.passport){
     let user_id = req.session.passport.user
     // let user_id= "58299ad3baff8813d5911300"
     //

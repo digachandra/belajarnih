@@ -1,5 +1,4 @@
 const express = require('express')
-const dotenv = require('dotenv')
 const cors = require('cors')
 const morgan = require('morgan')
 const bodyParser = require('body-parser')
@@ -20,7 +19,7 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 require('./config/passport')(passport); // pass passport for configuration
-dotenv.load()
+
 
 
 

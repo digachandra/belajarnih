@@ -16,12 +16,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next){
+  console.log(req.session, "session seharusnya didestroy");
+
   res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
 });
 
 router.post('/login',
-passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/login', failureFlash : true})
-);
+passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/login', failureFlash : true}));
 
 router.get('/result',function(req,res,next){
   res.json({message:"register berhasil"})// diganti dengan redirect kemana
@@ -79,7 +80,11 @@ router.delete('/delete/:id', function(req, res, next){
 });
 
 router.get('/logout', function(req, res) {
+
   req.logout();
+  req.session.destroy()
+  console.log(req.session, "session seharusnya didestroy");
+
   res.redirect('/api/users/login');
   });
 
