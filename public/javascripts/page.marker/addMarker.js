@@ -42,8 +42,8 @@ var FieldForm = React.createClass({
           Sales Condition
           <select onChange = {this.handleSalesCond}>
             <option value="">-</option>
-            <option value="gt">Greater Than</option>
-            <option value="lt">Less Than</option>
+            <option value="GT">Greater Than</option>
+            <option value="LT">Less Than</option>
           </select>
           <br/>
           Supervisor Email
