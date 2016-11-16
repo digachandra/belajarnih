@@ -41,21 +41,13 @@ router.get('/set', function(req,res){
   newbusiness2pin2.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "gt"})
 
   newowner.save(function(err,owner){
-    newowner2.save(function(err,owner){
-      newspv.save(function(err,spv){
-        newbusiness1pin1.save(function(err,map1){
-          newbusiness1pin2.save(function(err,map2){
-            newbusiness1pin3.save(function(err,map3){
-              newbusiness2pin1.save(function(err,map4){
-                newbusiness3pin1.save(function(err,map5){
-                  newbusiness3pin2.save(function(err,map5){
-                    newbusiness3pin3.save(function(err,map5){
-                      newbusiness2pin2.save(function(err,map5){
-                        res.json({message: "add berhasil"})
-                      })
-                    })
-                  })
-                })
+    newspv.save(function(err,spv){
+      newbusiness1pin1.save(function(err,map1){
+        newbusiness1pin2.save(function(err,map2){
+          newbusiness1pin3.save(function(err,map3){
+            newbusiness2pin1.save(function(err,map4){
+              newbusiness2pin2.save(function(err,map5){
+                res.json({message: "add berhasil"})
               })
             })
           })
