@@ -16,7 +16,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next){
-  console.log("ini ssession di login guys",req.session);
+  console.log("============DATA SESSION : ",req.session);
   res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
 });
 router.post('/login',
@@ -35,7 +35,6 @@ router.get('/home', isLoggedIn, function(req, res) {
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
   res.header('Pragma', 'no-cache');
-  console.log('AAAAAAAAAAA', req.session);
   if(req.session.role==1){
     res.redirect('/api/supervisor/dashboard')
   } else {
