@@ -71,8 +71,7 @@ var Container = React.createClass({
               <img style={faviconStyle} src="/images/logo-block-theme.png" />
             </div>
             <div style={rightBar}>
-              {this.state.userEmail} <br />
-              <a href="/api/users/logout">Logout</a>
+
             </div>
           </div>
           <div style={contentContainerStyle}>
@@ -95,8 +94,6 @@ var Container = React.createClass({
               <img style={faviconStyle} src="/images/logo-block-theme.png" />
             </div>
             <div style={rightBar}>
-              {this.state.userEmail} <br />
-              <a href="/api/users/logout">Logout</a>
             </div>
           </div>
           <div style={contentContainerStyle}>
