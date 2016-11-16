@@ -21,4 +21,14 @@ router.post('/addMap', function(req,res){
   })
 })
 
+
+router.get('/detailMap', function(req,res){
+  let owner = "582bcaf48862cf027bcf24e9"
+  let businessName = "HACKTIV8"
+  let createdAt = "2016-11-16T02:57:26.482Z"
+  Maps.find({owner:owner,businessName:businessName,createdAt:{ $eq : createdAt}}).sort({inputTime: -1}).exec(function(err,data){
+    res.json(data)
+  })
+})
+
 module.exports = router
