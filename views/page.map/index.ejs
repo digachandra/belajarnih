@@ -1,5 +1,5 @@
-<DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,90 +9,220 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Prompt">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/stylesheets/nanoscroller.min.css">
   <link rel="stylesheet" href="/stylesheets/style.min.css">
 </head>
-<body>
-  <div id="container">
-    <div class="lyt-fullscreen">
-      <div class="google-map lyt-fullscreen"><div id="dashboard-map" class="map-block"></div></div>
-      <nav class="navbar navbar-fixed-top theme">
-        <div class="container"><div class="row"><div class="col-sm-8 col-sm-offset-2 no-gutter">
-          <div class="navbar-wrapper">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mapinc-navbar-top" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="navbar-brand inverse">
-                <img class="logo circle" src="/images/logo-circle-theme.png" />
-                <img class="logo block" src="/images/logo-block-theme.png" />
-              </a>
+<body id="page-dashboard">
+  <div class="lyt-fullscreen">
+    <div class="google-map lyt-fullscreen"><div id="dashboard-map" class="map-block"></div></div>
+    <div id="dashboard-loading" class="lyt-fullscreen hidden">
+      <div class="wrapper-outer">
+        <div class="wrapper-inner">
+          <div class="circle-wrapper">
+            <div class="wrapper-outer"><div class="wrapper-inner">
+              <i class="fa fa-spinner fa-pulse fa-4x fa-fw"></i>
+              <br /><br />
+              <h4><strong>Loading Data</strong></h4>
+            </div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <nav class="navbar navbar-fixed-top theme">
+      <div class="container"><div class="container-wrapper">
+        <div class="navbar-wrapper">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mapinc-navbar-top" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a id="navbar-brand" class="navbar-brand inverse">
+              <img class="logo circle" src="/images/logo-circle-theme.png" />
+              <img class="logo block" src="/images/logo-block-theme.png" />
+            </a>
+          </div>
+          <div id="mapinc-navbar-top" class="collapse navbar-collapse">
+            <ul id="navbar-action" class="nav navbar-nav navbar-right">
+              <li class="inverse">
+                <a>
+                  <i class="fa fa-map-o icon" aria-hidden="true"></i><span>Map List</span>
+                </a>
+              </li>
+            </ul>
+            <form id="search-bar" class="navbar-form navbar-right">
+              <div class="form-group">
+                <div class="input-group theme">
+                  <input id="txt-dashboard-search" type="text" class="form-control text-right text-search" autocomplete="off" placeholder="Search">
+                  <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div></div>
+    </nav>
+    <nav class="navbar navbar-fixed-bottom theme">
+      <div class="container"><div class="container-wrapper">
+        <div class="navbar-wrapper">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mapinc-navbar-bottom" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a id="mark-current" class="navbar-brand small visible-sm visible-xs">
+              <i class="fa fa-map-marker icon" aria-hidden="true"></i><span>Pin Drop</span>
+            </a>
+          </div>
+          <div id="mapinc-navbar-bottom" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a id="mark-trigger-select">
+                <i class="fa fa-hand-pointer-o icon" aria-hidden="true"></i><span>Select</span>
+              </a></li>
+              <li><a id="mark-trigger-pin-drop">
+                <i class="fa fa-map-marker icon" aria-hidden="true"></i><span>Pin Drop</span>
+              </a></li>
+              <li><a id="mark-trigger-area">
+                <i class="fa fa-map-o icon" aria-hidden="true"></i><span>Area Mark</span>
+              </a></li>
+              <li><a id="mark-trigger-circle">
+                <i class="fa fa-dot-circle-o icon" aria-hidden="true"></i></i><span>Circle Mark</span>
+              </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <div id="datepicker-input" class="datepicker top right hidden"></div>
+                <a id="datepicker-button">
+                  <i class="fa fa-calendar icon" aria-hidden="true"></i></i><span>Date</span>
+                </a>
+              </li>
+              <li class="dropdown inverse">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-child" aria-hidden="true"></i><span class="visible-sm visible-xs">Profile<span class="caret"></span></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a>
+                    <i class="fa fa-user icon" aria-hidden="true"></i><span>Edit Profile</span>
+                  </a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a onclick="doSignout()">
+                    <i class="fa fa-power-off icon" aria-hidden="true"></i><span>Sign Out</span>
+                  </a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div></div>
+    </nav>
+    <section class="detail-wrapper">
+      <div class="wrapper-action top">
+        <div class="row no-gutter">
+          <div class="col-xs-9">
+            <div class="block">
+              <div class="wrapper-outer"><div class="wrapper-inner">
+                <h4 id="detail-title">[Title]</h4>
+              </div></div>
             </div>
-            <div id="mapinc-navbar-top" class="collapse navbar-collapse">
-              <form class="navbar-form navbar-right">
+          </div>
+          <div class="col-xs-3">
+            <button id="btn-detail-close" type="button" class="btn btn-action btn-info detail-close">
+              <i class="fa fa-times fa-lg" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="wrapper-content">
+        <div class="nano">
+          <div class="nano-content">
+            <div class="content-inner">
+              <form>
                 <div class="form-group">
-                  <div class="input-group transparent theme">
-                    <input id="txt-search" type="text" class="form-control text-right text-search" autocomplete="off" placeholder="Search">
-                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
-                  </div>
+                  <label for="txt-pin-name">Pin Name</label>
+                  <input id="txt-pin-name" type="text" class="form-control" placeholder="Pin Name" required>
+                </div>
+                <hr />
+                <div class="form-group">
+                  <label for="0000-name">Field Name</label>
+                  <input id="0000-name" type="text" class="form-control" placeholder="Name" min="0" required>
+                </div>
+                <div class="form-group">
+                  <label for="0000-condition">Condition</label>
+                  <select id="0000-condition" class="form-control" required>
+                    <option value="GT">Greater than</option>
+                    <option value="LT">Less than</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="0000-target">Target Value</label>
+                  <input id="0000-target" type="number" class="form-control" placeholder="Number" min="0" required>
+                </div>
+                <div class="form-group">
+                  <div id="0000-status" class="alert hidden" role="alert">...</div>
+                </div>
+                <hr />
+                <div class="form-group">
+                  <label for="txt-pin-supervisor">Supervisor Email</label>
+                  <input id="txt-pin-supervisor" type="email" class="form-control" placeholder="Email Address" required>
                 </div>
               </form>
             </div>
           </div>
-        </div></div></div>
-      </nav>
-      <nav class="navbar navbar-fixed-bottom theme">
-        <div class="container"><div class="row"><div class="col-sm-8 col-sm-offset-2 no-gutter">
-          <div class="navbar-wrapper">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mapinc-navbar-bottom" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a id="mark-current" class="navbar-brand small visible-sm visible-xs">
-                <i class="fa fa-map-marker icon" aria-hidden="true"></i><span>Pin Drop</span>
-              </a>
-            </div>
-            <div id="mapinc-navbar-bottom" class="collapse navbar-collapse">
-              <ul class="nav navbar-nav">
-                <li><a id="mark-trigger-select">
-                  <i class="fa fa-hand-pointer-o icon" aria-hidden="true"></i><span>Select</span>
-                </a></li>
-                <li><a id="mark-trigger-pin-drop">
-                  <i class="fa fa-map-marker icon" aria-hidden="true"></i><span>Pin Drop</span>
-                </a></li>
-              </ul>
-              <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown inverse">
-                  <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-child" aria-hidden="true"></i><span class="visible-sm visible-xs">Profile<span class="caret"></span></span>
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li><a>
-                      <i class="fa fa-user icon" aria-hidden="true"></i><span>Edit Profile</span>
-                    </a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a onclick="doSignout()">
-                      <i class="fa fa-power-off icon" aria-hidden="true"></i><span>Sign Out</span>
-                    </a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
+        </div>
+      </div>
+      <div class="wrapper-action bottom">
+        <div class="row no-gutter">
+          <div class="col-xs-6">
+            <button type="button" class="btn btn-action btn-danger" data-toggle="modal" data-target="#dashboard-modal-delete">DELETE</button>
           </div>
-        </div></div></div>
-      </nav>
-    </div>
+          <div class="col-xs-6">
+            <button id="btn-marker-save"  type="button" class="btn btn-action btn-success" data-toggle="modal" data-target="#dashboard-modal-save">SAVE</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div id="dashboard-modal-delete" class="modal modal-danger vertical-align fade" role="dialog">
+    <div class="wrapper-outer"><div class="wrapper-inner">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><strong>Are you sure want to delete marker?</strong></h4>
+          </div>
+          <div class="modal-footer">
+            <button id="btn-marker-delete" type="button" class="btn btn-danger btn-block" data-dismiss="modal">DELETE</button>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </div>
+  <div id="dashboard-modal-save" class="modal modal-success vertical-align fade" role="dialog">
+    <div class="wrapper-outer"><div class="wrapper-inner">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><strong>Save marker success</strong></h4>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div></div>
   </div>
   <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/lodash/4.16.2/lodash.min.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_muvCxO4FqTWepNvaArWY1CmrSAyRp3w&callback=initMap&libraries=drawing" async="" defer="defer"></script>
-  <script src="/javascripts/libs/core.min.js"></script>
-  <script src="/javascripts/page.map/script.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_muvCxO4FqTWepNvaArWY1CmrSAyRp3w&callback=initMap&libraries=drawing,places&sensor=false" async="" defer="defer"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="/javascripts/jquery.nanoscroller.min.js"></script>
+  <script src="/javascripts/page.map/core.min.js"></script>
+  <script src="/javascripts/page.map/dashboard.min.js"></script>
 </body>
 </html>
