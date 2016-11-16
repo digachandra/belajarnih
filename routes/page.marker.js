@@ -31,13 +31,13 @@ router.post('/addMarker', function(req,res){
   let businessName = req.body.businessName
   console.log('businessName ', businessName);
   console.log('userId ', userId);
-  let lat = 'latdapetdarisept'
-  let lng = 'lngdapetdarisept'
+  let lat = req.body.lat
+  let lng = req.body.lng
   let supervisor = 'supervisor'
   let listField = []
       listField.push({
-        fieldName: 'sales',
-        fieldType: 'number',
+        fieldName: req.body.fieldName,
+        fieldType: 'NUMBER',
         targetValue: totalSales,
         targetComparison: salesCond
       })
@@ -89,10 +89,7 @@ router.post('/addMarker', function(req,res){
                   };
 
                   transporter.sendMail(mailOptions, function(err) {});
-                  console.log('newuser', newuser._id);
                   newmap.supervisor = newuser._id
-                  console.log('newmap',newmap);
-                  console.log('newmap terakhir', newmap);
                   newmap.save(function(err,newmap){
                       let message = '{"message":"new pin drop is created successfully"}'
                       let obj = JSON.parse(message)
@@ -107,8 +104,6 @@ router.post('/addMarker', function(req,res){
                 user.save()
               }
               newmap.supervisor = user._id
-              console.log('user',user._id);
-              console.log('newmap',newmap);
               //send email for user that has been registered and already confirmed
               if(user.encryptedPassword){
                 var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
