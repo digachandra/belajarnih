@@ -35,15 +35,16 @@ function getDetailsPin(req,res,next){
 
 function mapList(req,res,next) {
   let ownerId = req.session.passport.user
-  Maps.find({owner:ownerId}).distinct('businessName', function (error,data){
-    let result = []
-    data.forEach((business)=>{
-      result.push({
-        owner: ownerId,
-        businessName: business
-      })
-    })
-    res.json(result)
+  Maps.find({owner:ownerId, pinDropName: null}, function (error,data){
+    // let result = []
+    // data.forEach((business)=>{
+    //   // Maps.find({owner: })
+    //   result.push({
+    //     mapid: _id
+    //     owner: ownerId,
+    //     businessName: business
+    //   })
+    res.json(data)
   })
 }
 //
