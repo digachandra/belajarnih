@@ -7,6 +7,10 @@ router.get('/', function(req,res){
   res.render('page.map/index.ejs')
 })
 
+router.get('/list', function(req,res){
+  res.render('page.map/list.ejs')
+})
+
 router.get('/addMap', function(req,res){
   res.render('page.map/addmap.ejs', {userId:req.session.passport.user})
 })
