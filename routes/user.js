@@ -16,9 +16,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/login', function(req, res, next){
-  console.log("============DATA SESSION : ",req.session);
   res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
 });
+
 router.post('/login',
 passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/login', failureFlash : true})
 );
@@ -39,10 +39,6 @@ router.get('/home', isLoggedIn, function(req, res) {
     res.redirect('/supervisor/dashboard')
   } else {
     res.redirect('/map/addMap')
-    // res.render('home.ejs', {
-    //   user : req.user
-    //  // get the user out of session and pass to template
-    // });
   }
 });
 
@@ -52,7 +48,7 @@ router.get('/register', function(req, res, next) {
   res.render('register.ejs', { title: 'Register Panel', message: req.flash('signupMessage') });
 });
 
-router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/result', failureRedirect : {message:"gagal"}, failureFlash : true}));
+router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/login', failureRedirect : {message:"gagal"}, failureFlash : true}));
 router.put('/update/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user){
     if(err){
@@ -96,7 +92,6 @@ function isLoggedIn(req, res, next) {
 	// if they aren't redirect them to the home page
 	res.redirect('/');
 }
-
 
 router.get('/forgot',UserController.forgotGet)
 router.post('/forgot',UserController.forgotPost)
