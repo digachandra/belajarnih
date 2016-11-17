@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const pageMap = require('./page.map')
+const pageMap = require('./page.map.js')
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 const forgotPassword = require('./page.forgot.password')
