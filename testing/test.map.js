@@ -12,8 +12,8 @@ chai.should()
 chai.use(chaiHttp);
 
 
-  describe('/POST content', () => {
-        it('POST add map', (done) => {
+  describe('/POST MAP', () => {
+        it('Add Map', (done) => {
           let newmap = new Maps({businessName: 'test'})
           chai.request(server)
               .post('/map/addMap')
