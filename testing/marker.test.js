@@ -36,7 +36,6 @@ chai.use(chaiHttp);
                   .put('/marker/addMarker')
                   .send(newmap)
                   .end((err, res) => {
-                      console.log('jadi', res.body);
                       res.should.have.status(200);
                       res.body.should.be.a('object');
                       res.body.should.have.property('pinDropName').eql('pindropnameupdate');
