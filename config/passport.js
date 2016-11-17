@@ -83,6 +83,7 @@ module.exports = function(passport) {
         if (err){
           return done(err);
         }
+
         if(user.role.length > 1)
         {
           for(var i=0;i<user.role.length;i++){
@@ -105,7 +106,7 @@ module.exports = function(passport) {
         if (!user.validPassword(password)){
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
         }
-        if (user.role != req.body.role  ){
+        if (user.role != req.body.role ){
           return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
         }
         req.session.role = req.body.role
