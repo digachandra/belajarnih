@@ -17,6 +17,7 @@ const mapSchema =  new Schema({
     ref: 'users'
   },
   inputTime: Date,
+  message: String,
   listField: [
     {
       fieldName: String, // Field Name
