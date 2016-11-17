@@ -78,14 +78,10 @@ router.post('/addMarker', function(req,res){
 
   validator.validate_async(email, function(err, isValidEmail) {
         if(pindropName==''||totalSales==''||salesCond==''||email==''){
-          let message = '{"message":"please insert all data"}'
-          let obj = JSON.parse(message)
-          res.json(obj)
+          res.json(JSON.parse(JSON.stringify({message:"Please insert all data"})))
         }
         else if(!isValidEmail){
-          let message = `{"message":"email is not valid","supervisor":"${email}"}`
-          let obj = JSON.parse(message)
-          res.json(obj)
+          res.json(JSON.parse(JSON.stringify({message:"Email is not valid", pinDropName: req.body.pinDropName})))
         }
         else{
           Users.findOne({'userEmail':email}, function(err,user){
