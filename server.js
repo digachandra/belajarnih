@@ -8,6 +8,7 @@ const mongoose = require('mongoose')
 const path = require('path')
 const routes = require('./routes')
 const users = require('./routes/user')
+const seeds = require('./controllers/seedings')
 
 const expressValidator = require('express-validator')
 const Users = require('./models/users.js')
@@ -50,6 +51,7 @@ mongoose.connect('mongodb://localhost:27017/testing')
 app.use('/', routes)
 
 app.use('/api/users', users);
+app.get('/doseeds', seeds.doseeds)
 
 app.get('*', function(req, res){
   let img = Math.ceil((Math.random()*3))
