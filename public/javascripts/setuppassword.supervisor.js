@@ -153,7 +153,7 @@ var Messages = React.createClass({
       return (
         <div>
           You successfully input your password <br />
-          Please login <a href="/api/users/login">here</a>
+          Please login <a href="/login">here</a>
         </div>
       )
     } else {

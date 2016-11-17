@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
   describe('/POST MARKER', () => {
         it('Add Marker', (done) => {
-          let newmap = new Maps({supervisor: 'ari.adiprana@gmail.com',pinDropName:'pindroptest'})
+          let newmap = new Object({supervisor: 'test@test.com',pinDropName:'pindroptest', totalSales:1000, salesCond:'GT',lat:1,lng:1})
           chai.request(server)
               .post('/marker/addMarker')
               .send(newmap)
