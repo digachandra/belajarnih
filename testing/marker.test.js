@@ -44,5 +44,18 @@ chai.use(chaiHttp);
             })
           })
         });
+        it('Delete Marker', (done) => {
+          Users.findOne({'userEmail':'test@test.com'}, function(err,user){
+            let data = new Object({userID: user._id,lat:'1',lng:'1'})
+                chai.request(server)
+                    .delete('/marker/addMarker')
+                    .send(data)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                      done();
+                    });
+          })
+        });
 
     });
