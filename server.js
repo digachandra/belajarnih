@@ -20,11 +20,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 require('./config/passport')(passport); // pass passport for configuration
 
-
-
-
-
-
 app.set('view-engine','ejs')
 app.use(cors())
 app.use(morgan())
