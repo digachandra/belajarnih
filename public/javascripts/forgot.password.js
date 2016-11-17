@@ -7,20 +7,13 @@ var ForgotPasswordForm = React.createClass({
   },
   render: function(){
     return(
-      <div className="panel">
-        <div className="panel-body">
-          <form method='POST'>
-            <h3>Forgot Password</h3>
-            <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" placeholder="your@email.com" autofocus className="form-control" onChange = {this.inputEmailChange}/>
-            </div>
-            <div className="form-group">
-              <input type="submit" className="btn btn-success" value='Request Reset Password'/>   &nbsp;
-              <a href="/" className="btn btn-success ">Back To Home</a>
-            </div>
-          </form>
-        </div>
+      <div className="form-group">
+        <label for="txt-email">Email</label>
+        <input id="txt-email" type="email" className="form-control" onChange = {this.inputEmailChange} autocomplete="off" placeholder="your@email.com" autofocus required />
+      </div>
+      <button type="submit" className="btn btn-warning btn-block">SUBMIT</button>
+      <div className="form-action text-center">
+        <a href="/login">Already have an account?</a>
       </div>
     )
   }
@@ -28,5 +21,5 @@ var ForgotPasswordForm = React.createClass({
 
 ReactDOM.render(
   <ForgotPasswordForm />,
-  document.getElementById('container')
+  document.getElementById('content-form')
 )
