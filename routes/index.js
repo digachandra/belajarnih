@@ -4,6 +4,7 @@ const pageMap = require('./page.map')
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 const forgotPassword = require('./page.forgot.password')
+const resetPassword = require('./page.reset.password')
 const apiSupervisor = require('./api.supervisor')
 const apiSeeding = require('./api.seeding')
 const maps = require('./api.map')
@@ -37,7 +38,8 @@ router.get('/supervisor/dashboard', function(req,res){
 
 router.use('/api/supervisor', apiSupervisor)
 router.use('/api/seeding', apiSeeding)
-router.use('/user',forgotPassword)
+router.use('/forgotPassword',forgotPassword)
+router.use('/resetPassword',resetPassword)
 router.use('/map', pageMap)
 router.use('/marker',marker)
 router.use('/api/maps', maps);

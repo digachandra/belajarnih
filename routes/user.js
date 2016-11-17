@@ -99,9 +99,5 @@ function isLoggedIn(req, res, next) {
 	res.redirect('/');
 }
 
-router.get('/forgot',UserController.forgotGet)
-router.post('/forgot',UserController.forgotPost)
-router.get('/reset/:token',UserController.resetGet)
-router.post('/reset/:token',UserController.resetPost)
 
 module.exports = router;

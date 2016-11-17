@@ -3,6 +3,7 @@ const UserController = require('../controllers/users')
 
 var router = express.Router();
 
-router.get('/forgotPassword',UserController.forgotGet)
-router.post('/forgotPassword',UserController.forgotPost)
+router.get('/resetPassword/:token',UserController.resetGet)
+router.post('/resetPassword/:token',UserController.resetPost)
+
 module.exports = router
