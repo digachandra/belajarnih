@@ -19,7 +19,6 @@ describe('Testing', function() {
         let testingUser = new Users({userEmail: "testing@only.com",role:0})
         testingUser.encryptedPassword = testingUser.generateHash('lama')
         testingUser.save(function(err,user){
-          console.log('user testing',user)
           done()
         })
       })
@@ -33,7 +32,6 @@ describe('Testing', function() {
       })
     })
     it('should list pin on [POST] /api/users/login ', function(done) {
-      console.log("test jalan");
       chai.request('http://localhost:3000')
            .post('/api/users/login')
            .send({
