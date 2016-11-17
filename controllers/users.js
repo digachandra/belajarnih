@@ -90,7 +90,7 @@ exports.resetGet = function(req, res) {
         req.flash('error', { msg: '❎ Password reset token is invalid or has expired.' });
         return res.redirect('/forgotPassword');
       }
-      res.render('reset.password.ejs',{messages:""});
+      res.render('reset.password.ejs',{messages:"",status:null});
     });
 };
 
@@ -105,7 +105,7 @@ exports.resetPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.render('reset.password.ejs',{ messages: req.flash('error') })
+    return res.render('reset.password.ejs',{ messages: req.flash('error'), status: false })
   }
 
   async.waterfall([
@@ -138,7 +138,7 @@ exports.resetPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('success', { msg: 'Your password has been changed successfully.' });
-        res.redirect('/login');
+        return res.render('reset.password.ejs',{ messages: req.flash('success'), status:true })
       });
     }
   ]);
