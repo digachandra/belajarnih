@@ -16,18 +16,51 @@ router.get('/', function(req,res){
 })
 
 router.put('/addMarker', function(req,res){
+  console.log('masuk');
+  console.log(req.body);
+
   Maps.findOne({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
     Users.findOne({'userEmail':req.body.supervisor}, function(err,user){
-        pindrop.pinDropName = req.body.pindropName
+      //if user update with new supervisor and not yet inserted in database
+      if(!user){
+        let role = []
+        role.push(1)
+        let newuser  = new Users({
+          userEmail: req.body.supervisor,
+          role:role
+        })
+        newuser.save(function(err,newuser){
+          //send email for new user
+            var transporter = nodemailer.createTransport('smtps://mapinczero%40gmail.com:mapinczero0@smtp.gmail.com');
+            var mailOptions = {
+                from: '"Map Inc. 👥" <mapinczero@gmail.com>', // sender address
+                to: req.body.supervisor, // list of receivers
+                subject: 'Supervisor Confirmation ✔', // Subject line
+                text: 'You are receiving this email because your owner business has requested you as supervisor, \n'+
+                      'please set your password by click this link.\n\n'+
+                      'http://localhost:3000/setuppassword/'+newuser._id
+            };
+
+            transporter.sendMail(mailOptions, function(err) {});
+            pindrop.supervisor = newuser._id
+            pindrop.save(function(err,newmap){
+                res.json(newmap)
+            })
+        })
+      }
+      else{
+        console.log('user',user);
+        pindrop.pinDropName = req.body.pinDropName
         pindrop.listField[0].fieldName = req.body.fieldName
         pindrop.listField[0].targetComparison = req.body.salesCond
         pindrop.listField[0].targetValue = req.body.totalSales
         pindrop.supervisor = user._id
-        pindrop.save()
-        let message = '{"message":"new pin drop is updated successfully"}'
-        let obj = JSON.parse(message)
-        res.json(obj)
-      })
+        console.log('pindropterakhir',pindrop);
+        pindrop.save(function(err,newmap){
+            res.json(newmap)
+        })
+      }
+    })
   })
 })
 
@@ -47,9 +80,10 @@ router.get('/addMarker', function(req,res){
 
 router.post('/addMarker', function(req,res){
   //email validation
+  console.log('body banget',req.body);
   let email = req.body.supervisor
   let userId = req.body.userID
-  let pindropName =  req.body.pindropName
+  let pindropName =  req.body.pinDropName
   let totalSales = req.body.totalSales
   let salesCond = req.body.salesCond
   let businessName = req.body.businessName
@@ -81,7 +115,7 @@ router.post('/addMarker', function(req,res){
           res.json(JSON.parse(JSON.stringify({message:"Please insert all data"})))
         }
         else if(!isValidEmail){
-          res.json(JSON.parse(JSON.stringify({message:"Email is not valid", pinDropName: req.body.pinDropName})))
+          res.json(JSON.parse(JSON.stringify({message:"Email is not valid", pinDropName: pindropName})))
         }
         else{
           Users.findOne({'userEmail':email}, function(err,user){
@@ -109,6 +143,7 @@ router.post('/addMarker', function(req,res){
                   transporter.sendMail(mailOptions, function(err) {});
                   newmap.supervisor = newuser._id
                   newmap.save(function(err,newmap){
+                    console.log('2');
                       res.json(newmap)
                   })
               })
@@ -148,6 +183,7 @@ router.post('/addMarker', function(req,res){
               }
               newmap.save(function(err,newmap){
                   res.json(newmap)
+                  console.log('3');
               })
             }
           })
