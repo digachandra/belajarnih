@@ -260,7 +260,7 @@ var Container = React.createClass({
 
 var OwnerList = React.createClass({
   getInitialState: function(){
-    return {list: ""}
+    return {list: "loading"}
   },
 
   componentDidMount: function(){
@@ -279,7 +279,7 @@ var OwnerList = React.createClass({
 
   render: function(){
     let arrayOwner
-    if(this.state.list != ""){
+    if(this.state.list != "loading" && this.state.list.length > 0){
       let OwnerList = []
       for (let i in this.state.list){
         if(OwnerList.map(function(data){return data.owner._id}).indexOf(this.state.list[i].owner._id)== -1){
@@ -292,6 +292,10 @@ var OwnerList = React.createClass({
           <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toBusinessList(data.owner._id)}.bind(this)}>{data.owner.userEmail}</button>
         )
       }.bind(this))
+    } else if (this.state.list == "loading"){
+      return (
+        <div><img src="/images/loading.gif" /></div>
+      )
     } else {
       arrayOwner = (
         <div>No Owner Found</div>
@@ -312,7 +316,7 @@ var OwnerList = React.createClass({
 
 var BusinessList = React.createClass({
   getInitialState: function(){
-    return {list: ""}
+    return {list: "loading"}
   },
 
   componentDidMount: function(){
@@ -331,7 +335,7 @@ var BusinessList = React.createClass({
 
   render: function(){
     let arrayBusiness
-    if(this.state.list != ""){
+    if(this.state.list != "loading" && this.state.list.length>0){
       let businessList = []
       for (let i in this.state.list){
         if(businessList.map(function(data){return data.businessName}).indexOf(this.state.list[i].businessName)== -1){
@@ -345,6 +349,10 @@ var BusinessList = React.createClass({
           </div>
         )
       }.bind(this))
+    } else if (this.state.list == "loading"){
+      arrayBusiness=(
+        <div><img src="/images/loading.gif" /></div>
+      )
     } else {
       arrayBusiness = (<div>No Business Found</div>)
     }
@@ -360,7 +368,7 @@ var BusinessList = React.createClass({
 
 var PinList = React.createClass({
   getInitialState: function(){
-    return {list: "", businessName: this.props.businessName}
+    return {list: "loading", businessName: this.props.businessName}
   },
 
   componentDidMount: function(){
@@ -379,7 +387,7 @@ var PinList = React.createClass({
 
   render(){
     let arrayPin
-    if(this.state.list != ""){
+    if(this.state.list != "loading" && this.state.list.length >0){
       let pinList = []
       for (let i in this.state.list){
         if(pinList.map(function(data){return data.pinDropName}).indexOf(this.state.list[i].pinDropName)== -1){
@@ -393,6 +401,10 @@ var PinList = React.createClass({
           </div>
         )
       }.bind(this))
+    } else if (this.state.list == "loading"){
+      arrayPin=(
+        <div><img src="/images/loading.gif" /></div>
+      )
     } else {
       arrayPin = (<div>No Pin Found</div>)
     }
@@ -408,7 +420,7 @@ var PinList = React.createClass({
 
 var DateList = React.createClass({
   getInitialState: function(){
-    return {list: "", pinDropName: this.props.pinDropName}
+    return {list: "loading", pinDropName: this.props.pinDropName}
   },
 
   componentDidMount: function(){
@@ -427,7 +439,7 @@ var DateList = React.createClass({
 
   render(){
     let arrayDate
-    if(this.state.list != ""){
+    if(this.state.list != "loading" && this.state.list.length > 0){
       let dateList = []
       for (let i in this.state.list){
         if(dateList.map(function(data){return data.createdAt}).indexOf(this.state.list[i].createdAt)== -1){
@@ -447,6 +459,10 @@ var DateList = React.createClass({
           </div>
         )
       }.bind(this))
+    } else if (this.state.list == "loading"){
+      arrayDate=(
+        <div><img src="/images/loading.gif" /></div>
+      )
     } else {
       arrayDate = (<div>All Reports have been Completed</div>)
     }
