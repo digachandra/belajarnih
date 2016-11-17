@@ -107,7 +107,7 @@ module.exports = function(passport) {
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
         }
         if (user.role != req.body.role ){
-          return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
+          return done(null, false, req.flash('loginMessage', 'Your role is incorrect, please login as correct role'));
         }
         req.session.role = req.body.role
         req.session.email = req.body.email
