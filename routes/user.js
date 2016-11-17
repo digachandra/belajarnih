@@ -74,7 +74,7 @@ router.get('/logout', function(req, res) {
   req.session.destroy()
   console.log(req.session, "session seharusnya didestroy");
 
-  res.redirect('/api/users/login');
+  res.redirect('/login');
   });
 
 // route middleware to make sure
