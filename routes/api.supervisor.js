@@ -11,7 +11,6 @@ const Users = require('../models/users.js')
 router.get('/test', function(req,res){
   res.render('supervisordashboard.supervisor.ejs')
 })
-
 //later move to non-api routes
 
 router.post('/setuppassword', function(req,res){
@@ -75,7 +74,6 @@ router.get('/getpindate/', function(req,res){
   let user_id = req.session.passport.user
   // let user_id= "582adf2be1c6c1031700511a"
   Maps.find({supervisor: user_id, owner: req.query.ownerid, businessName: req.query.businessname, pinDropName: req.query.pindropname, "listField.value": null }, function(err,pin){
-    console.log(pin)
     res.json(pin)
   })
 })

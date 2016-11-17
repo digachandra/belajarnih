@@ -46,7 +46,6 @@ router.get('/addMarker', function(req,res){
 
 
 router.post('/addMarker', function(req,res){
-  console.log('==================req when add marker', req.body);
   //email validation
   let email = req.body.supervisor
   let userId = req.body.userID
@@ -79,14 +78,10 @@ router.post('/addMarker', function(req,res){
 
   validator.validate_async(email, function(err, isValidEmail) {
         if(pindropName==''||totalSales==''||salesCond==''||email==''){
-          let message = '{"message":"please insert all data"}'
-          let obj = JSON.parse(message)
-          res.json(obj)
+          res.json(JSON.parse(JSON.stringify({message:"Please insert all data"})))
         }
         else if(!isValidEmail){
-          let message = '{"message":"email is not valid"}'
-          let obj = JSON.parse(message)
-          res.json(obj)
+          res.json(JSON.parse(JSON.stringify({message:"Email is not valid", pinDropName: req.body.pinDropName})))
         }
         else{
           Users.findOne({'userEmail':email}, function(err,user){
@@ -114,9 +109,7 @@ router.post('/addMarker', function(req,res){
                   transporter.sendMail(mailOptions, function(err) {});
                   newmap.supervisor = newuser._id
                   newmap.save(function(err,newmap){
-                      let message = '{"message":"new pin drop is created successfully"}'
-                      let obj = JSON.parse(message)
-                      res.json(obj)
+                      res.json(newmap)
                   })
               })
             }
@@ -154,9 +147,7 @@ router.post('/addMarker', function(req,res){
                   transporter.sendMail(mailOptions, function(err) {});
               }
               newmap.save(function(err,newmap){
-                  let message = '{"message":"new pin drop is created successfully"}'
-                  let obj = JSON.parse(message)
-                  res.json(obj)
+                  res.json(newmap)
               })
             }
           })
