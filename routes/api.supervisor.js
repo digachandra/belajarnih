@@ -17,7 +17,6 @@ router.post('/setuppassword', function(req,res){
   Users.findOne({_id: req.body.userid}, function(err,user){
     user.encryptedPassword = user.generateHash(req.body.password)
     user.save(function(err,savedUser){
-      console.log('terima')
       res.json(user)
     })
   })
@@ -75,7 +74,6 @@ router.get('/getpindate/', function(req,res){
   let user_id = req.session.passport.user
   // let user_id= "582adf2be1c6c1031700511a"
   Maps.find({supervisor: user_id, owner: req.query.ownerid, businessName: req.query.businessname, pinDropName: req.query.pindropname, "listField.value": null }, function(err,pin){
-    console.log(pin)
     res.json(pin)
   })
 })

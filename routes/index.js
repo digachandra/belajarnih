@@ -18,7 +18,7 @@ router.get('/setuppassword/:user_id', function(req,res){
       if(user.encryptedPassword == null){
         res.render('setuppassword.supervisor.ejs', {userEmail: user.userEmail, userId: user._id})
       } else {
-        res.redirect('/api/users/login')
+        res.redirect('/login')
       }
     } else{
       res.json({message: "user tidak ditemukan"})
@@ -32,7 +32,7 @@ router.get('/supervisor/dashboard', function(req,res){
     // let user_id= "58299ad3baff8813d5911300"
     res.render('dashboard.supervisor.ejs', {email: req.session.email})
   } else {
-    res.redirect('/api/users/login')
+    res.redirect('/login')
   }
 })
 
