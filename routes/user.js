@@ -1,6 +1,7 @@
 var express = require('express');
 var User = require('../models/users');
 var passport = require('passport');
+const UserController = require('../controllers/users')
 
 var router = express.Router();
 
@@ -14,26 +15,42 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/login', function(req, res, next){
+  console.log(req.session, "session seharusnya didestroy");
 
-router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/result', failureRedirect : {message:"gagal"}, failureFlash : true}));
+  res.render('login.ejs', { title: 'Login Panel', message : req.flash('loginMessage')});
+});
+
+router.post('/login',
+passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/login', failureFlash : true}));
 
 router.get('/result',function(req,res,next){
-  res.json({message:"register berhasil"})
+  res.json({message:"register berhasil"})// diganti dengan redirect kemana
 })
-
-
-
-router.post('/login', passport.authenticate('local-login', {successRedirect : '/api/users/home', failureRedirect : '/api/users/failed', failureFlash : true}));
-
-
 router.get('/failed', function(req, res, next){
-  res.json({message:"gagal login"})
+  res.json({message:"gagal login"})// diganti dengan redirect kemana
 });
 
-router.get('/home', function(req, res, next){
-res.json({message:"berhasil login"})
+router.get('/home', isLoggedIn, function(req, res) {
+  // console.log("ini ssession",req.session);
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
+  if(req.session.role==1){
+    res.redirect('/supervisor/dashboard')
+  } else {
+    //res.redirect('/map/addMap')
+    res.redirect('/map/list')
+  }
 });
 
+
+
+router.get('/register', function(req, res, next) {
+  res.render('register.ejs', { title: 'Register Panel', message: req.flash('signupMessage') });
+});
+
+router.post('/register', passport.authenticate('local-signup', {successRedirect : '/api/users/login', failureRedirect : '/api/users/register', failureFlash : true}));
 router.put('/update/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user){
     if(err){
@@ -62,5 +79,29 @@ router.delete('/delete/:id', function(req, res, next){
   });
 });
 
+router.get('/logout', function(req, res) {
+
+  req.logout();
+  req.session.destroy()
+  console.log(req.session, "session seharusnya didestroy");
+
+  res.redirect('/api/users/login');
+  });
+
+// route middleware to make sure
+function isLoggedIn(req, res, next) {
+
+	// if user is authenticated in the session, carry on
+	if (req.isAuthenticated())
+		return next();
+
+	// if they aren't redirect them to the home page
+	res.redirect('/');
+}
+
+router.get('/forgot',UserController.forgotGet)
+router.post('/forgot',UserController.forgotPost)
+router.get('/reset/:token',UserController.resetGet)
+router.post('/reset/:token',UserController.resetPost)
 
 module.exports = router;

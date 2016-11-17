@@ -8,12 +8,15 @@ var FieldForm = React.createClass({
   handleFormSubmit(e){
     e.preventDefault()
     $.ajax({
-      url: '/api/supervisor/postdata',
+      url: '/api/supervisor/postAddEmail',
       dataType: 'json',
       type: 'POST',
       data: {value: this.state.field},
       success: function(data){
-        this.setState({field:"", message:"berhasil di upload"})
+        if(data.message)this.setState({field:"", message:data.message})
+        else{
+            this.setState({field:"", message:"link has been sent to "+data.userEmail})
+        }
       }.bind(this),
       error: function(xhr, status, err){
         this.setState({message:"error, cobalagi"})
@@ -23,6 +26,7 @@ var FieldForm = React.createClass({
   render: function(){
     return(
       <div>
+        <h2>Add Supervisor Email</h2>
         <form onSubmit={this.handleFormSubmit}>
           <input type="text" value={this.state.field} onChange = {this.handleFormChange}/>
           <input type="submit" />
