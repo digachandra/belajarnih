@@ -11,6 +11,8 @@ const apiSupervisor = require('./api.supervisor')
 const apiSeeding = require('./api.seeding')
 const maps = require('./api.map')
 const marker = require('./page.marker')
+const helper = require('../helpers/middlewares.js')
+
 
 router.get('/setuppassword/:user_id', function(req,res){
   Users.findOne({_id: req.params.user_id}, function(err, user){
@@ -26,7 +28,7 @@ router.get('/setuppassword/:user_id', function(req,res){
   })
 })
 
-router.get('/supervisor/dashboard', function(req,res){
+router.get('/supervisor/dashboard', helper.checkHaveSession,function(req,res){
   if(req.session.passport){
     let user_id = req.session.passport.user
     // let user_id= "58299ad3baff8813d5911300"
