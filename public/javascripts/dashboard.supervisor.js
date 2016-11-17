@@ -289,7 +289,7 @@ var OwnerList = React.createClass({
 
       arrayOwner = OwnerList.map(function(data){
         return (
-          <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toBusinessList(data.owner._id)}.bind(this)}>{data.owner._id} || {data.owner.userEmail}</button>
+          <button className="list-group-item" key={data.owner._id} style={fontStyle} onClick={function(){this.props.toBusinessList(data.owner._id)}.bind(this)}>{data.owner.userEmail}</button>
         )
       }.bind(this))
     } else {
