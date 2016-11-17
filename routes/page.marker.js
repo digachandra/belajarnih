@@ -46,7 +46,6 @@ router.get('/addMarker', function(req,res){
 
 
 router.post('/addMarker', function(req,res){
-  console.log('==================req when add marker', req.body);
   //email validation
   let email = req.body.supervisor
   let userId = req.body.userID
