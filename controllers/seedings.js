@@ -190,7 +190,7 @@ function doOneMonthSeeding() {
 
     var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
     var firstDate = new Date();
-    var secondDate = new Date(startyear,startmonth,startdate);
+    var secondDate = new Date(startyear,startmonth-1,startdate);
     var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)))
     for (let i = 1; i <= diffDays; i++) {
 
@@ -228,8 +228,7 @@ function doOneMonthSeeding() {
               businessName: oldpindrop.businessName,
               pinDropName: oldpindrop.pinDropName,
               position: {lat: oldpindrop.position.lat, lng: oldpindrop.position.lng},
-              supervisor: oldpindrop.supervisor,
-              inputTime: new Date()
+              supervisor: oldpindrop.supervisor
             })
             newgeneratedpindrop.createdAt = createdAtDate
             newgeneratedpindrop.listField = [...newfield]

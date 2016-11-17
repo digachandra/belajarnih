@@ -52,6 +52,7 @@ app.use('/', routes)
 
 app.use('/api/users', users);
 app.get('/doseeds', seeds.doseeds)
+app.get('/oneMonthSeeds', seeds.oneMonthSeeds)
 
 app.get('*', function(req, res){
   let img = Math.ceil((Math.random()*3))
