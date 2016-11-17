@@ -406,8 +406,8 @@ input[type=radio] {
       #page-landing .footer ul.menu-list li:nth-child(n+2) {
         margin-top: 5px; }
   #page-landing #section-founders {
-    color: #FFFFFF;
-    background: #252525;
+    color: #252525;
+    background: #FFFFFF;
     padding-top: 100px; }
     #page-landing #section-founders ul#founders-list {
       list-style: none;
@@ -426,15 +426,20 @@ input[type=radio] {
           opacity: 0.6;
           width: 100%; }
         #page-landing #section-founders ul#founders-list li .detail {
-          color: #FFFFFF;
+          background: rgba(145, 216, 247, 0.5);
+          color: #252525;
           text-align: center;
+          margin: 0px auto;
+          padding: 5px;
           position: absolute;
+          left: 0px;
+          right: 0px;
           bottom: 10px;
-          width: 100%; }
+          width: 80%; }
           #page-landing #section-founders ul#founders-list li .detail span {
             display: block; }
           #page-landing #section-founders ul#founders-list li .detail a {
-            color: #FFFFFF !important;
+            color: #252525 !important;
             font-size: 12px;
             text-decoration: none !important; }
       #page-landing #section-founders ul#founders-list:after() {
