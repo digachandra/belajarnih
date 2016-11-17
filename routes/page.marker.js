@@ -82,7 +82,6 @@ router.get('/addMarker', helper.checkHaveSession,function(req,res){
 
 router.post('/addMarker', function(req,res){
   //email validation
-  console.log('body banget',req.body);
   let email = req.body.supervisor
   let userId = req.body.userID
   let pindropName =  req.body.pinDropName
