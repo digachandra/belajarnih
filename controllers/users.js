@@ -138,7 +138,7 @@ exports.resetPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('success', { msg: 'Your password has been changed successfully.' });
-        return res.render('reset.password.ejs',{ messages: req.flash('success'), status:true })
+        return res.redirect('/login')
       });
     }
   ]);
