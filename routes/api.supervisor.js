@@ -11,13 +11,13 @@ const Users = require('../models/users.js')
 router.get('/test', function(req,res){
   res.render('supervisordashboard.supervisor.ejs')
 })
-
 //later move to non-api routes
 
 router.post('/setuppassword', function(req,res){
   Users.findOne({_id: req.body.userid}, function(err,user){
     user.encryptedPassword = user.generateHash(req.body.password)
     user.save(function(err,savedUser){
+      console.log('terima')
       res.json(user)
     })
   })

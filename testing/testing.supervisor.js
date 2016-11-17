@@ -1,26 +1,38 @@
 var chai = require('chai')
 var expect = chai.expect
-var chaiHttp = require('chai-http');
-chai.use(chaiHttp);
-var mongoose = require('mongoose');
+var chaiHttp = require('chai-http')
+chai.use(chaiHttp)
+var mongoose = require('mongoose')
+var server = require('../server.js')
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 
-describe('api get owner list', function(){
-  it('the getownerlist api should return the data from database based on the criteria', function(){
-    let testingowner = new Users({userEmail: "testing@only.com"})
-    testingspv.encryptedPassword = testingowner.generateHash('halo')
 
-    let testingspv = new Users({userEmail: "testingspv@only.com"})
-    testingspv.encryptedPassword = testingspv.generateHash('halo')
-
-    let testingpin = new Maps({owner: testingowner._id, businessName: "testingpurposeonly", pinDropName: "Branch Pengiriman 2", position: {lat: "8", lng: "7"}, supervisor: testingspv._id, inputTime: "2016-11-13T03:19:49.131Z"})
-    testingpin.listField.push({fieldName: "sales", fieldType: "number", targetValue: 700, isPass: false, targetComparsion: "GT"})
-
-    testingowner.save(function(err_saveowner, owner){
-      testingspv.save(function(err_savespv, spv){
-        testingpin.save(function(err_savepin, pin){
-          chai.request('')
+describe('api setup password', function(){
+  before(function(done){
+    Users.remove({userEmail: "testing@only.com"}, function(err1,result1){
+      let testingspv = new Users({userEmail: "testing@only.com"})
+      testingspv.encryptedPassword = testingspv.generateHash('lama')
+      testingspv.save(function(err,spv){
+        done()
+      })
+    })
+  })
+  after(function(done){
+    Users.findOne({userEmail: "testing@only.com"}, function(err,spv){
+      spv.remove()
+      spv.save(function(err,removed_spv){
+        done()
+      })
+    })
+  })
+  it("should setup the correct user's password", function(done){
+    let user = new Users
+    Users.findOne({userEmail: "testing@only.com"}, function(err,spv){
+      chai.request(server).post('/api/supervisor/setuppassword').send({userid: spv._id, password: 'baru'}).end(function(e, result){
+        Users.findOne({userEmail: "testing@only.com"}, function(err,new_spv){
+          expect(new_spv.validPassword('baru')).to.be.true
+          done()
         })
       })
     })
