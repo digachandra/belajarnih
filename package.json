@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js --exec babel-node --presets es2015",
-    "test": "mocha ./testing"
+    "test": "mocha ./testing/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -45,7 +45,8 @@
     "nodemailer": "^2.6.4",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "password": "^0.1.1"
+    "password": "^0.1.1",
+    "q": "^1.4.1"
   },
   "devDependencies": {
     "babel-core": "^6.18.0",

@@ -20,6 +20,7 @@
   padding: 15px;
   margin: 0 auto;
 }
+
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
@@ -69,8 +70,8 @@
           <ul class="nav navbar-nav">
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li class=""><a href="/api/users/login">Login</a></li>
-            <li><a href="/api/users/register">Register</a></li>
+            <li class=""><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -86,7 +87,6 @@
               <% } %>
       </div>
       <div class="col-md-6 col-md-offset-3">
-      <div class="panel ">
         <form class="form-signin" id="login-form" action="/api/users/login"  method="post" role="form" >
           <h2 class="form-signin-heading">Please sign in</h2>
           <label for="inputEmail" class="sr-only">Email address</label>
@@ -100,9 +100,17 @@
           </div>
 
           <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
         </form>
-      </div>
     </div>
+
+    <div class="col-md-6 col-md-offset-3"  >
+      <div class="form-signin">
+        <a href="/forgotPassword" >Forgot Password</a>
+      </div>
+
+    </div>
+
   </div> <!-- /container -->
 
   <script

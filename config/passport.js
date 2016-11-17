@@ -83,7 +83,9 @@ module.exports = function(passport) {
         if (err){
           return done(err);
         }
-
+        if (!user){
+          return done(null, false, req.flash('loginMessage', 'No user found.'));
+        }
         if(user.role.length > 1)
         {
           for(var i=0;i<user.role.length;i++){
@@ -100,9 +102,7 @@ module.exports = function(passport) {
             }
           }
         }
-        if (!user){
-          return done(null, false, req.flash('loginMessage', 'No user found.'));
-        }
+
         if (!user.validPassword(password)){
           return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
         }
