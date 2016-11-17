@@ -7,7 +7,6 @@ var expect = chai.expect;
 var mongoose = require('mongoose');
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
-mongoose.connect('mongodb://localhost:27017/testing')
 var should = chai.should();
 
 

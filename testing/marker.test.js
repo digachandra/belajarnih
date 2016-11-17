@@ -14,6 +14,11 @@ chai.use(chaiHttp);
 
 
   describe('/MARKER', () => {
+        Users.remove({userEmail: "test@test.com"}, function(err1,result1){
+          let testingspv = new Users({userEmail: "test@test.com"})
+          testingspv.encryptedPassword = testingspv.generateHash('lama')
+          testingspv.save()
+        })
         it('Add Marker', (done) => {
         Users.findOne({'userEmail':'test@test.com'}, function(err,user){
           let newmap = new Object({supervisor: 'test@test.com',pinDropName:'pindroptest', totalSales:1000, salesCond:'GT',lat:'1',lng:'1', businessName:'test', userID:user._id})
