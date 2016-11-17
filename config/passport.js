@@ -111,7 +111,6 @@ module.exports = function(passport) {
         }
         req.session.role = req.body.role
         req.session.email = req.body.email
-
         return done(null, user);
       });
     }));

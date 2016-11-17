@@ -37,56 +37,47 @@ describe('Testing', function() {
     //         });
     // });
     before(function(done){
-      Users.remove({userEmail: "lols@only.com"}, function(err1,result1){
-        console.log("ini result1",result1);
-        chai.request('http://localhost:3000')
-             .post('/api/users/register')
-             .send({
-                 "email": "lols@only.com",
-                 "password": "lama",
-                 "confirmPassword":"lama",
-                 "role":0
-             })
-             .end(function(err,res) {
-                console.log("dah dijalankan register",res);
-                  done()
-             });
-        // let testingUser = new Users({userEmail: "testing@only.com",role:0})
-        // testingUser.encryptedPassword = testingUser.generateHash('lama')
-        // testingUser.save(function(err,user){
-        //   console.log('user testing',user)
-        //   done()
-        // })
-      })
-    })
-    after(function(done){
-      Users.findOne({userEmail: "lols@only.com"}, function(err,user){
-        user.remove()
-        user.save(function(err,removed_usr){
-          done()
-        })
-      })
-    })
-    it('should list pin on [GET] /api/maps/listpin ', function(done) {
-      console.log("test jalan");
-      done()
       agent
            .post('/api/users/login')
            .send({
-               "email": "testing@only.com",
-               "password": "lama",
-               "confirmPassword":"lama",
+               "email": "supervisor@supervisor.com",
+               "password": "ivan",
+               "confirmPassword":"ivan",
                "role":0
            })
            .end(function(err,res) {
-             console.log(res );
-             console.log("response",res);
-             console.log(res.redirects[0]);
-             res.redirects[0].should.equal('http://localhost:3000/api/users/home')
-              done()
+             console.log("before jalan");
+               done()
            });
+    })
+    after(function(done){
+      agent
+          .post('/api/users/logout')
+          .end(function(err,res){
+            done()
+          })
+    })
+    it('should list pin on [GET] ', function(done) {
+      console.log("test jalan");
+      agent
+           .post('/api/users/login')
+           .send({
+               "email": "testing3@only.com",
+               "password": "lama",
+               "confirmPassword":"lama",
+               "role":1
+           })
+           .end(function(err,res) {
+             agent
+                  .get('/api/supervisor/getownerlist')
+                  .end(function(err,res) {
+                    console.log("response",res.body);
+                    res.body.should.be.a('array');
+                   // res.redirects[0].should.equal('http://localhost:3000/api/users/home')
+                     done()
+                  });
+           });
+
     });
-
-
 
 });;
