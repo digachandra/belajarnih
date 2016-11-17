@@ -64,12 +64,9 @@ router.put('/addMarker',function(req,res){
   })
 })
 
-router.delete('/addMarker', helper.checkHaveSession, function(req,res){
+router.delete('/addMarker', function(req,res){
   Maps.remove({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
-    console.log('yang didelete', pindrop);
-    let message = '{"message":"new pin drop is deleted successfully"}'
-    let obj = JSON.parse(message)
-    res.json(obj)
+    res.json(pindrop)
   })
 })
 

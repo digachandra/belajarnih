@@ -12,7 +12,7 @@ var should = chai.should();
 
 
 
-describe('Testing', function() {
+describe('/TESTING', function() {
 
     before(function(done){
       Users.remove({userEmail: "testing@only.com"}, function(err1,result1){
