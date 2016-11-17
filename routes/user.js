@@ -69,7 +69,6 @@ router.delete('/delete/:id', function(req, res, next){
 });
 
 router.get('/logout', function(req, res) {
-
   req.logout();
   req.session.destroy()
   res.redirect('/login');
