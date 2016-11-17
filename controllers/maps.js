@@ -7,20 +7,36 @@ module.exports = {
 }
 
 function listPin(req,res,next){
-    let ownerid = req.session.passport.user
-    Maps.findById(req.params.id ,function (err, map) {
-      let businessName = map.businessName
-      let start = req.body.selectedDate
-      let end = new Date(req.body.selectedDate)
-      end.setHours(23)
-      end.setMinutes(59)
+    if(req.session.passport && req.params.id){
+      let ownerid = req.session.passport.user
+      Maps.findById(req.params.id ,function (err, map) {
+        if (err) {
+          console.log("error listpin");
+        }else {
+          console.log(map);
+          let businessName = map.businessName
+          let start = req.body.selectedDate
+          let end = new Date(req.body.selectedDate)
+          end.setHours(23)
+          end.setMinutes(59)
+          Maps.find({owner:ownerid,businessName:businessName,createdAt:{"$gte": new Date(start), "$lt": end}}).populate('supervisor').sort({inputTime: -1}).exec(function(err,data){
+            res.json(data)
+          })
+        }
 
-      Maps.find({owner:ownerid,businessName:businessName,createdAt:{"$gte": new Date(start), "$lt": end}}).populate('supervisor').sort({inputTime: -1}).exec(function(err,data){
-        res.json(data)
       })
-    })
+    }
+    else {
+      console.log("errorr Listpint  nih");
+    }
 
 }
+
+////////// PAKE GAK?
+
+
+
+
 //
 // Maps.find({owner: ownerId,businessName:businessName,inputTime:{ $gte : inputTime}}).sort({inputTime: -1}).exec(function(err,data){
 //   res.json(data)
