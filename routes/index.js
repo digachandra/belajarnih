@@ -5,6 +5,8 @@ const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 const forgotPassword = require('./page.forgot.password')
 const resetPassword = require('./page.reset.password')
+const login = require ('./page.login')
+const register = require ('./page.register')
 const apiSupervisor = require('./api.supervisor')
 const apiSeeding = require('./api.seeding')
 const maps = require('./api.map')
@@ -28,7 +30,6 @@ router.get('/supervisor/dashboard', function(req,res){
   if(req.session.passport){
     let user_id = req.session.passport.user
     // let user_id= "58299ad3baff8813d5911300"
-    //
     res.render('dashboard.supervisor.ejs', {email: req.session.email})
   } else {
     res.redirect('/api/users/login')
@@ -40,6 +41,10 @@ router.use('/api/supervisor', apiSupervisor)
 router.use('/api/seeding', apiSeeding)
 router.use('/forgotPassword',forgotPassword)
 router.use('/resetPassword',resetPassword)
+router.use('/login',login)
+router.use('/register',register)
+
+
 router.use('/map', pageMap)
 router.use('/marker',marker)
 router.use('/api/maps', maps);
