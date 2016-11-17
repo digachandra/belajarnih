@@ -20,11 +20,6 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 require('./config/passport')(passport); // pass passport for configuration
 
-
-
-
-
-
 app.set('view-engine','ejs')
 app.use(cors())
 app.use(morgan())
@@ -48,6 +43,7 @@ app.use(expressValidator())
 app.use(flash());
 
 app.use('/', express.static(path.join(__dirname, 'public')))
+// mongoose.connect('mongodb://'+process.env.MONGO_HOSTNAME+':27017/testing')
 mongoose.connect('mongodb://52.220.213.175:27017/testing')
 
 app.use('/', routes)
