@@ -214,12 +214,14 @@ function doOneMonthSeeding() {
               let newisPass = false
               let newvalue = 3000000 + Math.floor(Math.random()*10+1)*500000
               if(newvalue > oldfield.value ) newisPass = true
+
                newfield.push({
                 fieldName: oldfield.fieldName,
                 fieldType: oldfield.fieldType,
                 isPass: newisPass,
                 targetValue: oldfield.targetValue,
-                targetComparison: oldfield.targetComparison
+                targetComparison: oldfield.targetComparison,
+                value: newvalue
               })
             })
 

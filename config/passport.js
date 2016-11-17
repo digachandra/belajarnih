@@ -43,8 +43,6 @@ module.exports = function(passport) {
     }, function(req, email, password, done) {
     //kalo ada user
       Users.findOne({ 'userEmail' :  email }, function(err, user) {
-        console.log(validateEmail(email));
-        console.log("ini user",user);
         if (err){
           return done(err);
         }
@@ -64,7 +62,7 @@ module.exports = function(passport) {
           newUser.role = req.body.role
           newUser.save(function(err) {
             if (err){
-              throw err;
+              throw err
             }
             return done(null, newUser);
           });
@@ -79,9 +77,7 @@ module.exports = function(passport) {
       passReqToCallback : true // allows us to pass back the entire request to the callback
     }, function(req, email, password, done) {
       Users.findOne({ 'userEmail' :  email }, function(err, user) {
-        console.log('yasinissss')
         if (err){
-          console.log('yasinisssssssssssss')
           return done(err);
         }
         if(user){

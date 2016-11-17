@@ -39,7 +39,7 @@ router.get('/home', isLoggedIn, function(req, res) {
   }
 });
 
-router.post('/register', passport.authenticate('local-signup', {successRedirect : '/login', failureRedirect : '/register', failureFlash : true}));
+router.post('/register', passport.authenticate('local-signup', {successRedirect : '/map/list', failureRedirect : '/register', failureFlash : true}));
 router.put('/update/:id', function(req, res, next) {
   User.findById(req.params.id, function(err, user){
     if(err){
