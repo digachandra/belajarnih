@@ -176,7 +176,73 @@ function seedsbusinessName(){
     }
   }
 }
+function doOneMonthSeeding() {
+    let startDate = new Date()
+    let dateMidnight = new Date(startDate)
 
+    startDate.setSeconds(0);
+    startDate.setHours(0);
+    startDate.setMinutes(0);
+
+    dateMidnight.setHours(23);
+    dateMidnight.setMinutes(59);
+    dateMidnight.setSeconds(59);
+
+    var oneDay = 24*60*60*1000; // hours*minutes*seconds*milliseconds
+    var firstDate = new Date();
+    var secondDate = new Date(startyear,startmonth-1,startdate);
+    var diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(oneDay)))
+    for (let i = 1; i <= diffDays; i++) {
+
+      Maps.find({createdAt:{$gt: startDate, $lt: dateMidnight}}).populate('owner').populate('supervisor').exec(function(err,result){
+        if(err) {
+          console.log(err)
+          return
+        }
+
+        result.forEach((oldpindrop)=>{
+          if(oldpindrop.pinDropName){
+            let createdAtDate = new Date()
+            createdAtDate.setSeconds(Math.floor(Math.random()*60));
+            createdAtDate.setHours(Math.floor(Math.random()*24));
+            createdAtDate.setMinutes(Math.floor(Math.random()*60));
+            createdAtDate.setDate(createdAtDate.getDate()-i)
+            let newfield = []
+            let oldlistField = oldpindrop.listField
+
+            oldlistField.forEach((oldfield)=>{
+              let newisPass = false
+              let newvalue = 3000000 + Math.floor(Math.random()*10+1)*500000
+              if(newvalue > oldfield.value ) newisPass = true
+               newfield.push({
+                fieldName: oldfield.fieldName,
+                fieldType: oldfield.fieldType,
+                isPass: newisPass,
+                targetValue: oldfield.targetValue,
+                targetComparison: oldfield.targetComparison
+              })
+            })
+
+            let newgeneratedpindrop = new Maps({
+              owner: oldpindrop.owner,
+              businessName: oldpindrop.businessName,
+              pinDropName: oldpindrop.pinDropName,
+              position: {lat: oldpindrop.position.lat, lng: oldpindrop.position.lng},
+              supervisor: oldpindrop.supervisor
+            })
+            newgeneratedpindrop.createdAt = createdAtDate
+            newgeneratedpindrop.listField = [...newfield]
+            newgeneratedpindrop.save(function(err,newpindrop){
+            })
+          }
+        })
+      })
+    }
+}
+exports.oneMonthSeeds = function(req,res) {
+  doOneMonthSeeding()
+  res.json({success:true, message: "success do one month seeding"})
+}
 exports.doseeds = function(req,res) {
   seedsownerusers()
   res.json({success:true, message: "success do seeding"})
