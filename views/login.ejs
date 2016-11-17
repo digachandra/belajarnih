@@ -32,6 +32,9 @@
               <h4><strong>Sign In Page</strong></h4>
             </div>
             <div class="content-body">
+              <% if (message.length > 0) { %>
+              <div class="alert alert-danger" role="alert"><%= message %></div>
+              <% } %>
               <form id="content-form" class="form-signin" action="/api/users/login" method="post" role="form" >
                 <div class="form-group">
                   <label for="txt-email">Email</label>
@@ -57,11 +60,6 @@
                     </label>
                   </div>
                 </div>
-                <% if (message.length > 0) { %>
-                <div class="form-group">
-                  <div class="alert alert-danger" role="alert"><%= message %></div>
-                </div>
-                <% } %>
                 <button type="submit" class="btn btn-warning btn-block">SIGN IN</button>
                 <div class="form-action text-center">
                   <a href="/register">Don't have an account?</a>

@@ -32,6 +32,9 @@
               <h4><strong>Register Page</strong></h4>
             </div>
             <div class="content-body">
+              <% if (message.length > 0) { %>
+              <div class="alert alert-danger" role="alert"><%= message %></div>
+              <% } %>
               <form id="content-form" action="/api/users/register" method="post">
                 <div class="form-group">
                   <label for="txt-email">Email</label>
@@ -45,11 +48,6 @@
                   <label for="txt-password-confirm">Confirm Password</label>
                   <input id="txt-password-confirm" type="password" name="confirmPassword" class="form-control" autocomplete="off" required>
                 </div>
-                <% if (message.length > 0) { %>
-                <div class="form-group">
-                  <div class="alert alert-danger" role="alert"><%= message %></div>
-                </div>
-                <% } %>
                 <input type="hidden" name="role" checked="checked" value="0" />
                 <button type="submit" class="btn btn-warning btn-block">SIGN UP</button>
                 <div class="form-action text-center">
