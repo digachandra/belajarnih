@@ -69,12 +69,9 @@ router.delete('/delete/:id', function(req, res, next){
 });
 
 router.get('/logout', function(req, res) {
-
   req.logout();
   req.session.destroy()
-  console.log(req.session, "session seharusnya didestroy");
-
-  res.redirect('/api/users/login');
+  res.redirect('/login');
   });
 
 // route middleware to make sure
@@ -85,7 +82,7 @@ function isLoggedIn(req, res, next) {
 		return next();
 
 	// if they aren't redirect them to the home page
-	res.redirect('/');
+	res.redirect('/login');
 }
 
 
