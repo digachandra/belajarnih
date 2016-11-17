@@ -14,58 +14,59 @@
 <body id="page-signin">
   <div class="lyt-fullscreen separate-wrapper white">
     <div class="background-block" style="background-image:url('https://maps.googleapis.com/maps/api/staticmap?center=-6.218096,106.802711&zoom=15&size=1000x1000&scale=2&maptype=roadmap&key=AIzaSyA_muvCxO4FqTWepNvaArWY1CmrSAyRp3w')"></div>
-    <div class="cover-block"></div>
-    <div class="separate-box">
-      <div class="cover-block lyt-vertical">
-        <div class="wrapper">
-          <div class="logo-wrapper text-center">
-            <img class="logo circle" src="/images/logo-circle-theme.png" style="display:inline-table; width:40px; height:40px; vertical-align:middle;" />
-            <img class="logo block" src="/images/logo-block-theme.png" style="display:inline-table; margin:0px 0px 0px 10px; vertical-align:middle;" />
+    <div class="cover-block">
+      <div class="separate-box">
+        <div class="lyt-vertical">
+          <div class="wrapper">
+            <div class="logo-wrapper text-center">
+              <img class="logo circle" src="/images/logo-circle-theme.png" style="display:inline-table; width:40px; height:40px; vertical-align:middle;" />
+              <img class="logo block" src="/images/logo-block-theme.png" style="display:inline-table; margin:0px 0px 0px 10px; vertical-align:middle;" />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="separate-box">
-      <div class="cover-block lyt-vertical">
-        <div class="wrapper">
-          <div class="content-box">
-            <div class="content-header">
-              <h4><strong>Sign In Page</strong></h4>
-            </div>
-            <div class="content-body">
-              <% if (message.length > 0) { %>
-              <div class="alert alert-danger" role="alert"><%= message %></div>
-              <% } %>
-              <form id="content-form" class="form-signin" action="/api/users/login" method="post" role="form" >
-                <div class="form-group">
-                  <label for="txt-email">Email</label>
-                  <input id="txt-email" type="email" name="email" class="form-control" autocomplete="off" required />
-                </div>
-                <div class="form-group">
-                  <label for="txt-password">Password</label>
-                  <div class="input-group with-addon-right">
-                    <input id="txt-password" type="password" name="password" class="form-control" autocomplete="off" required />
-                    <div class="input-group-addon">
-                      <a href="/forgotpassword">Forgot password?</a>
+      <div class="separate-box">
+        <div class="lyt-vertical">
+          <div class="wrapper">
+            <div class="content-box">
+              <div class="content-header">
+                <h4><strong>Sign In Page</strong></h4>
+              </div>
+              <div class="content-body">
+                <% if (message.length > 0) { %>
+                <div class="alert alert-danger" role="alert"><%= message %></div>
+                <% } %>
+                <form id="content-form" class="form-signin" action="/api/users/login" method="post" role="form" >
+                  <div class="form-group">
+                    <label for="txt-email">Email</label>
+                    <input id="txt-email" type="email" name="email" class="form-control" autocomplete="off" required />
+                  </div>
+                  <div class="form-group">
+                    <label for="txt-password">Password</label>
+                    <div class="input-group with-addon-right">
+                      <input id="txt-password" type="password" name="password" class="form-control" autocomplete="off" required />
+                      <div class="input-group-addon">
+                        <a href="/forgotpassword">Forgot password?</a>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <label for="txt-password">Position</label>
-                  <div class="input-group">
-                    <label class="radio-inline">
-                      <input type="radio" name="role" value="0" checked> Business Owner
-                    </label>
-                    <label class="radio-inline">
-                      <input type="radio" name="role" value="1"> Supervisor
-                    </label>
+                  <div class="form-group">
+                    <label for="txt-password">Position</label>
+                    <div class="input-group">
+                      <label class="radio-inline">
+                        <input type="radio" name="role" value="0" checked> Business Owner
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="role" value="1"> Supervisor
+                      </label>
+                    </div>
                   </div>
-                </div>
-                <button type="submit" class="btn btn-warning btn-block">SIGN IN</button>
-                <div class="form-action text-center">
-                  <a href="/register">Don't have an account?</a>
-                </div>
-              </form>
+                  <button type="submit" class="btn btn-warning btn-block">SIGN IN</button>
+                  <div class="form-action text-center">
+                    <a href="/register">Don't have an account?</a>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
