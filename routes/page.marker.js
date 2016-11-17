@@ -16,7 +16,7 @@ router.get('/', helper.checkHaveSession,function(req,res){
   res.render('page.map/index.ejs')
 })
 
-router.put('/addMarker', helper.checkHaveSession,function(req,res){
+router.put('/addMarker',function(req,res){
   Maps.findOne({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
     Users.findOne({'userEmail':req.body.supervisor}, function(err,user){
       //if user update with new supervisor and not yet inserted in database
@@ -51,13 +51,11 @@ router.put('/addMarker', helper.checkHaveSession,function(req,res){
         })
       }
       else{
-        console.log('user',user);
         pindrop.pinDropName = req.body.pinDropName
         pindrop.listField[0].fieldName = req.body.fieldName
         pindrop.listField[0].targetComparison = req.body.salesCond
         pindrop.listField[0].targetValue = req.body.totalSales
         pindrop.supervisor = user._id
-        console.log('pindropterakhir',pindrop);
         pindrop.save(function(err,newmap){
             res.json(newmap)
         })
@@ -144,7 +142,6 @@ router.post('/addMarker', function(req,res){
                   transporter.sendMail(mailOptions, function(err) {});
                   newmap.supervisor = newuser._id
                   newmap.save(function(err,newmap){
-                    console.log('2');
                       res.json(newmap)
                   })
               })
@@ -184,7 +181,6 @@ router.post('/addMarker', function(req,res){
               }
               newmap.save(function(err,newmap){
                   res.json(newmap)
-                  console.log('3');
               })
             }
           })
