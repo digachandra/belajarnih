@@ -16,7 +16,8 @@ var ForgotPasswordForm = React.createClass({
               <input type="email" name="email" id="email" placeholder="your@email.com" autofocus className="form-control" onChange = {this.inputEmailChange}/>
             </div>
             <div className="form-group">
-              <input type="submit" className="btn btn-success" value='Request Reset Password'/>
+              <input type="submit" className="btn btn-success" value='Request Reset Password'/>   &nbsp;
+              <a href="/" className="btn btn-success ">Back To Home</a>
             </div>
           </form>
         </div>
