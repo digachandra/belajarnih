@@ -1,117 +1,68 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>mapinc. the easiest way to mark your area</title>
+  <link rel="shortcut icon" href="asset/image/favicon.png" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <style>
-  body {
-    min-height: 2000px;
-  }
-
-  .navbar-static-top {
-    margin-bottom: 19px;
-  }
-
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-
-</style>
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans|Prompt">
+  <link rel="stylesheet" href="/stylesheets/style.min.css">
 </head>
-<body>
-  <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Mapinc</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li class=""><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-  <div class="container">
-      <div class="col-md-6 col-md-offset-3">
-        <% if (message.length > 0) { %>
-            <div class="alert alert-danger" role="alert">
-              <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-              <span class="sr-only">Error:</span>
-              <%= message %>
-            </div>
-              <% } %>
-      </div>
-      <div class="col-md-6 col-md-offset-3">
-      <div class="panel ">
-        <form class="form-signin" id="login-form" action="/api/users/register"  method="post" role="form" >
-          <h2 class="form-signin-heading">Please Register</h2>
-          <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
-          <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
-          <input type="password" name="confirmPassword" id="confirmPassword" tabindex="3" class="form-control" placeholder="Confirm Password">
-          <div class="checkbox">
-            <label class="radio-inline"><input type="hidden" name="role" checked="checked" value="0"></label>
+<body id="page-signup">
+  <div class="lyt-fullscreen separate-wrapper blue">
+    <div class="background-block" style="background-image:url('https://maps.googleapis.com/maps/api/staticmap?center=-6.218096,106.802711&zoom=15&size=1000x1000&scale=2&maptype=roadmap&key=AIzaSyA_muvCxO4FqTWepNvaArWY1CmrSAyRp3w')"></div>
+    <div class="separate-box">
+      <div class="cover-block lyt-vertical">
+        <div class="wrapper">
+          <div class="logo-wrapper text-center">
+            <img class="logo circle" src="/images/logo-circle-inverse.png" style="display:inline-table; width:40px; height:40px; vertical-align:middle;" />
+            <img class="logo block" src="/images/logo-block-inverse.png" style="display:inline-table; margin:0px 0px 0px 10px; vertical-align:middle;" />
           </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-        </form>
+        </div>
       </div>
     </div>
-  </div> <!-- /container -->
-
-
-  <script
-  src="https://code.jquery.com/jquery-3.1.1.min.js"
-  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-  crossorigin="anonymous"></script>
-
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
+    <div class="separate-box">
+      <div class="cover-block lyt-vertical">
+        <div class="wrapper">
+          <div class="content-box">
+            <div class="content-header">
+              <h4><strong>Register Page</strong></h4>
+            </div>
+            <div class="content-body">
+              <% if (message.length > 0) { %>
+              <div class="alert alert-danger" role="alert"><%= message %></div>
+              <% } %>
+              <form id="content-form" action="/api/users/register" method="post">
+                <div class="form-group">
+                  <label for="txt-email">Email</label>
+                  <input id="txt-email" type="email" name="email" class="form-control" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label for="txt-password">Password</label>
+                  <input id="txt-password" type="password" name="password" class="form-control" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label for="txt-password-confirm">Confirm Password</label>
+                  <input id="txt-password-confirm" type="password" name="confirmPassword" class="form-control" autocomplete="off" required>
+                </div>
+                <input type="hidden" name="role" checked="checked" value="0" />
+                <button type="submit" class="btn btn-warning btn-block">SIGN UP</button>
+                <div class="form-action text-center">
+                  <a href="/login">Already have an account?</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="/javascripts/core.min.js"></script>
+  <script src="/javascripts/page.signup/index.min.js"></script>
 </body>
 </html>
