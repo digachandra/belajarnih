@@ -8,7 +8,7 @@ const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
 
 
-describe('api setup password', function(){
+describe('/API SETUP PASSWORD', function(){
   before(function(done){
     Users.remove({userEmail: "testing@only.com"}, function(err1,result1){
       let testingspv = new Users({userEmail: "testing@only.com"})
