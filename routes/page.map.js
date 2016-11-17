@@ -30,8 +30,6 @@ router.post('/addMap',function(req,res){
   })
 })
 
-<<<<<<< HEAD
-
 router.post('/deleteMap', function(req,res){
   Maps.remove({'owner':req.body.userID, businessName: req.body.businessName}, function(err,map){
     if(err){
@@ -68,8 +66,4 @@ router.get('/detailMap', function(req,res){
   })
 })
 
-
-
-=======
->>>>>>> 7f6b1bfebb1117ea36cb7b0de7da9a6f905b3136
 module.exports = router
