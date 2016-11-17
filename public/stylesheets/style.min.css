@@ -465,6 +465,7 @@ input[type=radio] {
 #page-dashboard #search-bar {
   margin: 0px 0px;
   padding: 0px 2px;
+  position: relative;
   width: -moz-calc(100% - 241px);
   width: -webkit-calc(100% - 241px);
   width: -o-calc(100% - 241px);
@@ -483,6 +484,23 @@ input[type=radio] {
       #page-dashboard #search-bar .form-group .input-group .input-group-addon {
         color: #00AFEF;
         width: 20px; }
+  #page-dashboard #search-bar #search-autocomplete {
+    background: #FFFFFF;
+    border: 0px;
+    border-radius: 0px;
+    box-shadow: none;
+    display: block;
+    margin-top: 0px;
+    opacity: 0;
+    left: 0px;
+    width: 100%;
+    -moz-transition: all linear 0.2s;
+    -o-transition: all linear 0.2s;
+    -webkit-transition: all linear 0.2s;
+    transition: all linear 0.2s; }
+    #page-dashboard #search-bar #search-autocomplete.open {
+      margin-top: 5px;
+      opacity: 1; }
 
 #page-dashboard #dashboard-loading {
   background: rgba(145, 216, 247, 0.5);

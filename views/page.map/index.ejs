@@ -15,7 +15,10 @@
 </head>
 <body id="page-dashboard">
   <div class="lyt-fullscreen">
-    <div class="google-map lyt-fullscreen"><div id="dashboard-map" class="map-block"></div></div>
+    <div class="google-map lyt-fullscreen">
+      <div id="dashboard-map" class="map-block"></div>
+      <div id="dashboard-map-cover" class="lyt-fullscreen hidden" style="top:0px;"></div>
+    </div>
     <div id="dashboard-loading" class="lyt-fullscreen hidden">
       <div class="wrapper-outer">
         <div class="wrapper-inner">
@@ -59,6 +62,7 @@
                   <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
                 </div>
               </div>
+              <div id="search-autocomplete" class="pac-container"></div>
             </form>
           </div>
         </div>
