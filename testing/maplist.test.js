@@ -49,10 +49,6 @@ describe('Testing Map list ', function() {
                     done()
                   });
            });
-
-
-
-
     });
 
 });;

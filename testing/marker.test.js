@@ -7,14 +7,22 @@ let server = require('../server');
 var num
 let mongoose = require("mongoose");
 let Maps = require('../models/maps');
+let Users = require('../models/users');
 
 chai.should()
 chai.use(chaiHttp);
 
 
-  describe('/POST MARKER', () => {
+
+  describe('/MARKER', () => {
+        Users.remove({userEmail: "test@test.com"}, function(err1,result1){
+          let user = new Users({userEmail: "test@test.com"})
+          user.encryptedPassword = user.generateHash('lama')
+          user.save()
+        })
         it('Add Marker', (done) => {
-          let newmap = new Object({supervisor: 'test@test.com',pinDropName:'pindroptest', totalSales:1000, salesCond:'GT',lat:1,lng:1})
+        Users.findOne({'userEmail':'test@test.com'}, function(err,user){
+          let newmap = new Object({supervisor: 'test@test.com',pinDropName:'pindroptest', totalSales:1000, salesCond:'GT',lat:'1',lng:'1', businessName:'test', userID:user._id})
           chai.request(server)
               .post('/marker/addMarker')
               .send(newmap)
@@ -24,6 +32,43 @@ chai.use(chaiHttp);
                   res.body.should.have.property('pinDropName').eql('pindroptest');
                 done();
               });
+          })
         });
-
+        it('Edit Marker', (done) => {
+          Maps.findOne({'position.lng':1,'position.lat':1}, function(err,pindrop){
+            Users.findOne({'userEmail':'test@test.com'}, function(err,user){
+              let newmap = new Object({userID: user._id,supervisor:'test@test.com',lat:"1",lng:"1", businessName:'test2', fieldName:'fieldTest2', pinDropName:'pindropnameupdate'})
+              chai.request(server)
+                  .put('/marker/addMarker')
+                  .send(newmap)
+                  .end((err, res) => {
+                      res.should.have.status(200);
+                      res.body.should.be.a('object');
+                      res.body.should.have.property('pinDropName').eql('pindropnameupdate');
+                    done();
+                  });
+            })
+          })
+        });
+        it('Delete Marker', (done) => {
+          Users.findOne({'userEmail':'test@test.com'}, function(err,user){
+            let data = new Object({userID: user._id,lat:'1',lng:'1'})
+                chai.request(server)
+                    .delete('/marker/addMarker')
+                    .send(data)
+                    .end((err, res) => {
+                        res.should.have.status(200);
+                        res.body.should.be.a('object');
+                        Users.findOne({userEmail: "test@test.com"}, function(err1,user){
+                          if(user)user.remove()
+                          else console.log('user tidak kehapus');
+                        })
+                        Maps.findOne({businessName: "test"}, function(err1,map){
+                          if(map)map.remove()
+                          else console.log('user tidak kehapus');
+                        })
+                      done();
+                    });
+          })
+        });
     });
