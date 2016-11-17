@@ -26,7 +26,7 @@ exports.forgotPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    return res.render('forgot.password.ejs',{ messages: req.flash('error') });
+    return res.render('forgot.password.ejs',{ messages: req.flash('error'), status: false });
   }
 
   async.waterfall([
@@ -41,7 +41,7 @@ exports.forgotPost = function(req, res, next) {
       User.findOne({ userEmail: req.body.email }, function(err, user) {
         if (!user) {
           req.flash('error',{msg:'The email address ' + req.body.email + ' is not associated with any account.' });
-          return res.render('forgot.password.ejs',{ messages: req.flash('error') });
+          return res.render('forgot.password.ejs',{ messages: req.flash('error'), status: false });
         }
         user.passwordResetToken = token;
         user.passwordResetExpires = Date.now() + 3600000; // expire in 1 hour
@@ -70,7 +70,7 @@ exports.forgotPost = function(req, res, next) {
 
       transporter.sendMail(mailOptions, function(err) {
         req.flash('info', { msg: 'An email has been sent to ' + user.userEmail + ' with further instructions.' });
-        res.redirect('/forgotPassword');
+        return res.render('forgot.password.ejs',{ messages: req.flash('info'), status: true });
       });
     }
   ]);
