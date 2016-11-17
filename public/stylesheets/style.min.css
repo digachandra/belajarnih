@@ -175,6 +175,10 @@ form:not(.navbar-form):not(.form-inline) .form-group {
   form:not(.navbar-form):not(.form-inline) .form-group + .btn {
     margin-top: 15px; }
 
+input[type=radio] {
+  border: 2px solid #FFFFFF;
+  outline: none !important; }
+
 .navbar.theme .navbar-toggle {
   border: 2px solid #FFFFFF; }
   .navbar.theme .navbar-toggle .icon-bar {
@@ -259,6 +263,10 @@ form:not(.navbar-form):not(.form-inline) .form-group {
   width: 100%;
   height: 100%; }
 
+.alert {
+  border-radius: 0px;
+  padding: 10px 15px; }
+
 .modal {
   z-index: 100001; }
   @media (max-width: 767px) {
@@ -325,6 +333,124 @@ form:not(.navbar-form):not(.form-inline) .form-group {
     left: 0px; }
   .datepicker.right {
     right: 0px; }
+
+#page-landing {
+  background: #00AFEF; }
+  #page-landing .header {
+    position: relative;
+    height: 600px; }
+    #page-landing .header .google-map {
+      position: absolute;
+      width: 100%;
+      height: 100%; }
+      #page-landing .header .google-map > .map-block {
+        width: 100%;
+        height: 100%; }
+    #page-landing .header .header-content {
+      position: relative;
+      text-align: center; }
+  #page-landing .content {
+    background: #FFFFFF;
+    margin-top: -40px;
+    position: relative; }
+    #page-landing .content .content-action {
+      padding: 20px 0px; }
+    #page-landing .content .content-wrapper {
+      background: transparent;
+      background-position: center center;
+      background-repeat: no-repeat !important;
+      background-size: cover;
+      position: relative; }
+      #page-landing .content .content-wrapper:after {
+        clear: both;
+        content: " ";
+        display: block;
+        height: 0px; }
+      #page-landing .content .content-wrapper .floating-box {
+        color: #FFFFFF;
+        margin: 100px 70px; }
+        #page-landing .content .content-wrapper .floating-box .title-block {
+          display: inline-block;
+          padding: 10px 20px; }
+        #page-landing .content .content-wrapper .floating-box .content-block {
+          margin-top: 20px; }
+        #page-landing .content .content-wrapper .floating-box.blue .title-block {
+          background: #00AFEF;
+          color: #FFFFFF; }
+        #page-landing .content .content-wrapper .floating-box.white .title-block {
+          background: #FFFFFF;
+          color: #00AFEF; }
+    #page-landing .content .title-block .inline {
+      display: inline-block; }
+      #page-landing .content .title-block .inline + .inline {
+        margin-left: 5px; }
+    #page-landing .content .title-block .light {
+      font-weight: lighter; }
+  #page-landing .footer {
+    background: #111111;
+    color: #FFFFFF;
+    padding: 70px 0px; }
+    #page-landing .footer ul.menu-list {
+      list-style: none;
+      margin: 0px;
+      padding: 0px; }
+      #page-landing .footer ul.menu-list li a {
+        color: #9A9A9A !important;
+        font-size: 13px;
+        text-decoration: none; }
+        #page-landing .footer ul.menu-list li a:hover {
+          color: #DEDEDE !important; }
+      #page-landing .footer ul.menu-list li:first-child {
+        font-weight: bold;
+        margin-bottom: 10px; }
+      #page-landing .footer ul.menu-list li:nth-child(n+2) {
+        margin-top: 5px; }
+  #page-landing #section-founders {
+    color: #FFFFFF;
+    background: #252525;
+    padding-top: 100px; }
+    #page-landing #section-founders ul#founders-list {
+      list-style: none;
+      margin: 0px;
+      margin-top: 50px;
+      padding: 0px;
+      width: 100%; }
+      #page-landing #section-founders ul#founders-list li {
+        float: left;
+        position: relative;
+        width: -moz-calc(20% - 0px);
+        width: -webkit-calc(20% - 0px);
+        width: -o-calc(20% - 0px);
+        width: calc(20% - 0px); }
+        #page-landing #section-founders ul#founders-list li img {
+          opacity: 0.6;
+          width: 100%; }
+        #page-landing #section-founders ul#founders-list li .detail {
+          color: #FFFFFF;
+          text-align: center;
+          position: absolute;
+          bottom: 10px;
+          width: 100%; }
+          #page-landing #section-founders ul#founders-list li .detail span {
+            display: block; }
+          #page-landing #section-founders ul#founders-list li .detail a {
+            color: #FFFFFF !important;
+            font-size: 12px;
+            text-decoration: none !important; }
+      #page-landing #section-founders ul#founders-list:after() {
+        clear: both;
+        content: " ";
+        display: block;
+        height: 0px; }
+  #page-landing #section-copyright span {
+    color: #9A9A9A;
+    display: block;
+    font-weight: bold;
+    font-size: 12px; }
+  #page-landing #section-copyright img {
+    margin-top: 5px;
+    opacity: 0.2;
+    height: 30px; }
 
 #page-dashboard #navbar-brand {
   background: #FFFFFF;
@@ -561,3 +687,80 @@ form:not(.navbar-form):not(.form-inline) .form-group {
 
 #page-maplist.open-detail .detail-wrapper {
   right: 0px; }
+
+#page-signin .separate-wrapper .separate-box, #page-signup .separate-wrapper .separate-box, #page-forgot-pass .separate-wrapper .separate-box {
+  float: left;
+  position: relative;
+  width: 50%;
+  height: 100%; }
+
+#page-signin .separate-wrapper .content-box, #page-signup .separate-wrapper .content-box, #page-forgot-pass .separate-wrapper .content-box {
+  border-right: 0px;
+  margin: 50px;
+  margin-right: 0px;
+  position: relative; }
+  #page-signin .separate-wrapper .content-box .content-header, #page-signup .separate-wrapper .content-box .content-header, #page-forgot-pass .separate-wrapper .content-box .content-header {
+    padding: 20px 30px; }
+  #page-signin .separate-wrapper .content-box .content-body, #page-signup .separate-wrapper .content-box .content-body, #page-forgot-pass .separate-wrapper .content-box .content-body {
+    padding: 20px 30px; }
+  #page-signin .separate-wrapper .content-box form .form-action, #page-signup .separate-wrapper .content-box form .form-action, #page-forgot-pass .separate-wrapper .content-box form .form-action {
+    font-size: 13px;
+    margin-top: 10px; }
+  #page-signin .separate-wrapper .content-box form .input-group .input-group-addon, #page-signup .separate-wrapper .content-box form .input-group .input-group-addon, #page-forgot-pass .separate-wrapper .content-box form .input-group .input-group-addon {
+    border-radius: 0px;
+    background: #FFFFFF; }
+    #page-signin .separate-wrapper .content-box form .input-group .input-group-addon a, #page-signup .separate-wrapper .content-box form .input-group .input-group-addon a, #page-forgot-pass .separate-wrapper .content-box form .input-group .input-group-addon a {
+      color: #787878 !important;
+      font-size: 12px; }
+  #page-signin .separate-wrapper .content-box form .input-group.with-addon-left input, #page-signup .separate-wrapper .content-box form .input-group.with-addon-left input, #page-forgot-pass .separate-wrapper .content-box form .input-group.with-addon-left input {
+    border-left: 0px; }
+  #page-signin .separate-wrapper .content-box form .input-group.with-addon-left .input-group-addon, #page-signup .separate-wrapper .content-box form .input-group.with-addon-left .input-group-addon, #page-forgot-pass .separate-wrapper .content-box form .input-group.with-addon-left .input-group-addon {
+    border-right: 0px; }
+  #page-signin .separate-wrapper .content-box form .input-group.with-addon-right input, #page-signup .separate-wrapper .content-box form .input-group.with-addon-right input, #page-forgot-pass .separate-wrapper .content-box form .input-group.with-addon-right input {
+    border-right: 0px; }
+  #page-signin .separate-wrapper .content-box form .input-group.with-addon-right .input-group-addon, #page-signup .separate-wrapper .content-box form .input-group.with-addon-right .input-group-addon, #page-forgot-pass .separate-wrapper .content-box form .input-group.with-addon-right .input-group-addon {
+    border-left: 0px; }
+
+#page-signin .separate-wrapper.blue .cover-block, #page-signup .separate-wrapper.blue .cover-block, #page-forgot-pass .separate-wrapper.blue .cover-block {
+  background: rgba(0, 175, 239, 0.8); }
+
+#page-signin .separate-wrapper.blue .content-box .content-header, #page-signup .separate-wrapper.blue .content-box .content-header, #page-forgot-pass .separate-wrapper.blue .content-box .content-header {
+  background: #00AFEF;
+  color: #FFFFFF; }
+
+#page-signin .separate-wrapper.blue .content-box .content-body, #page-signup .separate-wrapper.blue .content-box .content-body, #page-forgot-pass .separate-wrapper.blue .content-box .content-body {
+  background: #FFFFFF; }
+
+#page-signin .separate-wrapper.white, #page-signup .separate-wrapper.white, #page-forgot-pass .separate-wrapper.white {
+  color: #FFFFFF; }
+  #page-signin .separate-wrapper.white a, #page-signup .separate-wrapper.white a, #page-forgot-pass .separate-wrapper.white a {
+    color: #FFFFFF !important; }
+  #page-signin .separate-wrapper.white .cover-block, #page-signup .separate-wrapper.white .cover-block, #page-forgot-pass .separate-wrapper.white .cover-block {
+    background: rgba(255, 255, 255, 0.9); }
+  #page-signin .separate-wrapper.white .content-box .content-header, #page-signup .separate-wrapper.white .content-box .content-header, #page-forgot-pass .separate-wrapper.white .content-box .content-header {
+    background: #FFFFFF;
+    color: #00AFEF; }
+  #page-signin .separate-wrapper.white .content-box .content-body, #page-signup .separate-wrapper.white .content-box .content-body, #page-forgot-pass .separate-wrapper.white .content-box .content-body {
+    background: #00AFEF; }
+
+#page-signin .background-block, #page-signup .background-block, #page-forgot-pass .background-block {
+  background: #9A9A9A;
+  background-position: center center;
+  background-repeat: no-repeat !important;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%; }
+
+#page-signin .cover-block, #page-signup .cover-block, #page-forgot-pass .cover-block {
+  position: relative;
+  width: 100%;
+  height: 100%; }
+
+#page-signin:after, #page-signup:after, #page-forgot-pass:after {
+  clear: both;
+  content: " ";
+  display: block;
+  height: 0px; }

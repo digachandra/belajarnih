@@ -13,7 +13,13 @@ chai.should()
 chai.use(chaiHttp);
 
 
+
   describe('/MARKER', () => {
+        Users.remove({userEmail: "test@test.com"}, function(err1,result1){
+          let user = new Users({userEmail: "test@test.com"})
+          user.encryptedPassword = user.generateHash('lama')
+          user.save()
+        })
         it('Add Marker', (done) => {
         Users.findOne({'userEmail':'test@test.com'}, function(err,user){
           let newmap = new Object({supervisor: 'test@test.com',pinDropName:'pindroptest', totalSales:1000, salesCond:'GT',lat:'1',lng:'1', businessName:'test', userID:user._id})
@@ -53,9 +59,16 @@ chai.use(chaiHttp);
                     .end((err, res) => {
                         res.should.have.status(200);
                         res.body.should.be.a('object');
+                        Users.findOne({userEmail: "test@test.com"}, function(err1,user){
+                          if(user)user.remove()
+                          else console.log('user tidak kehapus');
+                        })
+                        Maps.findOne({businessName: "test"}, function(err1,map){
+                          if(map)map.remove()
+                          else console.log('user tidak kehapus');
+                        })
                       done();
                     });
           })
         });
-
     });

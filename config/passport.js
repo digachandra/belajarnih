@@ -79,40 +79,54 @@ module.exports = function(passport) {
       passReqToCallback : true // allows us to pass back the entire request to the callback
     }, function(req, email, password, done) {
       Users.findOne({ 'userEmail' :  email }, function(err, user) {
-
+        console.log('yasinissss')
         if (err){
+          console.log('yasinisssssssssssss')
           return done(err);
         }
-        if (!user){
-          return done(null, false, req.flash('loginMessage', 'No user found.'));
-        }
-        if(user.role.length > 1)
-        {
-          for(var i=0;i<user.role.length;i++){
-            if (user.role[i]== req.body.role){
-              if (!user){
-                return done(null, false, req.flash('loginMessage', 'No user found.'));
+        if(user){
+          if(user.encryptedPassword == null){
+            return done(null, false, req.flash('loginMessage', 'Please check your email to setup your password'));
+          } else {
+            if(user.role.length > 1)
+            {
+              for(var i=0;i<user.role.length;i++){
+                if (user.role[i]== req.body.role){
+                  if (!user){
+                    return done(null, false, req.flash('loginMessage', 'No user found.'));
+                  }
+                  if (!user.validPassword(password)){
+                    return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+                  }
+                  req.session.role = req.body.role
+                  req.session.email = req.body.email
+                  return done(null, user);
+                }
               }
-              if (!user.validPassword(password)){
-                return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-              }
-              req.session.role = req.body.role
-              req.session.email = req.body.email
-              return done(null, user);
             }
+            if (!user.validPassword(password)){
+              return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
+            }
+            if (user.role != req.body.role ){
+              return done(null, false, req.flash('loginMessage', 'Your role is incorrect, please login as correct role'));
+            }
+            req.session.role = req.body.role
+            req.session.email = req.body.email
+            return done(null, user);
           }
+        } else {
+          if (!user){
+            return done(null, false, req.flash('loginMessage', 'No user found.'));
+          }
+
         }
 
-        if (!user.validPassword(password)){
-          return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.'));
-        }
-        if (user.role != req.body.role ){
-          return done(null, false, req.flash('loginMessage', 'lo gak salah role '));
-        }
-        req.session.role = req.body.role
-        req.session.email = req.body.email
 
-        return done(null, user);
+
+
+
+
+
       });
     }));
 

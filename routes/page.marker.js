@@ -36,7 +36,7 @@ router.put('/addMarker',function(req,res){
                 subject: 'Supervisor Confirmation ✔', // Subject line
                 text: 'You are receiving this email because your owner business has requested you as supervisor, \n'+
                       'please set your password by click this link.\n\n'+
-                      'http://localhost:3000/setuppassword/'+newuser._id
+                      'http://mapinc.ivangerard.com/setuppassword/'+newuser._id
             };
 
             transporter.sendMail(mailOptions, function(err) {});
@@ -133,7 +133,7 @@ router.post('/addMarker', function(req,res){
                       subject: 'Supervisor Confirmation ✔', // Subject line
                       text: 'You are receiving this email because your owner business has requested you as supervisor, \n'+
                             'please set your password by click this link.\n\n'+
-                            'http://localhost:3000/setuppassword/'+newuser._id
+                            'http://mapinc.ivangerard.com/setuppassword/'+newuser._id
                   };
 
                   transporter.sendMail(mailOptions, function(err) {});
@@ -171,7 +171,7 @@ router.post('/addMarker', function(req,res){
                       subject: 'Supervisor Confirmation ✔', // Subject line
                       text: 'You are receiving this email because your owner business has requested you as supervisor, \n'+
                             'please set your password by click this link.\n\n'+
-                            'http://localhost:3000/setuppassword/'+user._id
+                            'http://mapinc.ivangerard.com/setuppassword/'+newuser._id
                   };
 
                   transporter.sendMail(mailOptions, function(err) {});
