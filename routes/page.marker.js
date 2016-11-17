@@ -6,19 +6,17 @@ const express = require('express')
 const router = express.Router()
 const Maps = require('../models/maps.js')
 const Users = require('../models/users.js')
+const helper = require('../helpers/middlewares.js')
 
 Array.prototype.contains = function (v) {
     return this.indexOf(v) > -1;
 }
 
-router.get('/', function(req,res){
+router.get('/', helper.checkHaveSession,function(req,res){
   res.render('page.map/index.ejs')
 })
 
-router.put('/addMarker', function(req,res){
-  console.log('masuk');
-  console.log(req.body);
-
+router.put('/addMarker', helper.checkHaveSession,function(req,res){
   Maps.findOne({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
     Users.findOne({'userEmail':req.body.supervisor}, function(err,user){
       //if user update with new supervisor and not yet inserted in database
@@ -64,7 +62,7 @@ router.put('/addMarker', function(req,res){
   })
 })
 
-router.delete('/addMarker', function(req,res){
+router.delete('/addMarker', helper.checkHaveSession, function(req,res){
   Maps.remove({'owner':req.body.userID, 'position.lat':req.body.lat, 'position.lng':req.body.lng}, function(err,pindrop){
     console.log('yang didelete', pindrop);
     let message = '{"message":"new pin drop is deleted successfully"}'
@@ -73,7 +71,7 @@ router.delete('/addMarker', function(req,res){
   })
 })
 
-router.get('/addMarker', function(req,res){
+router.get('/addMarker', helper.checkHaveSession,function(req,res){
   res.render('page.marker/addmarker.ejs')
 })
 
