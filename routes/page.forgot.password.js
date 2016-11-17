@@ -3,6 +3,6 @@ const UserController = require('../controllers/users')
 
 var router = express.Router();
 
-router.get('/forgotPassword',UserController.forgotGet)
-router.post('/forgotPassword',UserController.forgotPost)
+router.get('/',UserController.forgotGet)
+router.post('/',UserController.forgotPost)
 module.exports = router
