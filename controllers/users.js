@@ -39,14 +39,10 @@ exports.forgotPost = function(req, res, next) {
     },
     function(token, done) {
       User.findOne({ userEmail: req.body.email }, function(err, user) {
-        console.log('user adalah', user);
         if (!user) {
-          console.log('salah brooo');
           req.flash('error',{msg:'The email address ' + req.body.email + ' is not associated with any account.' });
           return res.render('forgot.password.ejs',{ messages: req.flash('error') });
-
         }
-        console.log('user found :',req.body.email);
         user.passwordResetToken = token;
         user.passwordResetExpires = Date.now() + 3600000; // expire in 1 hour
         user.save(function(err) {
@@ -74,8 +70,7 @@ exports.forgotPost = function(req, res, next) {
 
       transporter.sendMail(mailOptions, function(err) {
         req.flash('info', { msg: 'An email has been sent to ' + user.userEmail + ' with further instructions.' });
-        console.log('reset email sent to', user.userEmail,req.session);
-        res.redirect('/user/forgot');
+        res.redirect('/forgotPassword');
       });
     }
   ]);
@@ -93,7 +88,7 @@ exports.resetGet = function(req, res) {
     .exec(function(err, user) {
       if (!user) {
         req.flash('error', { msg: '❎ Password reset token is invalid or has expired.' });
-        return res.redirect('/user/forgot');
+        return res.redirect('/forgotPassword');
       }
       res.render('reset.password.ejs',{messages:""});
     });
@@ -110,7 +105,6 @@ exports.resetPost = function(req, res, next) {
 
   if (errors) {
     req.flash('error', errors);
-    console.log(errors);
     return res.render('reset.password.ejs',{ messages: req.flash('error') })
   }
 
@@ -144,7 +138,7 @@ exports.resetPost = function(req, res, next) {
       };
       transporter.sendMail(mailOptions, function(err) {
         req.flash('success', { msg: 'Your password has been changed successfully.' });
-        res.redirect('/api/user/login');
+        res.redirect('/login');
       });
     }
   ]);
