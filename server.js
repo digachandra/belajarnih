@@ -51,6 +51,11 @@ app.use('/', routes)
 
 app.use('/api/users', users);
 
+app.get('*', function(req, res){
+  let img = Math.ceil((Math.random()*3))
+      res.render('404.ejs', {url: req.url,imagesrc:`/images/${img}.jpg`})
+});
+
 app.listen(port)
 console.log('serving on port : ', port)
 
