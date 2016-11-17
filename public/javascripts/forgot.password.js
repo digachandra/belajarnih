@@ -7,7 +7,7 @@ var ForgotPasswordForm = React.createClass({
   },
   render: function(){
     return(
-      <form id="content-form">
+      <form method="POST">
         <div className="form-group">
           <label for="txt-email">Email</label>
           <input id="txt-email" type="email" className="form-control" onChange = {this.inputEmailChange} autocomplete="off" placeholder="your@email.com" autofocus required />
