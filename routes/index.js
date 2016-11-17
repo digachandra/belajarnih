@@ -52,7 +52,7 @@ router.use('/marker',marker)
 router.use('/api/maps', maps);
 
 router.get('/', function(req, res, next){
-  res.render('page.landing')
+  res.render('page.landing.ejs')
 })
 
 module.exports = router
