@@ -44,7 +44,7 @@ app.use(flash());
 
 app.use('/', express.static(path.join(__dirname, 'public')))
 // mongoose.connect('mongodb://'+process.env.MONGO_HOSTNAME+':27017/testing')
-mongoose.connect('mongodb://52.220.213.175:27017/testing')
+mongoose.connect('mongodb://localhost:27017/testing')
 
 app.use('/', routes)
 
@@ -52,3 +52,5 @@ app.use('/api/users', users);
 
 app.listen(port)
 console.log('serving on port : ', port)
+
+module.exports = app

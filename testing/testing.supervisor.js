@@ -1,5 +1,5 @@
-var chai = require('chai'),
-var expect = chai.expect,
+var chai = require('chai')
+var expect = chai.expect
 var chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 var mongoose = require('mongoose');

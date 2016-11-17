@@ -25,7 +25,7 @@ router.post('/addMap', function(req,res){
     let newmap = new Maps({owner: req.body.userID, businessName: req.body.businessName})
     newmap.save(function(err,newmap){
       //res.render('page.marker/addmarker.ejs', {userId:req.body.userID, businessName:req.body.businessName})
-      res.json({"mapID": newmap._id})
+      res.json({"mapID": newmap._id, "businessName": newmap.businessName})
     })
   })
 })
