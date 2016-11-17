@@ -40,6 +40,10 @@ router.put('/addMarker', helper.checkHaveSession,function(req,res){
             };
 
             transporter.sendMail(mailOptions, function(err) {});
+            pindrop.pinDropName = req.body.pinDropName
+            pindrop.listField[0].fieldName = req.body.fieldName
+            pindrop.listField[0].targetComparison = req.body.salesCond
+            pindrop.listField[0].targetValue = req.body.totalSales
             pindrop.supervisor = newuser._id
             pindrop.save(function(err,newmap){
                 res.json(newmap)
