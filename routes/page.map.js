@@ -31,6 +31,33 @@ router.post('/addMap', function(req,res){
 })
 
 
+router.post('/deleteMap', function(req,res){
+  Maps.remove({'owner':req.body.userID, businessName: req.body.businessName}, function(err,map){
+    if(err){
+      res.json({success: false})
+      return
+    }
+      res.json({success: true})
+  })
+})
+
+router.post('/editMap', function(req,res){
+  Maps.find({businessName: req.body.businessName, owner:req.body.userID}, function (err, result) {
+    if(err){
+      res.json({success: false, message: "no maps found with owner: "+req.body.userID +"and Business Name: "+ req.body.businessName})
+      return
+    }
+    Maps.update({businessName: req.body.businessName},{$set : {businessName: req.body.businessNameEdit}},{multi: true}, function (error, resultUpdated) {
+      if(error){
+        res.json({success: false, message: "Can't Update Business Name: "+ req.body.businessName})
+        return
+      }
+        res.json({success: true, message: "Business Name: "+ req.body.businessName+ " has renamed to "+req.body.businessNameEdit, data: resultUpdated})
+    })
+
+  })
+})
+
 router.get('/detailMap', function(req,res){
   let owner = "582bcaf48862cf027bcf24e9"
   let businessName = "HACKTIV8"
